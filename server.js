@@ -2,12 +2,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const path = require("path");
+const session = require("express-session");
+const multer = require("multer");
 
 const loginController = require("./controllers/loginController.js");
 const registerController = require("./controllers/registerController.js");
-const examController = require("./controllers/examController.js");
-const addQuestionController = require("./controllers/addQuestionController.js");
-const answerController = require("./controllers/answerController.js");
+const userModel = require("./models/userModel.js");
+const updateUserController = require("./controllers/updateUserController.js");
+const updateProfilePictureController = require("./controllers/updateProfilePictureController.js");
+const deleteProfilePictureController = require("./controllers/deleteProfilePictureController.js");
+const updateBiodataController = require("./controllers/updateBiodataController.js");
+const biodataModel = require("./models/biodataModel.js");
+const updateHasilStudiController = require("./controllers/updateHasilStudiController");
+const hasilStudiModel = require("./models/hasilStudiModel.js");
 
 const app = express();
 
@@ -15,10 +22,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// add session
-const session = require("express-session");
 app.use(
   session({
     secret: "secret",
@@ -26,6 +33,17 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "uploads", "profile_pictures"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 app.get("/", function (req, res) {
   res.redirect("/login");
@@ -51,34 +69,70 @@ app.get("/home", function (req, res) {
   }
 });
 
-app.get("/exam", function (req, res) {
+app.get("/settings", function (req, res) {
   if (req.session.user) {
-    examController.exam(req, res);
+    res.render("settings", { user: req.session.user });
   } else {
     res.redirect("/login");
   }
 });
 
-app.get("/result", function (req, res) {
-  res.render("result");
+app.get("/user", function (req, res) {
+  const userId = req.query.id;
+  const message = req.session.message;
+  req.session.message = null;
+
+  userModel.getUserById(userId, function (err, user) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    } else if (!user) {
+      res.status(404).send("User Not Found");
+    } else {
+      biodataModel.getBiodataByUserId(userId, function (err, biodata) {
+        if (err) {
+          console.log(err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          hasilStudiModel.getHasilStudiByUserId(userId, function (err, hasilStudi) {
+            if (err) {
+              console.log(err);
+              res.status(500).send("Internal Server Error");
+            } else {
+              res.render("user", { user, message, biodata, hasilStudi });
+            }
+          });
+        }
+      });
+    }
+  });
 });
 
-app.post("/exam/answer", answerController.answer);
+app.post("/update-user", updateUserController.postUpdateUser);
 
-app.get("/add-question", function (req, res) {
+app.post("/update-profile-picture", upload.single("profile_picture"), updateProfilePictureController.postUpdateProfilePicture);
+
+app.post("/delete-profile-picture", deleteProfilePictureController.deleteProfilePicture);
+
+app.get("/perbarui-biodata", function (req, res) {
   if (req.session.user) {
-    res.render("add-question");
+    res.render("perbarui-biodata", { user: req.session.user });
   } else {
     res.redirect("/login");
   }
 });
 
-app.post("/add-question", addQuestionController.addQuestion);
+app.post("/update-biodata", updateBiodataController.postUpdateBiodata);
 
-app.get("/logout", function (req, res) {
-  req.session.destroy();
-  res.redirect("/login");
+app.get("/perbarui-hasil-studi", function (req, res) {
+  if (req.session.user) {
+    res.render("perbarui-hasil-studi", { user: req.session.user });
+  } else {
+    res.redirect("/login");
+  }
 });
+
+app.post("/update-hasil-studi", updateHasilStudiController.postUpdateHasilStudi);
 
 app.listen(3000, function () {
   console.log("Server is running on port 3000");

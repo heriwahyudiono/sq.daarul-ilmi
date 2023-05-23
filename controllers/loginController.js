@@ -4,19 +4,18 @@ module.exports = {
   login: function (req, res) {
     const email = req.body.email;
     const password = req.body.password;
-
-    userModel.checkUser(email, password, function (err, result) {
-      if (err) {
-        if (err === "   Email Not Found") {
-          res.status(404).send({ message: "Email tidak ditemukan" });
-        } else if (err === "Wrong Password") {
-          res.status(401).send({ message: "Password salah" });
+    userModel.loginUser(email, function (err, user) {
+      if (user) {
+        const bcrypt = require('bcryptjs');
+        const isValidPassword = bcrypt.compareSync(password, user.passwordHash);
+        if (isValidPassword) {
+          req.session.user = user;
+          res.redirect("/home");
         } else {
-          res.status(500).send({ message: "Error checking user" });
+          res.send("Password yang Anda masukkan salah");
         }
       } else {
-        req.session.user = result[0];
-        res.status(200).redirect("/home");
+        res.send("Email tidak terdaftar");
       }
     });
   },

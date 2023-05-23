@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Biodata</title>
+</head>
+<body>
+
+  <% if (user.id) { %>
+    <a href="/user?id=<%= user.id %>">Kembali</a><br />
+  <% } %>
+
+  <h2>Perbarui Biodata</h2>
+
+  <% if (message) { %>
+    <p><%= message %></p>
+  <% } %>
+
+  <form action="/update-biodata" method="POST">
+    <p>Perguruan Tinggi:</p>
+    <input type="text" name="perguruan_tinggi" value="<%= biodata ? biodata.perguruan_tinggi : '' %>">
+
+    <p>Fakultas/Jurusan:</p>
+    <input type="text" name="fakultas" value="<%= biodata ? biodata.fakultas : '' %>">
+
+    <p>Program Studi:</p>
+    <input type="text" name="program_studi" value="<%= biodata ? biodata.program_studi : '' %>">
+
+    <p>Angkatan:</p>
+    <input type="text" name="angkatan" value="<%= biodata ? biodata.angkatan : '' %>">
+
+    <button type="submit">Simpan</button>
+  </form>
+</body>
+</html>
