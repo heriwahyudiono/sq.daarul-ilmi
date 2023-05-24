@@ -11,6 +11,8 @@
 
     <h2>Profil</h2>
 
+    <button type="button" onclick="getProfileUrl()">Salin URL Profil</button><br>
+
     <% if (message) { %>
     <p><%= message %></p>
     <% } %>
@@ -66,12 +68,23 @@
 
     <a href="/perbarui-hasil-studi">Perbarui Hasil Studi</a>
 
-    <!-- <script src="/assets/js/script.js"></script> -->
     <script>
       function confirmDelete() {
         if (confirm("Apakah Anda yakin ingin menghapus foto profil?")) {
           document.getElementById("confirm-delete").submit();
         }
+      }
+
+      function getProfileUrl() {
+        const profileUrl = window.location.href;
+        navigator.clipboard
+          .writeText(profileUrl)
+          .then(function () {
+            alert("URL Profil berhasil di salin");
+          })
+          .catch(function (error) {
+            console.error("Tidak dapat menyalin URL Profil ini:", error);
+          });
       }
     </script>
   </body>

@@ -26,21 +26,26 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-app.use(
-  session({
-    secret: "secret",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+app.use(session({
+  secret: 'secret-key',
+  resave: false,
+  saveUninitialized: false
+}));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "uploads", "profile_pictures"));
+    cb(null, 'uploads');
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
+    if (req.session.user && req.session.user.id) {
+      const userId = req.session.user.id;
+      const extension = path.extname(file.originalname);
+      const filename = `${userId}${extension}`;
+      cb(null, filename);
+    } else {
+      cb(new Error('User session is not defined'));
+    }
+  }
 });
 
 const upload = multer({ storage: storage });

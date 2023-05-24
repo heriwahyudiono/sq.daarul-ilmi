@@ -1,5 +1,6 @@
 const connection = require("../config/connection.js");
 const bcrypt = require("bcryptjs");
+const path = require("path");
 
 const UserModel = {
   registerUser: function (user, callback) {
@@ -91,7 +92,7 @@ const UserModel = {
       }
     });
   },
-  
+
   updateUser: function (user, callback) {
     const sql =
       "UPDATE users SET nama_lengkap = ?, jenis_kelamin = ?, tanggal_lahir = ?, email = ?, nomor_telepon = ? WHERE id = ?";
@@ -118,7 +119,7 @@ const UserModel = {
 
   updateProfilePicture: function (user, callback) {
     const sql = "UPDATE users SET profile_picture = ? WHERE id = ?";
-    connection.query(sql, [user.profile_picture, user.id], function (err, result) {
+    connection.query(sql, [`${user.id}${path.extname(user.profile_picture)}`, user.id], function (err, result) {
       if (err) {
         console.log(err);
         callback(err, null);
@@ -138,7 +139,7 @@ const UserModel = {
         callback(null, result);
       }
     });
-  },  
+  },
 };
 
 module.exports = UserModel;
