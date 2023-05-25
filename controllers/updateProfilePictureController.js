@@ -18,7 +18,7 @@ const UpdateProfilePictureController = {
           res.status(500).send("Internal Server Error");
         } else {
           req.session.user.profile_picture = profilePicture;
-          req.session.message = "Foto profil berhasil diperbarui";
+          req.session.message = "Foto profil berhasil di perbarui";
           res.redirect(`/user?id=${userId}`);
         }
       });

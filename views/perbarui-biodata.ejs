@@ -14,10 +14,6 @@
 
   <h2>Perbarui Biodata</h2>
 
-  <% if (message) { %>
-    <p><%= message %></p>
-  <% } %>
-
   <form action="/update-biodata" method="POST">
     <p>Perguruan Tinggi:</p>
     <input type="text" name="perguruan_tinggi" value="<%= biodata ? biodata.perguruan_tinggi : '' %>">

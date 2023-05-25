@@ -24,7 +24,6 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(session({
   secret: 'secret-key',
@@ -111,6 +110,14 @@ app.get("/user", function (req, res) {
       });
     }
   });
+});
+
+app.get("/edit-profil", function (req, res) {
+  if (req.session.user) {
+    res.render("edit-profil", { user: req.session.user });
+  } else {
+    res.redirect("/login");
+  }  
 });
 
 app.post("/update-user", updateUserController.postUpdateUser);
