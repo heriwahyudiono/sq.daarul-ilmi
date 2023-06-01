@@ -1,16 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-  </head>
-  <body>
-    <div class="display: flex">
-      <a href="/create-post">Buat Postingan</a>
-      <a href="/chats">Pesan</a>
-      <a href="/menu">Menu</a>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posts</title>
+</head>
+<body>
+  <h1>Posts</h1>
+
+  <a href="/create-post">Buat Postingan</a>
+  <a href="/menu">Menu</a><br>
+
+  <a href="/logout">Log out</a>
+
+  <% if (posts && posts.length === 0) { %>
+    <p>No posts found.</p>
+  <% } else if (posts) { %>
+    <ul>
+      <% posts.forEach(function(post) { %>
+        <li>
+          <p><%= post.caption %></p>
+          <% if (post.photos && post.photos.length > 0) { %>
+            <div>
+              <% post.photos.forEach(function(photo) { %>
+                <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.file_name %>">
+              <% }); %>
+            </div>
+          <% } %>
+        </li>
+      <% }); %>
+    </ul>    
+  <% } else { %>
+    <p>Loading posts...</p>
+  <% } %>
+</body>
 </html>

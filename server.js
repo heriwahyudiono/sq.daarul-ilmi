@@ -18,8 +18,6 @@ const hasilStudiModel = require("./models/hasilStudiModel.js");
 const postController = require("./controllers/postController.js");
 const postModel = require("./models/postModel.js");
 const photoModel = require("./models/photoModel.js");
-const chatController = require("./controllers/chatController.js");
-const chatModel = require("./models/chatModel.js");
 
 const app = express();
 
@@ -78,14 +76,6 @@ app.get("/register", function (req, res) {
 });
 
 app.post("/register", registerController.register);
-
-app.get("/post", function (req, res) {
-  if (req.session.user) {
-    res.render("post", { user: req.session.user });
-  } else {
-    res.redirect("/login");
-  }
-});
 
 app.get("/menu", function (req, res) {
   if (req.session.user) {
@@ -166,26 +156,27 @@ app.get("/create-post", function (req, res) {
 
 app.post("/create-post", uploadPost.array("photos"), postController.createPost);
 
-app.get("/post/:id", function (req, res) {
-  const postId = req.params.id;
-
-  postModel.getPostById(postId, function (err, post) {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Internal Server Error");
-    } else if (!post) {
-      res.status(404).send("Post Not Found");
-    } else {
-      photoModel.getPhotosByPostId(postId, function (err, photos) {
-        if (err) {
-          console.log(err);
-          res.status(500).send("Internal Server Error");
-        } else {
-          res.render("post", { post: post, photos: photos });
+app.get("/post", function (req, res) {
+  if (req.session.user) {
+    postModel.getAllPosts()
+      .then(async (posts) => {
+        const updatedPosts = [];
+        for (const post of posts) {
+          const photos = await photoModel.getPhotosByPostId(post.id);
+          updatedPosts.push({
+            id: post.id,
+            caption: post.caption,
+            photos,
+          });
         }
+        res.render("post", { user: req.session.user, posts: updatedPosts });
+      })
+      .catch((error) => {
+        console.error("Failed to get posts:", error);
       });
-    }
-  });
+  } else {
+    res.redirect("/login");
+  }
 });
 
 app.listen(3000, function () {

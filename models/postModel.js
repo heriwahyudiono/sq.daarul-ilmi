@@ -10,6 +10,16 @@ const PostModel = {
     } catch (error) {
       throw error;
     }
+  },
+
+  getAllPosts: async () => {
+    try {
+      const sql = 'SELECT * FROM posts';
+      const [rows] = await connection.promise().query(sql);
+      return rows;
+    } catch (error) {
+      throw error;
+    }
   }
 };
 

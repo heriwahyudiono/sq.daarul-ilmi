@@ -8,21 +8,16 @@ const PostController = {
         return res.redirect("/login");
       }
 
-      // Dapatkan data caption dari form
       const { caption } = req.body;
 
-      // Dapatkan file-file foto yang diunggah
       const photos = req.files;
 
-      // Memastikan bahwa photos adalah array
       if (!Array.isArray(photos)) {
         throw new Error('Invalid photos data');
       }
 
-      // Buat postingan baru
       const post = await PostModel.createPost(caption);
 
-      // Simpan foto-foto terkait postingan
       for (const photo of photos) {
         await PhotoModel.createPhoto(post.id, photo.filename, photo.path);
       }
@@ -32,7 +27,27 @@ const PostController = {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  }
+  },
+
+  getPosts: async (req, res) => {
+    try {
+      if (!req.session.user) {
+        return res.redirect("/login");
+      }
+  
+      const posts = await PostModel.getAllPosts();
+  
+      for (const post of posts) {
+        const photos = await PhotoModel.getPhotosByPostId(post.id);
+        post.photos = photos;
+      }
+  
+      res.render("posts", { user: req.session.user, posts: posts });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }  
 };
 
 module.exports = PostController;
