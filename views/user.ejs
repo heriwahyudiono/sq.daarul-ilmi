@@ -50,7 +50,7 @@
     <p>Program Studi: <%= biodata.program_studi %></p>
     <p>Angkatan: <%= biodata.angkatan %></p>
     <% } else { %>
-    <p>Biodata belum diisi</p>
+    <p>Biodata belum di isi</p>
     <% } %>
 
     <a href="/perbarui-biodata">Perbarui Biodata</a>
@@ -64,7 +64,7 @@
     <p>Hasil studi belum diisi</p>
     <% } %>
 
-    <a href="/perbarui-hasil-studi">Perbarui Hasil Studi</a>
+    <a href="/update-hasil-studi">Perbarui Hasil Studi</a>
 
     <script>
       function confirmDelete() {
@@ -78,7 +78,7 @@
         navigator.clipboard
           .writeText(profileUrl)
           .then(function () {
-            alert("URL Profil berhasil di salin");
+            alert("URL Profil berhasil disalin");
           })
           .catch(function (error) {
             console.error("Tidak dapat menyalin URL Profil ini:", error);

@@ -1,5 +1,6 @@
 const PostModel = require('../models/postModel');
 const PhotoModel = require('../models/photoModel');
+const UserModel = require('../models/userModel')
 
 const PostController = {
   createPost: async (req, res) => {
@@ -16,7 +17,7 @@ const PostController = {
         throw new Error('Invalid photos data');
       }
 
-      const post = await PostModel.createPost(caption);
+      const post = await PostModel.createPost(req.session.user.id, caption);
 
       for (const photo of photos) {
         await PhotoModel.createPhoto(post.id, photo.filename, photo.path);
@@ -39,10 +40,12 @@ const PostController = {
   
       for (const post of posts) {
         const photos = await PhotoModel.getPhotosByPostId(post.id);
+        const user = await UserModel.getUserById(post.user_id); 
         post.photos = photos;
+        post.user = user;
       }
   
-      res.render("posts", { user: req.session.user, posts: posts });
+      res.render("post", { posts: posts });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });

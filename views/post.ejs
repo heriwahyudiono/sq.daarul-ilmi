@@ -14,25 +14,20 @@
 
   <a href="/logout">Log out</a>
 
-  <% if (posts && posts.length === 0) { %>
-    <p>No posts found.</p>
-  <% } else if (posts) { %>
-    <ul>
-      <% posts.forEach(function(post) { %>
-        <li>
-          <p><%= post.caption %></p>
-          <% if (post.photos && post.photos.length > 0) { %>
-            <div>
-              <% post.photos.forEach(function(photo) { %>
-                <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.file_name %>">
-              <% }); %>
-            </div>
-          <% } %>
-        </li>
-      <% }); %>
-    </ul>    
-  <% } else { %>
-    <p>Loading posts...</p>
-  <% } %>
+  <ul>
+    <% posts.forEach(function(post) { %>
+      <li>
+        <%= post.user.nama_lengkap %>
+        <p><%= post.caption %></p>
+        <% if (post.photos && post.photos.length > 0) { %>
+          <div>
+            <% post.photos.forEach(function(photo) { %>
+              <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.file_name %>">
+            <% }); %>
+          </div>
+        <% } %>
+      </li>
+    <% }); %>
+  </ul>    
 </body>
 </html>
