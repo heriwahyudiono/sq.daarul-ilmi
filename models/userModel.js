@@ -119,7 +119,7 @@ const UserModel = {
 
   updateProfilePicture: function (user, callback) {
     const sql = "UPDATE users SET profile_picture = ? WHERE id = ?";
-    connection.query(sql, [`${user.id}${path.extname(user.profile_picture)}`, user.id], function (err, result) {
+    connection.query(sql, [`${Date.now()}${path.extname(user.profile_picture)}`, user.id], function (err, result) {
       if (err) {
         console.log(err);
         callback(err, null);

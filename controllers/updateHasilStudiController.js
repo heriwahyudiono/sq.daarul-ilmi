@@ -1,5 +1,5 @@
 const UpdateHasilStudiController = {
-  postUpdateHasilStudi: function (req, res) {
+  updateHasilStudi: function (req, res) {
     if (req.session.user) {
       const userId = req.session.user.id;
       const { semester, ip } = req.body;

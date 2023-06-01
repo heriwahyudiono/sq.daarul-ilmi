@@ -21,7 +21,7 @@ const UpdateBiodataController = {
     }
   },
 
-  postUpdateBiodata: function (req, res) {
+  updateBiodata: function (req, res) {
     if (req.session.user) {
       const userId = req.session.user.id;
       const { perguruan_tinggi, fakultas, program_studi, angkatan } = req.body;

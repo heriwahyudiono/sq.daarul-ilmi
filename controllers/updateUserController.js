@@ -19,7 +19,7 @@ const UpdateUserController = {
     }
   },
 
-  postUpdateUser: function (req, res) {
+  updateUser: function (req, res) {
     if (req.session.user && req.session.user.id) {
       const user = {
         id: req.session.user.id,

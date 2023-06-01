@@ -2,10 +2,10 @@ const userModel = require("../models/userModel.js");
 const path = require("path");
 
 const UpdateProfilePictureController = {
-  postUpdateProfilePicture: function (req, res) {
+  updateProfilePicture: function (req, res) {
     if (req.session.user) {
       const userId = req.session.user.id;
-      const profilePicture = `${userId}${path.extname(req.file.originalname)}`;
+      const profilePicture = `${Date.now()}${path.extname(req.file.originalname)}`;
 
       const user = {
         id: userId,
