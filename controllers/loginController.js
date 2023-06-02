@@ -10,7 +10,7 @@ module.exports = {
         const isValidPassword = bcrypt.compareSync(password, user.passwordHash);
         if (isValidPassword) {
           req.session.user = user;
-          res.redirect("/post");
+          res.redirect("/home");
         } else {
           res.send("Password yang Anda masukkan salah");
         }

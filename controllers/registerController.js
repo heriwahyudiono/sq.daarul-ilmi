@@ -19,7 +19,7 @@ module.exports = {
             console.log(err);
             res.status(500).send({ message: "Gagal mendaftar" });
           } else {
-            res.status(200).redirect("/post");
+            res.status(200).redirect("/home");
           }
         }
       );

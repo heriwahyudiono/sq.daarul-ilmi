@@ -4,30 +4,25 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Posts</title>
+  <title>Home</title>
 </head>
 <body>
-  <h1>Posts</h1>
 
   <a href="/create-post">Buat Postingan</a>
   <a href="/menu">Menu</a><br>
 
-  <a href="/logout">Log out</a>
-
   <ul>
     <% posts.forEach(function(post) { %>
       <li>
-        <%= post.user.nama_lengkap %>
+        <p>Post by: <%= post.user.nama_lengkap %></p>
         <p><%= post.caption %></p>
-        <% if (post.photos && post.photos.length > 0) { %>
           <div>
             <% post.photos.forEach(function(photo) { %>
               <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.file_name %>">
             <% }); %>
           </div>
-        <% } %>
       </li>
-    <% }); %>
+    <% }); %>    
   </ul>    
 </body>
 </html>

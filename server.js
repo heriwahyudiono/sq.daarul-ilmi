@@ -7,6 +7,7 @@ const multer = require("multer");
 
 const loginController = require("./controllers/loginController.js");
 const registerController = require("./controllers/registerController.js");
+const logoutController = require("./controllers/logoutController.js");
 const userModel = require("./models/userModel.js");
 const updateUserController = require("./controllers/updateUserController.js");
 const updateProfilePictureController = require("./controllers/updateProfilePictureController.js");
@@ -76,6 +77,8 @@ app.get("/register", function (req, res) {
 });
 
 app.post("/register", registerController.register);
+
+app.get("/logout", logoutController.logout);
 
 app.get("/menu", function (req, res) {
   if (req.session.user) {
@@ -156,7 +159,7 @@ app.get("/create-post", function (req, res) {
 
 app.post("/create-post", uploadPost.array("photos"), postController.createPost);
 
-app.get("/post", function (req, res) {
+app.get("/home", function (req, res) {
   if (req.session.user) {
     postModel.getAllPosts()
       .then(async (posts) => {
@@ -169,7 +172,7 @@ app.get("/post", function (req, res) {
             photos,
           });
         }
-        res.render("post", { user: req.session.user, posts: updatedPosts });
+        res.render("home", { user: req.session.user, posts: updatedPosts });
       })
       .catch((error) => {
         console.error("Failed to get posts:", error);

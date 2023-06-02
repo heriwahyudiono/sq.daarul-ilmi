@@ -11,14 +11,15 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   nomor_telepon VARCHAR(20) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  token VARCHAR(255),
+  token VARCHAR(255)
 );
-
 
 CREATE TABLE posts (
   id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
   caption VARCHAR(255),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE photos (
@@ -36,8 +37,7 @@ CREATE TABLE biodata (
   perguruan_tinggi VARCHAR(255),
   fakultas VARCHAR(255),
   program_studi VARCHAR(255),
-  angkatan INT,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  angkatan INT
 );
 
 CREATE TABLE hasil_studi (
@@ -47,5 +47,3 @@ CREATE TABLE hasil_studi (
   ip FLOAT,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
-
-
