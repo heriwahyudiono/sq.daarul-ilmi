@@ -14,7 +14,6 @@
   <ul>
     <% posts.forEach(function(post) { %>
       <li>
-        <p>Post by: <%= post.user.name %></p>
         <p><%= post.caption %></p>
           <div>
             <% post.photos.forEach(function(photo) { %>

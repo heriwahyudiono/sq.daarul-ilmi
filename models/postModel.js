@@ -1,16 +1,16 @@
 const connection = require('../config/connection.js');
 
 const PostModel = {
-  createPost: async (caption) => {
+  createPost: async (user_id, caption) => {
     try {
-      const sql = 'INSERT INTO posts (caption) VALUES (?)';
-      const [result] = await connection.promise().query(sql, [caption]);
+      const sql = 'INSERT INTO posts (user_id, caption) VALUES (?, ?)';
+      const [result] = await connection.promise().query(sql, [user_id, caption]);
       const postId = result.insertId;
       return { id: postId, caption };
     } catch (error) {
       throw error;
     }
-  },
+  },  
 
   getAllPosts: async () => {
     try {

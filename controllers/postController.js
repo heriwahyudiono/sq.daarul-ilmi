@@ -1,6 +1,6 @@
 const postModel = require('../models/postModel');
 const photoModel = require('../models/photoModel');
-const userModel = require('../models/userModel')
+const userModel = require('../models/userModel');
 
 const postController = {
   createPost: async (req, res) => {
@@ -23,7 +23,7 @@ const postController = {
         await photoModel.createPhoto(post.id, photo.filename, photo.path);
       }
 
-      res.status(200).json({ message: 'Post created successfully' });
+      res.redirect("/home");
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
@@ -35,22 +35,22 @@ const postController = {
       if (!req.session.user) {
         return res.redirect("/login");
       }
-  
+
       const posts = await postModel.getAllPosts();
-  
+
       for (const post of posts) {
         const photos = await photoModel.getPhotosByPostId(post.id);
-        const user = await userModel.getUserById(post.user_id); 
+        const user = await userModel.getUserById(post.user_id);
         post.photos = photos;
         post.user = user;
       }
-  
+
       res.render("post", { posts: posts });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  }  
+  }
 };
 
 module.exports = postController;
