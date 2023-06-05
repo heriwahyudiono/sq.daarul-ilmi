@@ -1,6 +1,6 @@
 const userModel = require("../models/userModel.js");
 
-const DeleteProfilePictureController = {
+const deleteProfilePictureController = {
   deleteProfilePicture: function (req, res) {
     if (req.session.user) {
       const userId = req.session.user.id;
@@ -21,4 +21,4 @@ const DeleteProfilePictureController = {
   },
 };
 
-module.exports = DeleteProfilePictureController;
+module.exports = deleteProfilePictureController;

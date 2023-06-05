@@ -9,32 +9,32 @@
 <body>
   <h2>Daftar</h2>
   <form action="/register" method="post">
-    <label for="nama_lengkap">Nama Lengkap:</label>
-    <input type="text" id="nama_lengkap" name="nama_lengkap" required>
+    <label for="name">Nama Lengkap:</label>
+    <input type="text" id="name" name="name" required>
     <br>
-    <label for="jenis_kelamin">Jenis Kelamin:</label>
-    <select id="jenis_kelamin" name="jenis_kelamin">
+    <label for="gender">Jenis Kelamin:</label>
+    <select id="gender" name="gender">
       <option value="Laki-laki">Laki-laki</option>
       <option value="Perempuan">Perempuan</option>
     </select>
     <br>
-    <label for="tanggal_lahir">Tanggal Lahir:</label>
-    <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
+    <label for="date_of_birth">Tanggal Lahir:</label>
+    <input type="date" id="date_of_birth" name="date_of_birth" required>
     <br>
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>
     <br>
-    <label for="nomor_telepon">Nomor Telepon:</label>
-    <input type="tel" id="nomor_telepon" name="nomor_telepon" required>
+    <label for="phone_number">Nomor Telepon:</label>
+    <input type="tel" id="phone_number" name="phone_number" required>
     <br>
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
     <br>
-    <label for="konfirmasi_password">Konfirmasi Password:</label>
-    <input type="password" id="konfirmasi_password" name="konfirmasi_password" required>
+    <label for="confirm_password">Konfirmasi Password:</label>
+    <input type="password" id="confirm_password" name="confirm_password" required>
     <br>
     <input type="submit" value="Daftar">
   </form>
-  <a href="./login">Login</a>
+  <a href="/login">Login</a>
 </body>
 </html>

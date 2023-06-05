@@ -15,23 +15,23 @@
   <h2>Edit Profil</h2>
 
   <form action="/update-user" method="POST">
-    <label for="nama_lengkap">Nama Lengkap:</label>
-    <input type="text" id="nama_lengkap" name="nama_lengkap" value="<%= user.nama_lengkap %>" /><br />
+    <label for="name">Nama Lengkap:</label>
+    <input type="text" id="name" name="name" value="<%= user.name %>" /><br />
 
-    <label for="jenis_kelamin">Jenis Kelamin:</label>
-    <select id="jenis_kelamin" name="jenis_kelamin">
-      <option value="Laki-laki" <%= user.jenis_kelamin === 'Laki-laki' ? 'selected' : '' %>>Laki-laki</option>
-      <option value="Perempuan" <%= user.jenis_kelamin === 'Perempuan' ? 'selected' : '' %>>Perempuan</option>
+    <label for="gender">Jenis Kelamin:</label>
+    <select id="gender" name="gender">
+      <option value="Laki-laki" <%= user.gender === 'Laki-laki' ? 'selected' : '' %>>Laki-laki</option>
+      <option value="Perempuan" <%= user.gender === 'Perempuan' ? 'selected' : '' %>>Perempuan</option>
     </select><br />
 
-    <label for="tanggal_lahir">Tanggal Lahir:</label>
-    <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="<%= user.tanggal_lahir %>" /><br />
+    <label for="date_of_birth">Tanggal Lahir:</label>
+    <input type="date" id="date_of_birth" name="date_of_birth" value="<%= user.date_of_birth %>" /><br />
 
     <label for="email">Email:</label>
     <input type="text" id="email" name="email" value="<%= user.email %>" /><br />
 
-    <label for="nomor_telepon">Nomor Telepon:</label>
-    <input type="text" id="nomor_telepon" name="nomor_telepon" value="<%= user.nomor_telepon %>" /><br />
+    <label for="phone_number">Nomor Telepon:</label>
+    <input type="text" id="phone_number" name="phone_number" value="<%= user.phone_number %>" /><br />
 
     <input type="submit" value="Simpan" />
   </form>

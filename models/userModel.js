@@ -3,9 +3,9 @@ const bcrypt = require("bcryptjs");
 const path = require("path");
 
 const UserModel = {
-  registerUser: function (user, callback) {
+  register: function (user, callback) {
     const sql =
-      "INSERT INTO users (nama_lengkap, jenis_kelamin, tanggal_lahir, email, nomor_telepon, password) VALUES (?,?,?,?,?,?)";
+      "INSERT INTO users (name, gender, date_of_birth, email, phone_number, password) VALUES (?,?,?,?,?,?)";
     const saltRounds = 10;
     bcrypt.hash(user.password, saltRounds, function (err, hash) {
       if (err) {
@@ -15,11 +15,11 @@ const UserModel = {
         connection.query(
           sql,
           [
-            user.nama_lengkap,
-            user.jenis_kelamin,
-            user.tanggal_lahir,
+            user.name,
+            user.gender,
+            user.date_of_birth,
             user.email,
-            user.nomor_telepon,
+            user.phone_number,
             hash,
           ],
           function (err, result) {
@@ -35,7 +35,7 @@ const UserModel = {
     });
   },
 
-  loginUser: function (email, callback) {
+  login: function (email, callback) {
     const sql = "SELECT * FROM users WHERE email = ?";
     connection.query(sql, [email], function (err, result) {
       if (err) {
@@ -48,11 +48,11 @@ const UserModel = {
           const user = result[0];
           callback(null, {
             id: user.id,
-            nama_lengkap: user.nama_lengkap,
-            jenis_kelamin: user.jenis_kelamin,
-            tanggal_lahir: user.tanggal_lahir,
+            name: user.name,
+            gender: user.gender,
+            date_of_birth: user.date_of_birth,
             email: user.email,
-            nomor_telepon: user.nomor_telepon,
+            phone_number: user.phone_number,
             passwordHash: user.password,
           });
         }
@@ -79,11 +79,11 @@ const UserModel = {
           };
           callback(null, {
             id: user.id,
-            nama_lengkap: user.nama_lengkap,
-            jenis_kelamin: user.jenis_kelamin,
-            tanggal_lahir: user.tanggal_lahir,
+            name: user.name,
+            gender: user.gender,
+            date_of_birth: user.date_of_birth,
             email: user.email,
-            nomor_telepon: user.nomor_telepon,
+            phone_number: user.phone_number,
             profile_picture: user.profile_picture,
             passwordHash: user.password,
             biodata: biodata
@@ -95,15 +95,15 @@ const UserModel = {
 
   updateUser: function (user, callback) {
     const sql =
-      "UPDATE users SET nama_lengkap = ?, jenis_kelamin = ?, tanggal_lahir = ?, email = ?, nomor_telepon = ? WHERE id = ?";
+      "UPDATE users SET name = ?, gender = ?, date_of_birth = ?, email = ?, phone_number = ? WHERE id = ?";
     connection.query(
       sql,
       [
-        user.nama_lengkap,
-        user.jenis_kelamin,
-        user.tanggal_lahir,
+        user.name,
+        user.gender,
+        user.date_of_birth,
         user.email,
-        user.nomor_telepon,
+        user.phone_number,
         user.id,
       ],
       function (err, result) {

@@ -1,10 +1,10 @@
 const userModel = require("../models/userModel.js");
 
-module.exports = {
+const loginController = {
   login: function (req, res) {
     const email = req.body.email;
     const password = req.body.password;
-    userModel.loginUser(email, function (err, user) {
+    userModel.login(email, function (err, user) {
       if (user) {
         const bcrypt = require('bcryptjs');
         const isValidPassword = bcrypt.compareSync(password, user.passwordHash);
@@ -20,3 +20,5 @@ module.exports = {
     });
   },
 };
+
+module.exports = loginController;

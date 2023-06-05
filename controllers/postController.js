@@ -1,8 +1,8 @@
-const PostModel = require('../models/postModel');
-const PhotoModel = require('../models/photoModel');
-const UserModel = require('../models/userModel')
+const postModel = require('../models/postModel');
+const photoModel = require('../models/photoModel');
+const userModel = require('../models/userModel')
 
-const PostController = {
+const postController = {
   createPost: async (req, res) => {
     try {
       if (!req.session.user) {
@@ -17,10 +17,10 @@ const PostController = {
         throw new Error('Invalid photos data');
       }
 
-      const post = await PostModel.createPost(req.session.user.id, caption);
+      const post = await postModel.createPost(req.session.user.id, caption);
 
       for (const photo of photos) {
-        await PhotoModel.createPhoto(post.id, photo.filename, photo.path);
+        await photoModel.createPhoto(post.id, photo.filename, photo.path);
       }
 
       res.status(200).json({ message: 'Post created successfully' });
@@ -36,11 +36,11 @@ const PostController = {
         return res.redirect("/login");
       }
   
-      const posts = await PostModel.getAllPosts();
+      const posts = await postModel.getAllPosts();
   
       for (const post of posts) {
-        const photos = await PhotoModel.getPhotosByPostId(post.id);
-        const user = await UserModel.getUserById(post.user_id); 
+        const photos = await photoModel.getPhotosByPostId(post.id);
+        const user = await userModel.getUserById(post.user_id); 
         post.photos = photos;
         post.user = user;
       }
@@ -53,4 +53,4 @@ const PostController = {
   }  
 };
 
-module.exports = PostController;
+module.exports = postController;

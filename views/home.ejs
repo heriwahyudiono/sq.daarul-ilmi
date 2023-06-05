@@ -14,11 +14,11 @@
   <ul>
     <% posts.forEach(function(post) { %>
       <li>
-        <p>Post by: <%= post.user.nama_lengkap %></p>
+        <p>Post by: <%= post.user.name %></p>
         <p><%= post.caption %></p>
           <div>
             <% post.photos.forEach(function(photo) { %>
-              <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.file_name %>">
+              <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.filename %>">
             <% }); %>
           </div>
       </li>

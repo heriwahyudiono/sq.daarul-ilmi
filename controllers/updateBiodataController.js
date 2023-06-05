@@ -1,11 +1,11 @@
-const BiodataModel = require("../models/biodataModel.js");
+const biodataModel = require("../models/biodataModel.js");
 
-const UpdateBiodataController = {
+const updateBiodataController = {
   getUpdateBiodata: function (req, res) {
     if (req.session.user) {
       const userId = req.session.user.id;
 
-      BiodataModel.getBiodataByUserId(userId, function (err, biodata) {
+      biodataModel.getBiodataByUserId(userId, function (err, biodata) {
         if (err) {
           console.log(err);
           return res.status(500).send("Internal Server Error");
@@ -34,14 +34,14 @@ const UpdateBiodataController = {
         user_id: userId,
       };
 
-      BiodataModel.getBiodataByUserId(userId, function (err, existingBiodata) {
+      biodataModel.getBiodataByUserId(userId, function (err, existingBiodata) {
         if (err) {
           console.log(err);
           return res.status(500).send("Internal Server Error");
         }
 
         if (existingBiodata) {
-          BiodataModel.updateBiodata(biodata, function (err, result) {
+          biodataModel.updateBiodata(biodata, function (err, result) {
             if (err) {
               console.log(err);
               return res.status(500).send("Internal Server Error");
@@ -50,7 +50,7 @@ const UpdateBiodataController = {
             res.redirect("/user?id=" + userId);
           });
         } else {
-          BiodataModel.createBiodata(biodata, function (err, result) {
+          biodataModel.createBiodata(biodata, function (err, result) {
             if (err) {
               console.log(err);
               return res.status(500).send("Internal Server Error");
@@ -66,4 +66,4 @@ const UpdateBiodataController = {
   },
 };
 
-module.exports = UpdateBiodataController;
+module.exports = updateBiodataController;

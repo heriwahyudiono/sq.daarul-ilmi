@@ -1,19 +1,27 @@
 const userModel = require("../models/userModel.js");
 
-module.exports = {
+const registerController = {
   register: function (req, res) {
-    const nama_lengkap = req.body.nama_lengkap;
-    const jenis_kelamin = req.body.jenis_kelamin; 
-    const tanggal_lahir = req.body.tanggal_lahir;
+    const name = req.body.name;
+    const gender = req.body.gender;
+    const date_of_birth = req.body.date_of_birth;
     const email = req.body.email;
-    const nomor_telepon = req.body.nomor_telepon;
+    const phone_number = req.body.phone_number;
     const password = req.body.password;
-    const konfirmasi_password = req.body.konfirmasi_password;
-    if (password !== konfirmasi_password) {
+    const confirm_password = req.body.confirm_password;
+
+    if (password !== confirm_password) {
       res.status(400).send({ message: "Konfirmasi password tidak sesuai" });
     } else {
       userModel.registerUser(
-        { nama_lengkap, jenis_kelamin, tanggal_lahir, email, nomor_telepon, password }, 
+        {
+          name,
+          gender,
+          date_of_birth,
+          email,
+          phone_number,
+          password
+        },
         function (err, result) {
           if (err) {
             console.log(err);
@@ -26,3 +34,5 @@ module.exports = {
     }
   },
 };
+
+module.exports = registerController;

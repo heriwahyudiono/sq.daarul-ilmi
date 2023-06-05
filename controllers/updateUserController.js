@@ -23,11 +23,11 @@ const UpdateUserController = {
     if (req.session.user && req.session.user.id) {
       const user = {
         id: req.session.user.id,
-        nama_lengkap: req.body.nama_lengkap,
-        jenis_kelamin: req.body.jenis_kelamin,
-        tanggal_lahir: req.body.tanggal_lahir,
+        name: req.body.name,
+        gender: req.body.gender,
+        date_of_birth: req.body.date_of_birth,
         email: req.body.email,
-        nomor_telepon: req.body.nomor_telepon
+        phone_number: req.body.phone_number
       };
 
       UserModel.updateUser(user, function (err, result) {
