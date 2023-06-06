@@ -10,7 +10,7 @@ const updateBiodataController = {
           console.log(err);
           return res.status(500).send("Internal Server Error");
         }
-        res.render("perbarui-biodata", {
+        res.render("update-biodata", {
           user: req.session.user,
           biodata: biodata || {},
           message: req.session.message,

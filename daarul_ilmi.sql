@@ -11,8 +11,8 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   phone_number VARCHAR(20) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  last_online TIMESTAMP,
-  is_online BOOLEAN,
+  last_login TIMESTAMP,
+  is_login BOOLEAN,
   token VARCHAR(255)
 );
 
@@ -42,11 +42,4 @@ CREATE TABLE photos (
   FOREIGN KEY (post_id) REFERENCES posts(id)
 );
 
-CREATE TABLE hasil_studi (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT,
-  semester INT,
-  ip FLOAT,
-  FOREIGN KEY (user_id) REFERENCES users(id)
-);
 

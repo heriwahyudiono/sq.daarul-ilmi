@@ -20,6 +20,16 @@ const PostModel = {
     } catch (error) {
       throw error;
     }
+  },
+
+  deletePost: async (postId) => {
+    try {
+      const sql = 'DELETE FROM posts WHERE id = ?';
+      const [result] = await connection.promise().query(sql, [postId]);
+      return result.affectedRows > 0;
+    } catch (error) {
+      throw error;
+    }
   }
 };
 

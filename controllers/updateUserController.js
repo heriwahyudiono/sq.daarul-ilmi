@@ -11,7 +11,7 @@ const UpdateUserController = {
           console.log(err);
           res.redirect("/home");
         } else {
-          res.render("edit-profil", { user: req.session.user, biodata: biodata || {}, message: req.session.message });
+          res.render("edit-profile", { user: req.session.user, biodata: biodata || {}, message: req.session.message });
         }
       });
     } else {

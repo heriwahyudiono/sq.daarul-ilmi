@@ -61,7 +61,7 @@ const UserModel = {
   },
 
   updateUserStatus: function (userId, lastOnlineAt, isOnline, callback) {
-    const query = "UPDATE users SET last_online = ?, is_online = ? WHERE id = ?";
+    const query = "UPDATE users SET last_login = ?, is_login = ? WHERE id = ?";
     connection.query(query, [lastOnlineAt, isOnline, userId], function (err, result) {
       if (err) {
         callback(err);
@@ -163,6 +163,18 @@ const UserModel = {
       }
     });
   },
+
+  deleteUser: function (userId, callback) {
+    const sql = "DELETE FROM users WHERE id = ?";
+    connection.query(sql, [userId], function (err, result) {
+      if (err) {
+        console.log(err);
+        callback(err, null);
+      } else {
+        callback(null, result.affectedRows > 0);
+      }
+    });
+  }
 };
 
 module.exports = UserModel;

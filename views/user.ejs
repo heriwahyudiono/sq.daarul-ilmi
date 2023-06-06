@@ -7,6 +7,11 @@
     <title>Profile</title>
   </head>
   <body>
+
+    <a href="/home">Home</a>
+    <a href="/users">Users</a>
+    <a href="/menu">Menu</a><br>
+
     <h2>Profile</h2>
 
     <button type="button" onclick="getProfileUrl()">Salin URL Profil</button><br>
@@ -40,7 +45,7 @@
     <p>Email: <%= user.email %></p>
     <p>Nomor Telepon: <%= user.phone_number %></p>
 
-    <a href="/edit-profil">Edit Profil</a>
+    <a href="/edit-profile">Edit Profile</a>
 
     <h2>Biodata</h2>
 
@@ -50,10 +55,10 @@
     <p>Program Studi: <%= biodata.program_studi %></p>
     <p>Angkatan: <%= biodata.angkatan %></p>
     <% } else { %>
-    <p>Biodata belum di isi</p>
+    <p>Biodata has not been filled in</p>
     <% } %>
 
-    <a href="/perbarui-biodata">Perbarui Biodata</a>
+    <a href="/update-biodata">Update Biodata</a>
 
     <script>
       function confirmDelete() {

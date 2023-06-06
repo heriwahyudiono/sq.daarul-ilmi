@@ -41,10 +41,10 @@
               <%= user.name %>
             </a>
             <div class="user-status">
-              <% if (user.is_online) { %>
-                <span>Sedang online</span>
+              <% if (user.is_login) { %>
+                <span>Sedang login</span>
               <% } else { %>
-                <span>Terakhir online: <%= user.last_online %></span>
+                <span>Terakhir login: <%= user.last_login %></span>
               <% } %>
             </div>
           </div>

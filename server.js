@@ -15,10 +15,10 @@ const deleteProfilePictureController = require("./controllers/deleteProfilePictu
 const updateBiodataController = require("./controllers/updateBiodataController.js");
 const biodataModel = require("./models/biodataModel.js");
 const updateHasilStudiController = require("./controllers/updateHasilStudiController");
-const hasilStudiModel = require("./models/hasilStudiModel.js");
 const postController = require("./controllers/postController.js");
 const postModel = require("./models/postModel.js");
 const photoModel = require("./models/photoModel.js");
+const deleteAccountController = require("./controllers/deleteAccountController.js");
 
 const app = express();
 
@@ -104,37 +104,27 @@ app.get("/user", function (req, res) {
   userModel.getUserById(userId, function (err, user) {
     if (err) {
       console.log(err);
-      res.status(500).send("Internal Server Error");
-    } else if (!user) {
-      res.status(404).send("User Not Found");
-    } else {
-      biodataModel.getBiodataByUserId(userId, function (err, biodata) {
-        if (err) {
-          console.log(err);
-          res.status(500).send("Internal Server Error");
-        } else {
-          hasilStudiModel.getHasilStudiByUserId(userId, function (
-            err,
-            hasilStudi
-          ) {
-            if (err) {
-              console.log(err);
-              res.status(500).send("Internal Server Error");
-            } else {
-              res.render("user", {
-                user: user,
-                biodata: biodata,
-                hasilStudi: hasilStudi,
-                message: message,
-              });
-            }
-          });
-        }
-      });
+      return res.status(500).send("Internal Server Error");
     }
+    if (!user) {
+      return res.status(404).send("User Not Found");
+    }
+
+    biodataModel.getBiodataByUserId(userId, function (err, biodata) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Internal Server Error");
+      }
+
+      res.render("user", {
+        user: user,
+        biodata: biodata,
+        message: message,
+      });
+    });
   });
 });
-
+  
 app.get("/users", function (req, res) {
   userModel.getAllUsers(function (err, users) {
     if (err) {
@@ -145,8 +135,6 @@ app.get("/users", function (req, res) {
     }
   });
 });
-
-app.post("/update-user", updateUserController.updateUser);
 
 app.post(
   "/update-profile-picture",
@@ -192,6 +180,16 @@ app.get("/home", function (req, res) {
     res.redirect("/login");
   }
 });
+
+app.get("/edit-profile", updateUserController.getUpdateUser);
+
+app.post("/update-profile", updateUserController.updateUser);
+
+app.get("/update-biodata", updateBiodataController.getUpdateBiodata);
+
+app.post("/update-biodata", updateBiodataController.updateBiodata);
+
+app.post("/delete-account", deleteAccountController.deleteAccount);
 
 app.listen(3000, function () {
   console.log("Server listening on port 3000");
