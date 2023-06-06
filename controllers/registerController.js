@@ -13,7 +13,7 @@ const registerController = {
     if (password !== confirm_password) {
       res.status(400).send({ message: "Konfirmasi password tidak sesuai" });
     } else {
-      userModel.registerUser(
+      userModel.register(
         {
           name,
           gender,

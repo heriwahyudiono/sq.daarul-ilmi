@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profil</title>
+    <title>Profile</title>
   </head>
   <body>
-    <h2>Profil</h2>
+    <h2>Profile</h2>
 
     <button type="button" onclick="getProfileUrl()">Salin URL Profil</button><br>
 
@@ -34,11 +34,11 @@
       <button type="button" onclick="confirmDelete()">Hapus Foto</button>
     </form>
 
-    <p>Nama Lengkap: <%= user.nama_lengkap %></p>
-    <p>Jenis Kelamin: <%= user.jenis_kelamin %></p>
-    <p>Tanggal Lahir: <%= user.tanggal_lahir %></p>
+    <p>Nama Lengkap: <%= user.name %></p>
+    <p>Jenis Kelamin: <%= user.gender %></p>
+    <p>Tanggal Lahir: <%= user.date_of_birth %></p>
     <p>Email: <%= user.email %></p>
-    <p>Nomor Telepon: <%= user.nomor_telepon %></p>
+    <p>Nomor Telepon: <%= user.phone_number %></p>
 
     <a href="/edit-profil">Edit Profil</a>
 
@@ -54,17 +54,6 @@
     <% } %>
 
     <a href="/perbarui-biodata">Perbarui Biodata</a>
-
-    <h2>Hasil Studi</h2>
-
-    <% if (hasilStudi) { %>
-    <p>Semester: <%= hasilStudi.semester %></p>
-    <p>IP: <%= hasilStudi.ip %></p>
-    <% } else { %>
-    <p>Hasil studi belum di isi</p>
-    <% } %>
-
-    <a href="/update-hasil-studi">Update Hasil Studi</a>
 
     <script>
       function confirmDelete() {

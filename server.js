@@ -135,6 +135,17 @@ app.get("/user", function (req, res) {
   });
 });
 
+app.get("/users", function (req, res) {
+  userModel.getAllUsers(function (err, users) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    } else {
+      res.render("users", { users: users });
+    }
+  });
+});
+
 app.post("/update-user", updateUserController.updateUser);
 
 app.post(

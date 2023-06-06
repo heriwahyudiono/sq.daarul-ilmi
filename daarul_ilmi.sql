@@ -11,30 +11,9 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   phone_number VARCHAR(20) NOT NULL,
   password VARCHAR(255) NOT NULL,
+  last_online TIMESTAMP,
+  is_online BOOLEAN,
   token VARCHAR(255)
-);
-
-CREATE TABLE posts (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT,
-  caption VARCHAR(255),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-CREATE TABLE photos (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  post_id INT,
-  filename VARCHAR(255),
-  file_path VARCHAR(255),
-  FOREIGN KEY (post_id) REFERENCES posts(id)
-);
-
-CREATE TABLE group_messages (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT,
-  message TEXT,
-  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE biodata (
@@ -47,6 +26,22 @@ CREATE TABLE biodata (
   angkatan INT
 );
 
+CREATE TABLE posts (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  caption TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE photos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  post_id INT,
+  filename VARCHAR(255),
+  file_path VARCHAR(255),
+  FOREIGN KEY (post_id) REFERENCES posts(id)
+);
+
 CREATE TABLE hasil_studi (
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT,
@@ -54,3 +49,4 @@ CREATE TABLE hasil_studi (
   ip FLOAT,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+

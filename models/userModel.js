@@ -60,6 +60,17 @@ const UserModel = {
     });
   },
 
+  updateUserStatus: function (userId, lastOnlineAt, isOnline, callback) {
+    const query = "UPDATE users SET last_online = ?, is_online = ? WHERE id = ?";
+    connection.query(query, [lastOnlineAt, isOnline, userId], function (err, result) {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null);
+      }
+    });
+  },
+
   getUserById: function (id, callback) {
     const sql = "SELECT * FROM users LEFT JOIN biodata ON users.id = biodata.user_id WHERE users.id = ?";
     connection.query(sql, [id], function (err, result) {
@@ -92,6 +103,18 @@ const UserModel = {
       }
     });
   },
+  
+  getAllUsers: function (callback) {
+    const sql = "SELECT * FROM users";
+    connection.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    });
+  },  
 
   updateUser: function (user, callback) {
     const sql =

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <style>
+        .user-item {
+            display: flex;
+            align-items: center;
+        }
+        .user-item img {
+            width: 50px;
+            height: 60px;
+        }
+        .user-item a {
+            margin-left: 10px;
+        }
+        .user-status {
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+  <a href="/home">Home</a>
+  <a href="/users">Users</a>
+  <a href="/menu">Menu</a><br>
+  
+    <h2>Users: <%= users.length %></h2>
+    <ul>
+      <% users.forEach(function (user) { %>
+        <li class="user-item">
+          <a href="/user?id=<%= user.id %>">
+            <img src="<%= user.profile_picture %>" onclick="window.location.href='/user?id=<%= user.id %>';">
+          </a>
+          <div>
+            <a href="/user?id=<%= user.id %>" onclick="window.location.href='/user?id=<%= user.id %>';">
+              <%= user.name %>
+            </a>
+            <div class="user-status">
+              <% if (user.is_online) { %>
+                <span>Sedang online</span>
+              <% } else { %>
+                <span>Terakhir online: <%= user.last_online %></span>
+              <% } %>
+            </div>
+          </div>
+        </li>
+      <% }); %>
+    </ul>    
+</body>
+</html>

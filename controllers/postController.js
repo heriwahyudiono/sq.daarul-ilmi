@@ -35,22 +35,22 @@ const postController = {
       if (!req.session.user) {
         return res.redirect("/login");
       }
-
+  
       const posts = await postModel.getAllPosts();
-
+  
       for (const post of posts) {
         const photos = await photoModel.getPhotosByPostId(post.id);
-        const user = await userModel.getUserById(post.user_id);
+        const user = await userModel.getUserById(post.user_id); 
         post.photos = photos;
         post.user = user;
       }
-
+  
       res.render("post", { posts: posts });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  }
+  }  
 };
 
 module.exports = postController;

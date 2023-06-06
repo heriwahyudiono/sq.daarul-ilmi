@@ -10,7 +10,15 @@ const loginController = {
         const isValidPassword = bcrypt.compareSync(password, user.passwordHash);
         if (isValidPassword) {
           req.session.user = user;
-          res.redirect("/home");
+
+          const currentDate = new Date();
+          userModel.updateUserStatus(user.id, currentDate, true, function (err) {
+            if (err) {
+              console.log("Error updating user status:", err);
+            } else {
+              res.redirect("/home");
+            }
+          });
         } else {
           res.send("Password yang Anda masukkan salah");
         }

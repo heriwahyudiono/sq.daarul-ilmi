@@ -6,12 +6,12 @@ const PostModel = {
       const sql = 'INSERT INTO posts (user_id, caption) VALUES (?, ?)';
       const [result] = await connection.promise().query(sql, [user_id, caption]);
       const postId = result.insertId;
-      return { id: postId, caption };
+      return { id: postId, user_id, caption };
     } catch (error) {
       throw error;
     }
-  },  
-
+  },
+  
   getAllPosts: async () => {
     try {
       const sql = 'SELECT * FROM posts';
