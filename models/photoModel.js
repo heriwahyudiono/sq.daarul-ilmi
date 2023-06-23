@@ -1,6 +1,6 @@
 const connection = require('../config/connection.js');
 
-const PhotoModel = {
+const photoModel = {
   createPhoto: async (postId, fileName, filePath) => {
     try {
       const sql = 'INSERT INTO photos (post_id, filename, file_path) VALUES (?, ?, ?)';
@@ -31,4 +31,4 @@ const PhotoModel = {
   }
 };
 
-module.exports = PhotoModel;
+module.exports = photoModel;

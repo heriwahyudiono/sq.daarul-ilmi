@@ -1,31 +1,36 @@
 const userModel = require("../models/userModel.js");
 const path = require("path");
 
-const UpdateProfilePictureController = {
+const updateProfilePictureController = {
   updateProfilePicture: function (req, res) {
     if (req.session.user) {
-      const userId = req.session.user.id;
-      const profilePicture = `${Date.now()}${path.extname(req.file.originalname)}`;
+      if (req.file) {
+        const userId = req.session.user.id;
+        const profilePicture = `${Date.now()}${path.extname(req.file.filename)}`;
 
-      const user = {
-        id: userId,
-        profile_picture: profilePicture,
-      };
+        const user = {
+          id: userId,
+          profile_picture: profilePicture,
+        };
 
-      userModel.updateProfilePicture(user, function (err, result) {
-        if (err) {
-          console.log(err);
-          res.status(500).send("Internal Server Error");
-        } else {
-          req.session.user.profile_picture = profilePicture;
-          req.session.message = "Foto profil berhasil diperbarui";
-          res.redirect(`/user?id=${userId}`);
-        }
-      });
+        userModel.updateProfilePicture(user, function (err, result) {
+          if (err) {
+            console.log(err);
+            res.status(500).send("Internal Server Error");
+          } else {
+            req.session.user.profile_picture = profilePicture;
+            req.session.message = "Foto profil berhasil diperbarui";
+            res.redirect(`/user?id=${userId}`);
+          }
+        });
+      } else {
+        req.session.message = "Error: Terjadi kesalahan saat memperbarui foto profil";
+        res.redirect("/user");
+      }
     } else {
       res.redirect("/login");
     }
   },
 };
 
-module.exports = UpdateProfilePictureController;
+module.exports = updateProfilePictureController;

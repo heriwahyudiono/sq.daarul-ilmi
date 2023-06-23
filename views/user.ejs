@@ -14,30 +14,25 @@
 
     <h2>Profile</h2>
 
-    <button type="button" onclick="getProfileUrl()">Salin URL Profil</button><br>
-
     <% if (message) { %>
     <p><%= message %></p>
     <% } %>
 
-    <img
-      src="/uploads/profile_pictures/<%= user.profile_picture %>"
-      alt=""
-      style="width: 100px"
+    <img src="/<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>"
+    alt=""
+    style="width: 100px"
     />
-
-    <form
-      action="/update-profile-picture"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input type="file" name="profile_picture" />
+  
+    <form action="/update-profile-picture" method="POST" enctype="multipart/form-data">
+      <input type="file" name="profilePicture" accept="image/jpeg, image/jpg, image/png" required>
       <button type="submit">Upload</button>
     </form>
 
     <form id="confirm-delete" action="/delete-profile-picture" method="POST">
       <button type="button" onclick="confirmDelete()">Hapus Foto</button>
-    </form>
+    </form><br>
+
+    <button type="button" onclick="getProfileUrl()">Salin URL Profil</button>
 
     <p>Nama Lengkap: <%= user.name %></p>
     <p>Jenis Kelamin: <%= user.gender %></p>

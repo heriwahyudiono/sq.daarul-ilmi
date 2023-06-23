@@ -1,6 +1,6 @@
 const connection = require('../config/connection.js');
 
-const PostModel = {
+const postModel = {
   createPost: async (user_id, caption) => {
     try {
       const sql = 'INSERT INTO posts (user_id, caption) VALUES (?, ?)';
@@ -33,4 +33,4 @@ const PostModel = {
   }
 };
 
-module.exports = PostModel;
+module.exports = postModel;

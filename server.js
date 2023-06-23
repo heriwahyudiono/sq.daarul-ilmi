@@ -4,6 +4,7 @@ const ejs = require("ejs");
 const path = require("path");
 const session = require("express-session");
 const multer = require("multer");
+const fs = require("fs")
 
 const loginController = require("./controllers/loginController.js");
 const registerController = require("./controllers/registerController.js");
@@ -14,11 +15,11 @@ const updateProfilePictureController = require("./controllers/updateProfilePictu
 const deleteProfilePictureController = require("./controllers/deleteProfilePictureController.js");
 const updateBiodataController = require("./controllers/updateBiodataController.js");
 const biodataModel = require("./models/biodataModel.js");
-const updateHasilStudiController = require("./controllers/updateHasilStudiController");
 const postController = require("./controllers/postController.js");
 const postModel = require("./models/postModel.js");
 const photoModel = require("./models/photoModel.js");
 const deleteAccountController = require("./controllers/deleteAccountController.js");
+const changePasswordController = require("./controllers/changePasswordController.js")
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads/profile_pictures", express.static(path.join(__dirname, "uploads/profile_pictures")));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
@@ -59,8 +61,45 @@ const postStorage = multer.diskStorage({
   },
 });
 
-const uploadProfilePicture = multer({ storage: profilePictureStorage });
-const uploadPost = multer({ storage: postStorage });
+const uploadProfilePicture = multer({
+  storage: profilePictureStorage,
+  fileFilter: function (req, file, cb) {
+    const filetypes = /jpeg|jpg|png/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb("Error: Only image files (jpeg, jpg, png) are allowed!");
+    }
+  },
+});
+
+const profilePictureDirectory = "uploads/profile_pictures";
+if (!fs.existsSync(profilePictureDirectory)) {
+  fs.mkdirSync(profilePictureDirectory, { recursive: true });
+}
+
+const uploadPost = multer({
+  storage: postStorage,
+  fileFilter: function (req, file, cb) {
+    const filetypes = /jpeg|jpg|png/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb("Error: Only image files (jpeg, jpg, png) are allowed!");
+    }
+  },
+});
+
+const postDirectory = "uploads/posts";
+if (!fs.existsSync(postDirectory)) {
+  fs.mkdirSync(postDirectory, { recursive: true });
+}
 
 app.get("/", function (req, res) {
   res.redirect("/login");
@@ -88,9 +127,9 @@ app.get("/menu", function (req, res) {
   }
 });
 
-app.get("/setting", function (req, res) {
+app.get("/settings", function (req, res) {
   if (req.session.user) {
-    res.render("setting", { user: req.session.user });
+    res.render("settings", { user: req.session.user });
   } else {
     res.redirect("/login");
   }
@@ -124,7 +163,11 @@ app.get("/user", function (req, res) {
     });
   });
 });
-  
+
+app.get("/change-password", changePasswordController.getChangePassword);
+
+app.post("/change-password", changePasswordController.postChangePassword);
+
 app.get("/users", function (req, res) {
   userModel.getAllUsers(function (err, users) {
     if (err) {
@@ -144,9 +187,6 @@ app.post(
 
 app.post("/delete-profile-picture", deleteProfilePictureController.deleteProfilePicture);
 
-app.post("/update-biodata", updateBiodataController.updateBiodata);
-
-app.post("/update-hasil-studi", updateHasilStudiController.updateHasilStudi);
 
 app.get("/create-post", function (req, res) {
   if (req.session.user) {

@@ -1,6 +1,6 @@
 const connection = require("../config/connection.js");
 
-const BiodataModel = {
+const biodataModel = {
   getBiodataByUserId: function (userId, callback) {
     const sql = "SELECT * FROM biodata WHERE user_id = ?";
     connection.query(sql, [userId], function (err, result) {
@@ -83,4 +83,4 @@ const BiodataModel = {
   }
 };
 
-module.exports = BiodataModel;
+module.exports = biodataModel;

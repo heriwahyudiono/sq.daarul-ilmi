@@ -1,7 +1,7 @@
 const UserModel = require("../models/userModel.js");
 const BiodataModel = require("../models/biodataModel.js");
 
-const UpdateUserController = {
+const updateUserController = {
   getUpdateUser: function (req, res) {
     if (req.session.user && req.session.user.id) {
       const userId = req.session.user.id;
@@ -47,4 +47,4 @@ const UpdateUserController = {
   },
 };
 
-module.exports = UpdateUserController;
+module.exports = updateUserController;

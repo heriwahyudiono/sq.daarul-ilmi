@@ -2,7 +2,7 @@ const connection = require("../config/connection.js");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 
-const UserModel = {
+const userModel = {
   register: function (user, callback) {
     const sql =
       "INSERT INTO users (name, gender, date_of_birth, email, phone_number, password) VALUES (?,?,?,?,?,?)";
@@ -60,9 +60,9 @@ const UserModel = {
     });
   },
 
-  updateUserStatus: function (userId, lastOnlineAt, isOnline, callback) {
+  updateUserStatus: function (userId, lastLogin, isLogin, callback) {
     const query = "UPDATE users SET last_login = ?, is_login = ? WHERE id = ?";
-    connection.query(query, [lastOnlineAt, isOnline, userId], function (err, result) {
+    connection.query(query, [lastLogin, isLogin, userId], function (err, result) {
       if (err) {
         callback(err);
       } else {
@@ -174,7 +174,50 @@ const UserModel = {
         callback(null, result.affectedRows > 0);
       }
     });
-  }
+  },
+
+changePassword: function (userId, currentPassword, newPassword, callback) {
+  const sql = "SELECT * FROM users WHERE id = ?";
+  connection.query(sql, [userId], function (err, result) {
+    if (err) {
+      console.log(err);
+      return callback(err, null);
+    }
+    
+    if (result.length == 0) {
+      return callback(null, false);
+    }
+    
+    const user = result[0];
+    bcrypt.compare(currentPassword, user.passwordHash, function (err, isMatch) {
+      if (err) {
+        console.log(err);
+        return callback(err, null);
+      }
+      
+      if (!isMatch) {
+        return callback(null, false);
+      }
+      
+      bcrypt.hash(newPassword, saltRounds, function (err, hash) {
+        if (err) {
+          console.log(err);
+          return callback(err, null);
+        }
+        
+        const updateSql = "UPDATE users SET password = ? WHERE id = ?";
+        connection.query(updateSql, [hash, userId], function (err, result) {
+          if (err) {
+            console.log(err);
+            return callback(err, null);
+          }
+          
+          return callback(null, true);
+        });
+      });
+    });
+  });
+},
 };
 
-module.exports = UserModel;
+module.exports = userModel;
