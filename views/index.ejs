@@ -8,20 +8,11 @@
 </head>
 <body>
 
-  <div style="display: flex;">
-    <a href="/home">Home</a>
-    <a href="/users">Users</a>
-    <a href="/menu">Menu</a>  
-  </div>
-
-  <br>
-
-  <a href="/create-post">Buat Postingan</a>
+  <a href="/login">Login</a>
 
   <ul>
     <% posts.forEach(function(post) { %>
       <li style="list-style-type: none;">
-        <p>Posted by: <%= post.user.name %></p>
         <p><%= post.caption %></p>
           <div>
             <% post.photos.forEach(function(photo) { %>

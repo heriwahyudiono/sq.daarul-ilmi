@@ -11,7 +11,7 @@ const logoutController = {
       });
     }
     req.session.destroy();
-    res.redirect("/login");
+    res.redirect("/");
   },
 };
 

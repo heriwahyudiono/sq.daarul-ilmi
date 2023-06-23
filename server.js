@@ -102,7 +102,22 @@ if (!fs.existsSync(postDirectory)) {
 }
 
 app.get("/", function (req, res) {
-  res.redirect("/login");
+  postModel.getAllPosts()
+    .then(async (posts) => {
+      const updatedPosts = [];
+      for (const post of posts) {
+        const photos = await photoModel.getPhotosByPostId(post.id);
+        updatedPosts.push({
+          id: post.id,
+          caption: post.caption,
+          photos,
+        });
+      }
+      res.render("index", { posts: updatedPosts });
+    })
+    .catch((error) => {
+      console.error("Failed to get posts:", error);
+    });
 });
 
 app.get("/login", function (req, res) {

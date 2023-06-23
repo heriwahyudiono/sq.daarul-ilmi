@@ -176,48 +176,50 @@ const userModel = {
     });
   },
 
-changePassword: function (userId, currentPassword, newPassword, callback) {
-  const sql = "SELECT * FROM users WHERE id = ?";
-  connection.query(sql, [userId], function (err, result) {
-    if (err) {
-      console.log(err);
-      return callback(err, null);
-    }
-    
-    if (result.length == 0) {
-      return callback(null, false);
-    }
-    
-    const user = result[0];
-    bcrypt.compare(currentPassword, user.passwordHash, function (err, isMatch) {
+  changePassword: function (userId, currentPassword, newPassword, callback) {
+    const sql = "SELECT * FROM users WHERE id = ?";
+    connection.query(sql, [userId], function (err, result) {
       if (err) {
         console.log(err);
         return callback(err, null);
       }
       
-      if (!isMatch) {
+      if (result.length == 0) {
         return callback(null, false);
       }
       
-      bcrypt.hash(newPassword, saltRounds, function (err, hash) {
+      const user = result[0];
+      const saltRounds = 10; 
+      
+      bcrypt.compare(currentPassword, user.passwordHash, function (err, isMatch) {
         if (err) {
           console.log(err);
           return callback(err, null);
         }
         
-        const updateSql = "UPDATE users SET password = ? WHERE id = ?";
-        connection.query(updateSql, [hash, userId], function (err, result) {
+        if (!isMatch) {
+          return callback(null, false);
+        }
+        
+        bcrypt.hash(newPassword, saltRounds, function (err, hash) {
           if (err) {
             console.log(err);
             return callback(err, null);
           }
           
-          return callback(null, true);
+          const updateSql = "UPDATE users SET password = ? WHERE id = ?";
+          connection.query(updateSql, [hash, userId], function (err, result) {
+            if (err) {
+              console.log(err);
+              return callback(err, null);
+            }
+            
+            return callback(null, true);
+          });
         });
       });
     });
-  });
-},
+  }  
 };
 
 module.exports = userModel;

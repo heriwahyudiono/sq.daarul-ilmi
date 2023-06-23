@@ -21,23 +21,22 @@ module.exports = {
     const confirmPassword = req.body.confirmPassword;
 
     if (newPassword !== confirmPassword) {
-      req.session.message = "New password and confirm password do not match";
+      req.session.message = "Password baru dan konfirmasi password baru tidak cocok";
       return res.redirect("/change-password");
     }
 
     userModel.changePassword(userId, currentPassword, newPassword, function (err, success) {
       if (err) {
         console.log(err);
-        req.session.message = "An error occurred while changing the password";
         return res.redirect("/change-password");
       }
 
       if (!success) {
-        req.session.message = "Current password is incorrect";
+        req.session.message = "Password lama yang Anda masukkan salah";
         return res.redirect("/change-password");
       }
 
-      req.session.message = "Password changed successfully";
+      req.session.message = "Password berhasil diubah";
       return res.redirect("/dashboard");
     });
   }
