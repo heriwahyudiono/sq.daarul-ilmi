@@ -82,6 +82,7 @@ const userModel = {
           callback(null, false);
         } else {
           const user = result[0];
+          console.log(user); 
           const biodata = {
             perguruan_tinggi: user.perguruan_tinggi,
             fakultas: user.fakultas,

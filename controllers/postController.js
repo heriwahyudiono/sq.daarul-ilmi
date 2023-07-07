@@ -41,11 +41,14 @@ const postController = {
       for (const post of posts) {
         const photos = await photoModel.getPhotosByPostId(post.id);
         const user = await userModel.getUserById(post.user_id);
-        post.photos = photos;
-        post.user = user; 
+  
+        if (user) {
+          post.photos = photos;
+          post.user = user;
+        }
       }
-      
-      res.render("home", { posts: posts }); 
+  
+      res.render("home", { posts: posts });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
