@@ -72,34 +72,44 @@ const userModel = {
   },
 
   getUserById: function (id, callback) {
-    const sql = "SELECT * FROM users LEFT JOIN biodata ON users.id = biodata.user_id WHERE users.id = ?";
+    const sql =
+      "SELECT * FROM users LEFT JOIN biodata ON users.id = biodata.user_id WHERE users.id = ?";
     connection.query(sql, [id], function (err, result) {
       if (err) {
         console.log(err);
-        callback(err, null);
+        // Panggil callback dengan error
+        if (callback) {
+          callback(err, null);
+        }
       } else {
         if (result.length == 0) {
-          callback(null, false);
+          // Panggil callback tanpa error dan data pengguna null
+          if (callback) {
+            callback(null, false);
+          }
         } else {
           const user = result[0];
-          console.log(user); 
+          console.log(user);
           const biodata = {
             perguruan_tinggi: user.perguruan_tinggi,
             fakultas: user.fakultas,
             program_studi: user.program_studi,
-            angkatan: user.angkatan
+            angkatan: user.angkatan,
           };
-          callback(null, {
-            id: user.id,
-            name: user.name,
-            gender: user.gender,
-            date_of_birth: user.date_of_birth,
-            email: user.email,
-            phone_number: user.phone_number,
-            profile_picture: user.profile_picture,
-            passwordHash: user.password,
-            biodata: biodata
-          });
+          // Panggil callback tanpa error dengan data pengguna dan biodata
+          if (callback) {
+            callback(null, {
+              id: user.id,
+              name: user.name,
+              gender: user.gender,
+              date_of_birth: user.date_of_birth,
+              email: user.email,
+              phone_number: user.phone_number,
+              profile_picture: user.profile_picture,
+              passwordHash: user.password,
+              biodata: biodata,
+            });
+          }
         }
       }
     });

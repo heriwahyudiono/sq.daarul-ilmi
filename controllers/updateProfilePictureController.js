@@ -6,7 +6,8 @@ const updateProfilePictureController = {
     if (req.session.user) {
       if (req.file) {
         const userId = req.session.user.id;
-        const profilePicture = `${Date.now()}${path.extname(req.file.filename)}`;
+        const extension = path.extname(req.file.originalname);
+        const profilePicture = `${Date.now()}${extension}`;
 
         const user = {
           id: userId,

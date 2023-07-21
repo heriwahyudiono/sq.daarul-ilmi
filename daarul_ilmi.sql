@@ -42,4 +42,10 @@ CREATE TABLE photos (
   FOREIGN KEY (post_id) REFERENCES posts(id)
 );
 
-
+CREATE TABLE videos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  post_id INT,
+  filename VARCHAR(255),
+  file_path VARCHAR(255),
+  FOREIGN KEY (post_id) REFERENCES posts(id)
+);

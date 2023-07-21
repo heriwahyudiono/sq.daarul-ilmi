@@ -41,18 +41,7 @@ app.use(
 
 const profilePictureStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/profile_pictures");
-  },
-  filename: function (req, file, cb) {
-    const extension = path.extname(file.originalname);
-    const filename = `${Date.now()}${extension}`;
-    cb(null, filename);
-  },
-});
-
-const postStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/posts");
+    cb(null, path.join(__dirname, "uploads/profile_pictures"));
   },
   filename: function (req, file, cb) {
     const extension = path.extname(file.originalname);
@@ -76,22 +65,33 @@ const uploadProfilePicture = multer({
   },
 });
 
-const profilePictureDirectory = "uploads/profile_pictures";
+const profilePictureDirectory = path.join(__dirname, "uploads/profile_pictures");
 if (!fs.existsSync(profilePictureDirectory)) {
   fs.mkdirSync(profilePictureDirectory, { recursive: true });
 }
 
+const postStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/posts");
+  },
+  filename: function (req, file, cb) {
+    const extension = path.extname(file.originalname);
+    const filename = `${Date.now()}${extension}`;
+    cb(null, filename);
+  },
+});
+
 const uploadPost = multer({
   storage: postStorage,
   fileFilter: function (req, file, cb) {
-    const filetypes = /jpeg|jpg|png/;
+    const filetypes = /jpeg|jpg|png|mp4/;
     const mimetype = filetypes.test(file.mimetype);
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 
     if (mimetype && extname) {
       return cb(null, true);
     } else {
-      cb("Error: Only image files (jpeg, jpg, png) are allowed!");
+      cb("Error: Only image files (jpeg, jpg, png) and video files (mp4) are allowed!");
     }
   },
 });
@@ -103,20 +103,12 @@ if (!fs.existsSync(postDirectory)) {
 
 app.get("/", function (req, res) {
   postModel.getAllPosts()
-    .then(async (posts) => {
-      const updatedPosts = [];
-      for (const post of posts) {
-        const photos = await photoModel.getPhotosByPostId(post.id);
-        updatedPosts.push({
-          id: post.id,
-          caption: post.caption,
-          photos,
-        });
-      }
-      res.render("index", { posts: updatedPosts });
+    .then((posts) => {
+      res.render("index", { posts: posts });
     })
     .catch((error) => {
       console.error("Failed to get posts:", error);
+      res.status(500).send("Internal Server Error");
     });
 });
 
@@ -211,29 +203,20 @@ app.get("/create-post", function (req, res) {
   }
 });
 
-app.post("/create-post", uploadPost.array("photos"), postController.createPost);
+app.post('/create-post', uploadPost.fields([
+  { name: 'photos', maxCount: 10 },
+  { name: 'videos', maxCount: 5 }
+]), postController.createPost);
 
 app.get("/home", function (req, res) {
-  if (req.session.user) {
-    postModel.getAllPosts()
-      .then(async (posts) => {
-        const updatedPosts = [];
-        for (const post of posts) {
-          const photos = await photoModel.getPhotosByPostId(post.id);
-          updatedPosts.push({
-            id: post.id,
-            caption: post.caption,
-            photos,
-          });
-        }
-        res.render("home", { user: req.session.user, posts: updatedPosts });
-      })
-      .catch((error) => {
-        console.error("Failed to get posts:", error);
-      });
-  } else {
-    res.redirect("/login");
-  }
+  postModel.getAllPosts()
+    .then((posts) => {
+      res.render("home", { posts: posts });
+    })
+    .catch((error) => {
+      console.error("Failed to get posts:", error);
+      res.status(500).send("Internal Server Error");
+    });
 });
 
 app.get("/edit-profile", updateUserController.getUpdateUser);

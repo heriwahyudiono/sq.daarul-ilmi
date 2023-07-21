@@ -9,18 +9,28 @@
 <body>
 
   <a href="/login">Login</a>
-
+  <!-- Bagian menampilkan postingan -->
   <ul>
     <% posts.forEach(function(post) { %>
       <li style="list-style-type: none;">
+        <p>Posted by: <%= post.user_name %></p>
         <p><%= post.caption %></p>
-          <div>
-            <% post.photos.forEach(function(photo) { %>
-              <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.filename %>">
-            <% }); %>
-          </div>
+        <div>
+          <!-- Bagian menampilkan foto -->
+          <% post.photos.forEach(function(photo) { %>
+            <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
+          <% }); %>
+          
+          <!-- Bagian menampilkan video -->
+          <% post.videos.forEach(function(video) { %>
+            <video style="width: 500px;" controls>
+              <source src="/<%= video.file_path %>" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          <% }); %>
+        </div>
       </li>
     <% }); %>    
-  </ul>    
+  </ul>
 </body>
 </html>
