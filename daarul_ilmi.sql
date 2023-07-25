@@ -11,6 +11,8 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   phone_number VARCHAR(20) NOT NULL,
   password VARCHAR(255) NOT NULL,
+  verification_token VARCHAR(255),
+  is_email_verified BOOLEAN DEFAULT 0,
   last_login TIMESTAMP,
   is_login BOOLEAN,
   token VARCHAR(255)
@@ -31,6 +33,15 @@ CREATE TABLE posts (
   user_id INT,
   caption TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  likes INT DEFAULT 0, 
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE post_likes (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  post_id INT,
+  user_id INT,
+  FOREIGN KEY (post_id) REFERENCES posts(id),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

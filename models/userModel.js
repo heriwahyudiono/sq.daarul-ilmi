@@ -5,7 +5,7 @@ const path = require("path");
 const userModel = {
   register: function (user, callback) {
     const sql =
-      "INSERT INTO users (name, gender, date_of_birth, email, phone_number, password) VALUES (?,?,?,?,?,?)";
+      "INSERT INTO users (name, gender, date_of_birth, email, phone_number, password, verification_token) VALUES (?,?,?,?,?,?,?)"; // Include 'verification_token' in the query
     const saltRounds = 10;
     bcrypt.hash(user.password, saltRounds, function (err, hash) {
       if (err) {
@@ -21,6 +21,7 @@ const userModel = {
             user.email,
             user.phone_number,
             hash,
+            user.verification_token, // Include the 'verification_token' here
           ],
           function (err, result) {
             if (err) {
@@ -31,6 +32,19 @@ const userModel = {
             }
           }
         );
+      }
+    });
+  },
+
+  verifyEmail: function (token, callback) {
+    const sql = "UPDATE users SET is_email_verified = 1 WHERE verification_token = ?";
+    connection.query(sql, [token], function (err, result) {
+      if (err) {
+        console.log(err);
+        callback(err, false);
+      } else {
+        const isEmailVerified = result.affectedRows > 0;
+        callback(null, isEmailVerified);
       }
     });
   },

@@ -19,7 +19,8 @@ const postController = require("./controllers/postController.js");
 const postModel = require("./models/postModel.js");
 const photoModel = require("./models/photoModel.js");
 const deleteAccountController = require("./controllers/deleteAccountController.js");
-const changePasswordController = require("./controllers/changePasswordController.js")
+const changePasswordController = require("./controllers/changePasswordController.js");
+const likeController = require("./controllers/likeController.js");
 
 const app = express();
 
@@ -124,6 +125,26 @@ app.get("/register", function (req, res) {
 
 app.post("/register", registerController.register);
 
+// app.get("/verify-your-email", function (req, res) {
+//   res.render("verify-your-email");
+// });
+
+app.get("/verify-email", function (req, res) {
+  const { token } = req.query;
+  userModel.verifyEmail(token, function (err, isEmailVerified) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    } else {
+      if (isEmailVerified) {
+        res.render("email-verified");
+      } else {
+        res.send("Invalid verification token");
+      }
+    }
+  });
+});
+
 app.get("/logout", logoutController.logout);
 
 app.get("/menu", function (req, res) {
@@ -133,6 +154,30 @@ app.get("/menu", function (req, res) {
     res.redirect("/login");
   }
 });
+
+app.get("/post", async function (req, res) {
+  // Get the postId from the query parameter
+  const postId = req.query.id;
+
+  try {
+    // Fetch the post data from the database based on the postId
+    const post = await postModel.getPostById(postId);
+
+    if (!post) {
+      // If the post with the given postId doesn't exist, render an error message
+      return res.status(404).send("Post Not Found");
+    }
+
+    // Render the individual post view with the post data
+    res.render("post", { post: post });
+  } catch (error) {
+    console.error("Failed to fetch post:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.post("/like", likeController.likePost);
+app.post("/unlike", likeController.unlikePost);
 
 app.get("/settings", function (req, res) {
   if (req.session.user) {

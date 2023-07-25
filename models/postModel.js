@@ -67,6 +67,53 @@ const postModel = {
     }
   },
 
+  getPostById: async (postId) => {
+    try {
+      const sql = `
+        SELECT 
+          posts.id AS post_id, 
+          posts.caption,
+          users.name AS user_name,
+          photos.id AS photo_id,
+          photos.file_path AS photo_file_path,
+          videos.id AS video_id,
+          videos.file_path AS video_file_path
+        FROM posts
+        LEFT JOIN users ON posts.user_id = users.id
+        LEFT JOIN photos ON posts.id = photos.post_id
+        LEFT JOIN videos ON posts.id = videos.post_id
+        WHERE posts.id = ?
+      `;
+      const [rows] = await connection.promise().query(sql, [postId]);
+
+      if (rows.length === 0) {
+        return null; // Return null if no post is found with the given postId
+      }
+
+      // Assemble the post object with photos and videos as needed
+      const post = {
+        post_id: rows[0].post_id,
+        caption: rows[0].caption,
+        user_name: rows[0].user_name,
+        photos: [],
+        videos: [],
+      };
+
+      for (const row of rows) {
+        if (row.photo_id && row.photo_file_path) {
+          post.photos.push({ id: row.photo_id, file_path: row.photo_file_path });
+        }
+        if (row.video_id && row.video_file_path) {
+          post.videos.push({ id: row.video_id, file_path: row.video_file_path });
+        }
+      }
+
+      return post;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   deletePost: async (postId) => {
     try {
       await deletePhotosByPostId(postId);

@@ -1,0 +1,61 @@
+<!-- post.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post</title>
+</head>
+<body>
+  <h1>Post</h1>
+  <p>Posted by: <a style="text-decoration: none;" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a></p>
+  <p><%= post.caption %></p>
+  <div>
+    <% post.photos.forEach(function(photo) { %>
+      <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
+    <% }); %>
+    <% post.videos.forEach(function(video) { %>
+      <video style="width: 500px;" controls>
+        <source src="/<%= video.file_path %>" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    <% }); %>
+  </div>
+  
+  <button onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      /*
+      var disqus_config = function () {
+      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://sq-daarul-ilmi.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  <script>
+    function getPostUrl(postId) {
+      const postURL = `${window.location.origin}/post?id=${postId}`;
+      navigator.clipboard.writeText(postURL)
+        .then(() => {
+          alert('Post URL copied to clipboard!');
+        })
+        .catch((error) => {
+          console.error('Failed to copy post URL: ', error);
+        });
+    }
+  </script>
+</body>
+</html>
