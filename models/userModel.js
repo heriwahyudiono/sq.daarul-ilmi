@@ -21,7 +21,7 @@ const userModel = {
             user.email,
             user.phone_number,
             hash,
-            user.verification_token, // Include the 'verification_token' here
+            user.verification_token, 
           ],
           function (err, result) {
             if (err) {
@@ -167,7 +167,7 @@ const userModel = {
 
   updateProfilePicture: function (user, callback) {
     const sql = "UPDATE users SET profile_picture = ? WHERE id = ?";
-    connection.query(sql, [`${Date.now()}${path.extname(user.profile_picture)}`, user.id], function (err, result) {
+    connection.query(sql, [user.profile_picture, user.id], function (err, result) {
       if (err) {
         console.log(err);
         callback(err, null);
@@ -176,7 +176,7 @@ const userModel = {
       }
     });
   },
-
+  
   deleteProfilePicture: function (userId, callback) {
     const sql = "UPDATE users SET profile_picture = NULL WHERE id = ?";
     connection.query(sql, [userId], function (err, result) {
@@ -205,20 +205,20 @@ const userModel = {
     const sql = "SELECT * FROM users WHERE id = ?";
     connection.query(sql, [userId], function (err, result) {
       if (err) {
-        console.log(err);
+        console.error(err);
         return callback(err, null);
       }
       
-      if (result.length == 0) {
+      if (result.length === 0) {
         return callback(null, false);
       }
       
       const user = result[0];
       const saltRounds = 10; 
       
-      bcrypt.compare(currentPassword, user.passwordHash, function (err, isMatch) {
+      bcrypt.compare(currentPassword, user.password, function (err, isMatch) {
         if (err) {
-          console.log(err);
+          console.error(err);
           return callback(err, null);
         }
         
@@ -228,14 +228,14 @@ const userModel = {
         
         bcrypt.hash(newPassword, saltRounds, function (err, hash) {
           if (err) {
-            console.log(err);
+            console.error(err);
             return callback(err, null);
           }
           
           const updateSql = "UPDATE users SET password = ? WHERE id = ?";
           connection.query(updateSql, [hash, userId], function (err, result) {
             if (err) {
-              console.log(err);
+              console.error(err);
               return callback(err, null);
             }
             
@@ -244,7 +244,7 @@ const userModel = {
         });
       });
     });
-  }  
+  }
 };
 
 module.exports = userModel;

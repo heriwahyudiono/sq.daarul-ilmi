@@ -18,6 +18,7 @@ const postModel = {
         SELECT 
           posts.id AS post_id, 
           posts.caption,
+          posts.user_id,
           users.name AS user_name,
           photos.id AS photo_id,
           photos.file_path AS photo_file_path,

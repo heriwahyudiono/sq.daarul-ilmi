@@ -27,7 +27,7 @@ module.exports = {
 
     userModel.changePassword(userId, currentPassword, newPassword, function (err, success) {
       if (err) {
-        console.log(err);
+        console.error(err);
         return res.redirect("/change-password");
       }
 
@@ -37,7 +37,7 @@ module.exports = {
       }
 
       req.session.message = "Password berhasil diubah";
-      return res.redirect("/dashboard");
+      return res.redirect("/change-password");
     });
   }
 };

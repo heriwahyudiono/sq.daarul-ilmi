@@ -14,8 +14,7 @@ CREATE TABLE users (
   verification_token VARCHAR(255),
   is_email_verified BOOLEAN DEFAULT 0,
   last_login TIMESTAMP,
-  is_login BOOLEAN,
-  token VARCHAR(255)
+  is_login BOOLEAN
 );
 
 CREATE TABLE biodata (
@@ -33,15 +32,6 @@ CREATE TABLE posts (
   user_id INT,
   caption TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  likes INT DEFAULT 0, 
-  FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-CREATE TABLE post_likes (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  post_id INT,
-  user_id INT,
-  FOREIGN KEY (post_id) REFERENCES posts(id),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

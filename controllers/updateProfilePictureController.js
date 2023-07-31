@@ -6,8 +6,7 @@ const updateProfilePictureController = {
     if (req.session.user) {
       if (req.file) {
         const userId = req.session.user.id;
-        const extension = path.extname(req.file.originalname);
-        const profilePicture = `${Date.now()}${extension}`;
+        const profilePicture = req.file.filename; // Gunakan nama file yang dihasilkan oleh multer
 
         const user = {
           id: userId,

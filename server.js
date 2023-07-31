@@ -20,7 +20,6 @@ const postModel = require("./models/postModel.js");
 const photoModel = require("./models/photoModel.js");
 const deleteAccountController = require("./controllers/deleteAccountController.js");
 const changePasswordController = require("./controllers/changePasswordController.js");
-const likeController = require("./controllers/likeController.js");
 
 const app = express();
 
@@ -45,8 +44,10 @@ const profilePictureStorage = multer.diskStorage({
     cb(null, path.join(__dirname, "uploads/profile_pictures"));
   },
   filename: function (req, file, cb) {
+    // Gunakan timestamp dalam milidetik sebagai bagian dari nama file
+    const timestamp = Date.now();
     const extension = path.extname(file.originalname);
-    const filename = `${Date.now()}${extension}`;
+    const filename = `${timestamp}${extension}`;
     cb(null, filename);
   },
 });
@@ -175,9 +176,6 @@ app.get("/post", async function (req, res) {
     res.status(500).send("Internal Server Error");
   }
 });
-
-app.post("/like", likeController.likePost);
-app.post("/unlike", likeController.unlikePost);
 
 app.get("/settings", function (req, res) {
   if (req.session.user) {
