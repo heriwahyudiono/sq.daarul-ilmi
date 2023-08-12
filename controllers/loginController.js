@@ -20,10 +20,10 @@ const loginController = {
             }
           });
         } else {
-          res.send("Password yang Anda masukkan salah");
+          res.render("login", { errorMessage: "Password yang Anda masukkan salah" });
         }
       } else {
-        res.send("Email tidak terdaftar");
+        res.render("login", { errorMessage: "Email tidak terdaftar" });
       }
     });
   },

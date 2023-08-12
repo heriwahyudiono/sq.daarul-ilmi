@@ -14,9 +14,15 @@
     <br>
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
-    <br><br>
+    <br>
+    
+    <% if (typeof errorMessage !== 'undefined') { %>
+      <p style="color: red;"><%= errorMessage %></p>
+    <% } %>
+    
     <input type="submit" value="Login">
   </form>
-  <a href="./register">Daftar</a>
+  <a href="/forgot-password">Lupa password</a>
+  <p>Belum punya akun? <a href="/register">Daftar</a></p>
 </body>
 </html>

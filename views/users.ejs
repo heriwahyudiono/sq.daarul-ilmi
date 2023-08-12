@@ -34,7 +34,7 @@
       <% users.forEach(function (user) { %>
         <li class="user-item">
           <a href="/user?id=<%= user.id %>">
-            <img style="width: 75px; height: 75px;" src="<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="Profile Picture" onclick="window.location.href='/user?id=<%= user.id %>';">
+            <img style="width: 75px; height: 75px;" src="<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= user.id %>';">
           </a>
           <div>
             <a href="/user?id=<%= user.id %>" onclick="window.location.href='/user?id=<%= user.id %>';">

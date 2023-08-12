@@ -13,8 +13,11 @@ const registerController = {
     const confirm_password = req.body.confirm_password;
 
     if (password !== confirm_password) {
-      res.status(400).send({ message: "Konfirmasi password tidak sesuai" });
+      res.render("register", { errorMessage: "Konfirmasi password tidak sesuai" });
     } else {
+      const tokenExpiration = new Date();
+      tokenExpiration.setHours(tokenExpiration.getHours() + 1);
+
       const verificationToken = crypto.randomBytes(20).toString("hex");
 
       userModel.register(
@@ -26,6 +29,8 @@ const registerController = {
           phone_number,
           password,
           verification_token: verificationToken,
+          token_expiration: tokenExpiration,
+          create_at: new Date(),
         },
         function (err, result) {
           if (err) {
@@ -39,9 +44,8 @@ const registerController = {
               } else {
                 console.log("Email sent: " + info.response);
                 if (result && result.verification_token !== null) {
-                  // Email belum diverifikasi, arahkan ke halaman untuk memberitahu pengguna
-                  res.render("verify-your-email");
-                } 
+                  res.render("verify-your-account", { email: email });
+                }
               }
             });
           }
@@ -63,8 +67,53 @@ function sendVerificationEmail(email, verificationToken, callback) {
   const mailOptions = {
     from: "heriwhydiono@gmail.com",
     to: email,
-    subject: "Email Verification",
-    html: `<p>Please click the following link to verify your email: <a href="http://localhost:3000/verify-email?token=${verificationToken}">Verify Email</a></p>`,
+    subject: "Account Verification",
+    html: `
+      <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+          }
+          .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+          }
+          h1 {
+            color: #333333;
+          }
+          p {
+            color: #666666;
+            line-height: 1.5;
+          }
+          .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Account Verification</h1>
+          <p>Hello there,</p>
+          <p>Please click the button below to verify your account:</p>
+          <a class="button" href="http://localhost:3000/verify-account?token=${verificationToken}">Verify Account</a>
+          <p>If you did not request this verification, you can safely ignore this email.</p>
+        </div>
+      </body>
+      </html>
+    `,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {

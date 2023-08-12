@@ -5,8 +5,9 @@ const path = require("path");
 const userModel = {
   register: function (user, callback) {
     const sql =
-      "INSERT INTO users (name, gender, date_of_birth, email, phone_number, password, verification_token) VALUES (?,?,?,?,?,?,?)"; // Include 'verification_token' in the query
+      "INSERT INTO users (name, gender, date_of_birth, email, phone_number, password, token, token_expiration, create_at) VALUES (?,?,?,?,?,?,?,?,?)";
     const saltRounds = 10;
+    const currentDate = new Date(); // Get the current date
     bcrypt.hash(user.password, saltRounds, function (err, hash) {
       if (err) {
         console.log(err);
@@ -21,7 +22,9 @@ const userModel = {
             user.email,
             user.phone_number,
             hash,
-            user.verification_token, 
+            user.verification_token,
+            user.token_expiration,
+            currentDate, // Add the current date to create_at
           ],
           function (err, result) {
             if (err) {
@@ -35,20 +38,21 @@ const userModel = {
       }
     });
   },
-
-  verifyEmail: function (token, callback) {
-    const sql = "UPDATE users SET is_email_verified = 1 WHERE verification_token = ?";
-    connection.query(sql, [token], function (err, result) {
+  
+  verifyAccount: function (token, callback) {
+    const currentTime = new Date();
+    const sql = "UPDATE users SET is_account_verified = 1, token = NULL WHERE token = ? AND token_expiration > ?";
+    connection.query(sql, [token, currentTime], function (err, result) {
       if (err) {
         console.log(err);
         callback(err, false);
       } else {
-        const isEmailVerified = result.affectedRows > 0;
-        callback(null, isEmailVerified);
+        const isAccountVerified = result.affectedRows > 0;
+        callback(null, isAccountVerified);
       }
     });
   },
-
+  
   login: function (email, callback) {
     const sql = "SELECT * FROM users WHERE email = ?";
     connection.query(sql, [email], function (err, result) {
@@ -74,6 +78,104 @@ const userModel = {
     });
   },
 
+  getUserByEmail: function (email, callback) {
+    const sql = "SELECT * FROM users WHERE email = ?";
+    connection.query(sql, [email], function (err, result) {
+      if (err) {
+        console.log(err);
+        callback(err, null);
+      } else {
+        if (result.length == 0) {
+          callback(null, null); // Tidak ada pengguna dengan alamat email yang diberikan
+        } else {
+          const user = result[0];
+          callback(null, {
+            id: user.id,
+            name: user.name,
+            gender: user.gender,
+            date_of_birth: user.date_of_birth,
+            email: user.email,
+            phone_number: user.phone_number,
+            passwordHash: user.password,
+          });
+        }
+      }
+    });
+  }, 
+  
+  setToken: function (userId, resetToken, callback) {
+    const currentTime = new Date();
+    const tokenExpiration = resetToken ? new Date(currentTime.getTime() + 3600000) : null; // Waktu sekarang + 1 jam (dalam milidetik)
+    const sql = "UPDATE users SET token = ?, token_expiration = ? WHERE id = ?";
+    connection.query(sql, [resetToken, tokenExpiration, userId], function (err, result) {
+      if (err) {
+        console.error(err);
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    });
+  },  
+  
+  updatePasswordByToken: function (token, newPassword, callback) {
+    const currentTime = new Date();
+    const sql = "SELECT * FROM users WHERE token = ?";
+    connection.query(sql, [token], function (err, result) {
+      if (err) {
+        console.error(err);
+        return callback(err, null);
+      }
+  
+      if (result.length === 0) {
+        return callback(null, false);
+      }
+  
+      const user = result[0];
+  
+      if (user.token_expiration && user.token_expiration < currentTime) {
+        // Token telah kedaluwarsa
+        return callback(null, false);
+      }
+  
+      const saltRounds = 10;
+  
+      bcrypt.hash(newPassword, saltRounds, function (err, hash) {
+        if (err) {
+          console.error(err);
+          return callback(err, null);
+        }
+  
+        const updateSql = "UPDATE users SET password = ? WHERE id = ?";
+        connection.query(updateSql, [hash, user.id], function (err, result) {
+          if (err) {
+            console.error(err);
+            return callback(err, null);
+          }
+  
+          userModel.resetToken(token, function (err, result) {
+            if (err) {
+              console.error(err);
+            }
+  
+            return callback(null, true);
+          });
+        });
+      });
+    });
+  },
+
+  resetToken: function (token, callback) {
+    const sql = "UPDATE users SET token = NULL WHERE token = ?";
+    connection.query(sql, [token], function (err, result) {
+      if (err) {
+        console.error(err);
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    });
+  },  
+  
   updateUserStatus: function (userId, lastLogin, isLogin, callback) {
     const query = "UPDATE users SET last_login = ?, is_login = ? WHERE id = ?";
     connection.query(query, [lastLogin, isLogin, userId], function (err, result) {
@@ -121,6 +223,7 @@ const userModel = {
               phone_number: user.phone_number,
               profile_picture: user.profile_picture,
               passwordHash: user.password,
+              create_at: user.create_at, // Pastikan Anda menyertakan properti create_at
               biodata: biodata,
             });
           }

@@ -12,31 +12,32 @@ const postModel = {
     }
   },
   
-  getAllPosts: async () => {
+  getAllPosts: async (req) => {
     try {
       const sql = `
-        SELECT 
-          posts.id AS post_id, 
-          posts.caption,
-          posts.user_id,
-          users.name AS user_name,
-          photos.id AS photo_id,
-          photos.file_path AS photo_file_path,
-          videos.id AS video_id,
-          videos.file_path AS video_file_path
-        FROM posts
-        LEFT JOIN users ON posts.user_id = users.id
-        LEFT JOIN photos ON posts.id = photos.post_id
-        LEFT JOIN videos ON posts.id = videos.post_id
-        ORDER BY posts.id DESC
-      `;
+      SELECT 
+        posts.id AS post_id, 
+        posts.caption,
+        posts.user_id,
+        users.id AS user_id,
+        users.name AS user_name,
+        photos.id AS photo_id,
+        photos.file_path AS photo_file_path,
+        videos.id AS video_id,
+        videos.file_path AS video_file_path
+      FROM posts
+      LEFT JOIN users ON posts.user_id = users.id
+      LEFT JOIN photos ON posts.id = photos.post_id
+      LEFT JOIN videos ON posts.id = videos.post_id
+      ORDER BY posts.id DESC
+    `;    
       const [rows] = await connection.promise().query(sql);
 
       const posts = [];
       for (const row of rows) {
         const post = posts.find((p) => p.post_id === row.post_id);
         if (!post) {
-          const { post_id, caption, user_name } = row;
+          const { post_id, caption, user_name, user_id } = row;
           const photos = [];
           const videos = [];
           if (row.photo_id && row.photo_file_path) {
@@ -49,6 +50,7 @@ const postModel = {
             post_id,
             caption,
             user_name,
+            user_id,
             photos,
             videos,
           });
@@ -74,6 +76,7 @@ const postModel = {
         SELECT 
           posts.id AS post_id, 
           posts.caption,
+          posts.user_id,
           users.name AS user_name,
           photos.id AS photo_id,
           photos.file_path AS photo_file_path,
@@ -95,6 +98,7 @@ const postModel = {
       const post = {
         post_id: rows[0].post_id,
         caption: rows[0].caption,
+        user_id: rows[0].user_id,
         user_name: rows[0].user_name,
         photos: [],
         videos: [],

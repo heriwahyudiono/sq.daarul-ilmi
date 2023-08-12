@@ -12,7 +12,7 @@ const deleteProfilePictureController = {
         } else {
           req.session.user.profile_picture = null; 
           req.session.message = "Foto profil berhasil dihapus";
-          res.redirect("/user?id=" + userId);
+          res.redirect("/profile?id=" + userId);
         }
       });
     } else {

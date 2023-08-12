@@ -7,16 +7,21 @@
     <title>Buat Postingan</title>
 </head>
 <body>
-
     <a href="/home">Home</a>
     <a href="/users">Users</a>
     <a href="/menu">Menu</a><br>
     
     <form action="/create-post" method="POST" enctype="multipart/form-data">
-        <input type="file" name="photos" multiple />
-        <input type="file" name="videos" multiple />
+        <h2>Tambahkan Foto</h2>
+        <input type="file" name="photos" accept=".jpeg, .jpg, .png" multiple />
+        <h2>Tambahkan Video</h2>
+        <input type="file" name="videos" accept=".mp4" multiple /><br><br>
+        <% if (locals.errorMessage) { %>
+            <p style="color: red;"><%= locals.errorMessage %></p>
+        <% } %>
+        <br><br>
         <textarea name="caption"></textarea>
         <button type="submit">Post</button>
-    </form>  
+    </form>
 </body>
 </html>

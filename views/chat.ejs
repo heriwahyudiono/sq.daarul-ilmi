@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <!-- Include your CSS and JavaScript dependencies here -->
+    <style>
+        /* Your CSS styles here */
+        .message {
+            padding: 5px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .sent {
+            background-color: #d7e9fc;
+        }
+        .received {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat Room with <%= receiverName %></h1>
+
+    <div id="chat-container">
+        <div id="message-list">
+            <% messages.forEach(message => { %>
+                <div class="message <%= message.sender_id === loggedInUserId ? 'sent' : 'received' %>">
+                    <%= message.text %>
+                </div>
+            <% }); %>
+        </div>
+        <form id="message-form">
+            <input type="text" id="message-input" placeholder="Type your message here...">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- Include your footer or additional content here -->
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io(); // Initialize socket.io or any other real-time library
+
+        const messageForm = document.getElementById('message-form');
+        const messageInput = document.getElementById('message-input');
+        const messageList = document.getElementById('message-list');
+
+        messageForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const messageText = messageInput.value;
+
+            // Emit the message to the server
+            socket.emit('send-message', { text: messageText });
+
+            // Clear the input field
+            messageInput.value = '';
+        });
+
+        // Listen for incoming messages
+        socket.on('receive-message', (message) => {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message received';
+            messageElement.textContent = message.text;
+            messageList.appendChild(messageElement);
+        });
+
+        // Handle other events and functionality related to the chat
+    </script>
+</body>
+</html>

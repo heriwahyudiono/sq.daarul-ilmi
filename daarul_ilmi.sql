@@ -11,10 +11,12 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   phone_number VARCHAR(20) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  verification_token VARCHAR(255),
-  is_email_verified BOOLEAN DEFAULT 0,
-  last_login TIMESTAMP,
-  is_login BOOLEAN
+  token VARCHAR(255),
+  token_expiration TIMESTAMP,
+  is_account_verified BOOLEAN DEFAULT 0, 
+  is_login BOOLEAN,
+  last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  create_at DATE NOT NULL
 );
 
 CREATE TABLE biodata (
@@ -25,6 +27,16 @@ CREATE TABLE biodata (
   fakultas VARCHAR(255),
   program_studi VARCHAR(255),
   angkatan INT
+);
+
+CREATE TABLE chats (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  sender_id INT,
+  receiver_id INT,
+  message TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (sender_id) REFERENCES users(id),
+  FOREIGN KEY (receiver_id) REFERENCES users(id)
 );
 
 CREATE TABLE posts (

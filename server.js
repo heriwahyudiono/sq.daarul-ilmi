@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const http = require('http');
+const socketIo = require('socket.io');
 const ejs = require("ejs");
 const path = require("path");
 const session = require("express-session");
@@ -8,6 +10,8 @@ const fs = require("fs")
 
 const loginController = require("./controllers/loginController.js");
 const registerController = require("./controllers/registerController.js");
+const forgotPasswordController = require("./controllers/forgotPasswordController.js");
+const resetPasswordController = require("./controllers/resetPasswordController.js");
 const logoutController = require("./controllers/logoutController.js");
 const userModel = require("./models/userModel.js");
 const updateUserController = require("./controllers/updateUserController.js");
@@ -21,7 +25,24 @@ const photoModel = require("./models/photoModel.js");
 const deleteAccountController = require("./controllers/deleteAccountController.js");
 const changePasswordController = require("./controllers/changePasswordController.js");
 
+const chatController = require("./controllers/chatController"); // Import chatController
+
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+// Meletakkan kode middleware untuk menyajikan file klien socket.io
+app.use('/socket.io', express.static(__dirname + '/node_modules/socket.io-client/dist'));
+
+// Konfigurasi socket.io di sini
+io.on('connection', (socket) => {
+    // Logika socket.io di sini
+    socket.on('send-message', (data) => {
+      // Lakukan sesuatu dengan data pesan yang diterima, misalnya menyimpan ke database
+      // Kemudian mengirim ulang pesan ke semua klien yang terhubung
+      io.emit('receive-message', data);
+    });
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -126,25 +147,35 @@ app.get("/register", function (req, res) {
 
 app.post("/register", registerController.register);
 
-// app.get("/verify-your-email", function (req, res) {
-//   res.render("verify-your-email");
-// });
-
-app.get("/verify-email", function (req, res) {
+app.get("/verify-account", function (req, res) {
   const { token } = req.query;
-  userModel.verifyEmail(token, function (err, isEmailVerified) {
+  userModel.verifyAccount(token, function (err, isAccountVerified) {
     if (err) {
       console.log(err);
       res.status(500).send("Internal Server Error");
     } else {
-      if (isEmailVerified) {
-        res.render("email-verified");
+      if (isAccountVerified) {
+        res.render("account-verified");
       } else {
         res.send("Invalid verification token");
       }
     }
   });
 });
+
+app.get("/reset-password-successfully", function (req, res) {
+  res.render("reset-password-successfully");
+});
+
+app.get("/forgot-password", forgotPasswordController.getForgotPassword);
+app.post("/forgot-password", forgotPasswordController.postForgotPassword);
+
+app.get("/reset-password", (req, res) => {
+  const token = req.query.token; 
+  res.render("reset-password", { token, successMessage: null, errorMessage: null });
+});
+
+app.post("/reset-password", resetPasswordController.postResetPassword);
 
 app.get("/logout", logoutController.logout);
 
@@ -156,26 +187,9 @@ app.get("/menu", function (req, res) {
   }
 });
 
-app.get("/post", async function (req, res) {
-  // Get the postId from the query parameter
-  const postId = req.query.id;
-
-  try {
-    // Fetch the post data from the database based on the postId
-    const post = await postModel.getPostById(postId);
-
-    if (!post) {
-      // If the post with the given postId doesn't exist, render an error message
-      return res.status(404).send("Post Not Found");
-    }
-
-    // Render the individual post view with the post data
-    res.render("post", { post: post });
-  } catch (error) {
-    console.error("Failed to fetch post:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+app.get("/chats", chatController.getChatInbox);
+app.get("/chat/:receiverId", chatController.getChatRoom);
+app.post("/chat/:receiverId", chatController.postSendMessage);
 
 app.get("/settings", function (req, res) {
   if (req.session.user) {
@@ -214,11 +228,48 @@ app.get("/user", function (req, res) {
   });
 });
 
+app.get("/profile", function (req, res) {
+  const user = req.session.user; // Ambil informasi pengguna dari sesi
+  const message = req.session.message;
+  req.session.message = null;
+
+  if (!user) {
+    return res.redirect("/login"); // Redirect jika pengguna tidak masuk
+  }
+
+  userModel.getUserById(user.id, function (err, user) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Internal Server Error");
+    }
+    if (!user) {
+      return res.render("user-not-found");
+    }
+
+    biodataModel.getBiodataByUserId(user.id, function (err, biodata) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Internal Server Error");
+      }
+
+      res.render("profile", {
+        user: user,
+        biodata: biodata,
+        message: message,
+      });
+    });
+  });
+});
+
 app.get("/change-password", changePasswordController.getChangePassword);
 
 app.post("/change-password", changePasswordController.postChangePassword);
 
 app.get("/users", function (req, res) {
+  if (!req.session.user) {
+    return res.redirect("/login"); // Redirect jika pengguna belum masuk
+  }
+
   userModel.getAllUsers(function (err, users) {
     if (err) {
       console.log(err);
@@ -249,17 +300,65 @@ app.get("/create-post", function (req, res) {
 app.post('/create-post', uploadPost.fields([
   { name: 'photos', maxCount: 10 },
   { name: 'videos', maxCount: 5 }
-]), postController.createPost);
+]), (req, res) => {
+  // Check if any non-allowed photo files were uploaded
+  const photoFiles = req.files['photos'];
+  if (photoFiles) {
+    const invalidPhotos = photoFiles.filter(file => !['.jpeg', '.jpg', '.png'].includes(path.extname(file.originalname).toLowerCase()));
+    if (invalidPhotos.length > 0) {
+      return res.render("create-post", {
+        user: req.session.user,
+        errorMessage: "Only .jpeg, .jpg, and .png files are allowed for photos."
+      });
+    }
+  }
+
+  // Check if any .mp4 files were uploaded
+  const videoFiles = req.files['videos'];
+  if (videoFiles) {
+    const invalidVideos = videoFiles.filter(file => path.extname(file.originalname) !== '.mp4');
+    if (invalidVideos.length > 0) {
+      return res.render("create-post", {
+        user: req.session.user,
+        errorMessage: "Only .mp4 files are allowed."
+      });
+    }
+  }
+
+  // Continue with your existing postController.createPost logic here
+  postController.createPost(req, res);
+});
 
 app.get("/home", function (req, res) {
+  if (!req.session.user) {
+    return res.redirect("/login"); // Redirect jika pengguna belum masuk
+  }
+
   postModel.getAllPosts()
     .then((posts) => {
-      res.render("home", { posts: posts });
+      res.render("home", { posts: posts, user_id: req.user ? req.user.id : null });
     })
     .catch((error) => {
       console.error("Failed to get posts:", error);
       res.status(500).send("Internal Server Error");
     });
+});
+
+app.get("/post", async function (req, res) {
+  const postId = req.query.id;
+
+  try {
+    const post = await postModel.getPostById(postId);
+
+    if (!post) {
+      return res.render("post-not-found");
+    }
+
+    res.render("post", { post: post });
+  } catch (error) {
+    console.error("Failed to fetch post:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 app.get("/edit-profile", updateUserController.getUpdateUser);
@@ -271,6 +370,10 @@ app.get("/update-biodata", updateBiodataController.getUpdateBiodata);
 app.post("/update-biodata", updateBiodataController.updateBiodata);
 
 app.post("/delete-account", deleteAccountController.deleteAccount);
+
+app.use(function (req, res, next) {
+  res.status(404).render("page-not-found");
+});
 
 app.listen(3000, function () {
   console.log("Server listening on port 3000");

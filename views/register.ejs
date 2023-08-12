@@ -33,8 +33,13 @@
     <label for="confirm_password">Konfirmasi Password:</label>
     <input type="password" id="confirm_password" name="confirm_password" required>
     <br>
+    
+    <% if (typeof errorMessage !== 'undefined') { %>
+      <p style="color: red;"><%= errorMessage %></p>
+    <% } %>
+    
     <input type="submit" value="Daftar">
   </form>
-  <a href="/login">Login</a>
+  <p>Sudah punya akun? <a href="/login">Login</a></p>
 </body>
 </html>

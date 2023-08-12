@@ -12,7 +12,7 @@
     <a href="/users">Users</a>
     <a href="/menu">Menu</a><br>
 
-    <h2>Profile</h2>
+    <h2>Profil</h2>
 
     <% if (message) { %>
     <p><%= message %></p>
@@ -23,17 +23,22 @@
     style="width: 100px"
     />
   
-    <br>
+    <form action="/update-profile-picture" method="POST" enctype="multipart/form-data">
+      <input type="file" name="profilePicture" accept="image/jpeg, image/jpg, image/png" required>
+      <button type="submit">Upload</button>
+    </form>
 
-    <button type="button" onclick="getProfileUrl()">Salin URL Profil</button>
-
-    <p>Bergabung pada: <%= user.create_at.toDateString() %></p>
+    <form id="confirm-delete" action="/delete-profile-picture" method="POST">
+      <button type="button" onclick="confirmDelete()">Hapus Foto</button>
+    </form><br>
 
     <p>Nama Lengkap: <%= user.name %></p>
     <p>Jenis Kelamin: <%= user.gender %></p>
     <p>Tanggal Lahir: <%= user.date_of_birth %></p>
     <p>Email: <%= user.email %></p>
     <p>Nomor Telepon: <%= user.phone_number %></p>
+
+    <a href="/edit-profile">Edit Profil</a>
 
     <h2>Biodata</h2>
 
@@ -46,17 +51,13 @@
     <p>Biodata has not been filled in</p>
     <% } %>
 
+    <a href="/update-biodata">Update Biodata</a>
+
     <script>
-      function getProfileUrl() {
-        const profileUrl = window.location.href;
-        navigator.clipboard
-          .writeText(profileUrl)
-          .then(function () {
-            alert("URL Profil berhasil disalin");
-          })
-          .catch(function (error) {
-            console.error("Tidak dapat menyalin URL Profil ini:", error);
-          });
+      function confirmDelete() {
+        if (confirm("Apakah Anda yakin ingin menghapus foto profil?")) {
+          document.getElementById("confirm-delete").submit();
+        }
       }
     </script>
   </body>

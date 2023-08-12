@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Inbox</title>
+    <!-- Include your CSS and JavaScript dependencies here -->
+    <style>
+        /* Your CSS styles here */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat Inbox</h1>
+
+    <ul>
+        <% chats.forEach(chat => { %>
+            <li>
+                <a href="/chat/<%= chat.receiver_id %>">
+                    <%= chat.receiver_name %>
+                </a>
+            </li>
+        <% }); %>
+    </ul>
+
+    <!-- Include your footer or additional content here -->
+</body>
+</html>
