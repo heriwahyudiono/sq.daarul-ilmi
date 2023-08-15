@@ -10,7 +10,6 @@
   <nav>
     <a href="/home">Home</a>
     <a href="/users">Users</a>
-    <a href="/chats">Chats</a>
     <a href="/menu">Menu</a>  
   </nav>
 
@@ -20,6 +19,7 @@
     <% posts.forEach(function(post) { %>
       <li style="list-style-type: none;">
         <p>Posted by: <a style="text-decoration: none;" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a></p>
+        <p><%= post.create_at %></p>
           <p><%= post.caption %></p>
           <div>
             <% post.photos.forEach(function(photo) { %>

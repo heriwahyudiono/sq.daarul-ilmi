@@ -32,9 +32,10 @@
       <button type="button" onclick="confirmDelete()">Hapus Foto</button>
     </form><br>
 
+    <p>Bergabung pada: <%= user.create_at %></p>
     <p>Nama Lengkap: <%= user.name %></p>
     <p>Jenis Kelamin: <%= user.gender %></p>
-    <p>Tanggal Lahir: <%= user.date_of_birth %></p>
+    <p>Tanggal Lahir: <%= user.date_of_birth.toDateString() %></p>
     <p>Email: <%= user.email %></p>
     <p>Nomor Telepon: <%= user.phone_number %></p>
 

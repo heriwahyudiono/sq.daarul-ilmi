@@ -15,19 +15,17 @@ const resetPasswordController = {
     if (newPassword !== confirmPassword) {
       return res.render("reset-password", {
         token,
-        errorMessage: "Passwords do not match",
+        errorMessage: "Password baru dan konfirmasi password tidak sesuai",
         successMessage: null,
       });
     }
 
-    const hashedPassword = bcrypt.hashSync(newPassword, 10);
-
-    userModel.updatePasswordByToken(token, hashedPassword, function (err, success) {
+    userModel.updatePasswordByToken(token, newPassword, function (err, success) {
       if (err) {
-        console.error("Error updating password:", err);
+        console.error("Terjadi kesalahan saat memperbarui password:", err);
         return res.render("reset-password", {
           token,
-          errorMessage: "An error occurred while resetting password",
+          errorMessage: "Terjadi kesalahan saat mereset password",
           successMessage: null,
         });
       }
@@ -35,15 +33,15 @@ const resetPasswordController = {
       if (!success) {
         return res.render("reset-password", {
           token,
-          errorMessage: "Token is invalid or has expired",
+          errorMessage: "Token tidak valid atau sudah kadaluarsa",
           successMessage: null,
         });
       }
 
-      return res.render("reset-password", {
+      return res.render("login", {
         token,
         errorMessage: null,
-        successMessage: "Password reset successfully",
+        successMessage: "Password Anda telah berhasil di reset, silakan login kembali",
       });
     });
   },

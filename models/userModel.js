@@ -7,7 +7,7 @@ const userModel = {
     const sql =
       "INSERT INTO users (name, gender, date_of_birth, email, phone_number, password, token, token_expiration, create_at) VALUES (?,?,?,?,?,?,?,?,?)";
     const saltRounds = 10;
-    const currentDate = new Date(); // Get the current date
+    const currentDate = new Date(); 
     bcrypt.hash(user.password, saltRounds, function (err, hash) {
       if (err) {
         console.log(err);
@@ -24,7 +24,7 @@ const userModel = {
             hash,
             user.verification_token,
             user.token_expiration,
-            currentDate, // Add the current date to create_at
+            currentDate, 
           ],
           function (err, result) {
             if (err) {
@@ -58,10 +58,10 @@ const userModel = {
     connection.query(sql, [email], function (err, result) {
       if (err) {
         console.log(err);
-        callback(err, null);
+        return callback(err, null);
       } else {
-        if (result.length == 0) {
-          callback(null, false);
+        if (result.length === 0) {
+          return callback(null, false); 
         } else {
           const user = result[0];
           callback(null, {
@@ -77,7 +77,7 @@ const userModel = {
       }
     });
   },
-
+  
   getUserByEmail: function (email, callback) {
     const sql = "SELECT * FROM users WHERE email = ?";
     connection.query(sql, [email], function (err, result) {
@@ -86,7 +86,7 @@ const userModel = {
         callback(err, null);
       } else {
         if (result.length == 0) {
-          callback(null, null); // Tidak ada pengguna dengan alamat email yang diberikan
+          callback(null, null); 
         } else {
           const user = result[0];
           callback(null, {
@@ -105,7 +105,7 @@ const userModel = {
   
   setToken: function (userId, resetToken, callback) {
     const currentTime = new Date();
-    const tokenExpiration = resetToken ? new Date(currentTime.getTime() + 3600000) : null; // Waktu sekarang + 1 jam (dalam milidetik)
+    const tokenExpiration = resetToken ? new Date(currentTime.getTime() + 3600000) : null; 
     const sql = "UPDATE users SET token = ?, token_expiration = ? WHERE id = ?";
     connection.query(sql, [resetToken, tokenExpiration, userId], function (err, result) {
       if (err) {
@@ -119,42 +119,41 @@ const userModel = {
   
   updatePasswordByToken: function (token, newPassword, callback) {
     const currentTime = new Date();
-    const sql = "SELECT * FROM users WHERE token = ?";
-    connection.query(sql, [token], function (err, result) {
+    const getUserSql = "SELECT * FROM users WHERE token = ?";
+  
+    connection.query(getUserSql, [token], function (err, result) {
       if (err) {
         console.error(err);
         return callback(err, null);
       }
   
       if (result.length === 0) {
-        return callback(null, false);
+        return callback(null, false); 
       }
   
       const user = result[0];
   
-      if (user.token_expiration && user.token_expiration < currentTime) {
-        // Token telah kedaluwarsa
-        return callback(null, false);
+      if (!user.token_expiration || user.token_expiration < currentTime) {
+        return callback(null, false); 
       }
   
-      const saltRounds = 10;
-  
-      bcrypt.hash(newPassword, saltRounds, function (err, hash) {
+      bcrypt.genSalt(10, function (err, salt) {
         if (err) {
-          console.error(err);
+          console.error("Terjadi kesalahan saat membuat salt:", err);
           return callback(err, null);
         }
   
-        const updateSql = "UPDATE users SET password = ? WHERE id = ?";
-        connection.query(updateSql, [hash, user.id], function (err, result) {
+        bcrypt.hash(newPassword, salt, function (err, hash) {
           if (err) {
-            console.error(err);
+            console.error("Terjadi kesalahan saat melakukan hashing password:", err);
             return callback(err, null);
           }
   
-          userModel.resetToken(token, function (err, result) {
+          const updateSql = "UPDATE users SET password = ?, token = NULL, token_expiration = NULL WHERE id = ?";
+          connection.query(updateSql, [hash, user.id], function (err, result) {
             if (err) {
               console.error(err);
+              return callback(err, null);
             }
   
             return callback(null, true);
@@ -163,7 +162,7 @@ const userModel = {
       });
     });
   },
-
+  
   resetToken: function (token, callback) {
     const sql = "UPDATE users SET token = NULL WHERE token = ?";
     connection.query(sql, [token], function (err, result) {
@@ -193,13 +192,11 @@ const userModel = {
     connection.query(sql, [id], function (err, result) {
       if (err) {
         console.log(err);
-        // Panggil callback dengan error
         if (callback) {
           callback(err, null);
         }
       } else {
         if (result.length == 0) {
-          // Panggil callback tanpa error dan data pengguna null
           if (callback) {
             callback(null, false);
           }
@@ -212,7 +209,6 @@ const userModel = {
             program_studi: user.program_studi,
             angkatan: user.angkatan,
           };
-          // Panggil callback tanpa error dengan data pengguna dan biodata
           if (callback) {
             callback(null, {
               id: user.id,
@@ -223,12 +219,29 @@ const userModel = {
               phone_number: user.phone_number,
               profile_picture: user.profile_picture,
               passwordHash: user.password,
-              create_at: user.create_at, // Pastikan Anda menyertakan properti create_at
+              create_at: user.create_at, 
               biodata: biodata,
             });
           }
         }
       }
+    });
+  },
+
+  getUserNameById: function (userId) {
+    return new Promise((resolve, reject) => {
+      const sql = "SELECT name FROM users WHERE id = ?";
+      connection.query(sql, [userId], (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          if (results.length > 0) {
+            resolve(results[0].name);
+          } else {
+            resolve(null); 
+          }
+        }
+      });
     });
   },
   

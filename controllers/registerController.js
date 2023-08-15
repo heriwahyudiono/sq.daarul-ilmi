@@ -44,8 +44,8 @@ const registerController = {
               } else {
                 console.log("Email sent: " + info.response);
                 if (result && result.verification_token !== null) {
-                  res.render("verify-your-account", { email: email });
-                }
+                  res.render("verify-account", { email: email });
+                }                
               }
             });
           }

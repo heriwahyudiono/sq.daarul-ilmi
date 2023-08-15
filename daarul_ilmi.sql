@@ -29,21 +29,11 @@ CREATE TABLE biodata (
   angkatan INT
 );
 
-CREATE TABLE chats (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  sender_id INT,
-  receiver_id INT,
-  message TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (sender_id) REFERENCES users(id),
-  FOREIGN KEY (receiver_id) REFERENCES users(id)
-);
-
 CREATE TABLE posts (
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT,
   caption TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

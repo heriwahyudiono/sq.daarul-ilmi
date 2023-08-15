@@ -8,6 +8,11 @@
 </head>
 <body>
   <h2>Login</h2>
+
+  <% if (typeof successMessage !== 'undefined') { %>
+    <p style="color: green;"><%= successMessage %></p>
+  <% } %>
+
   <form action="/login" method="POST">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>

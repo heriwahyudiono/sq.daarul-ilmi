@@ -3,12 +3,10 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 
 const forgotPasswordController = {
-  // Fungsi untuk menampilkan halaman lupa password
   getForgotPassword: function (req, res) {
     res.render("forgot-password", { errorMessage: null, successMessage: null });
   },
 
-  // Fungsi untuk mengirim email reset password
   postForgotPassword: function (req, res) {
     const email = req.body.email;
     userModel.getUserByEmail(email, function (err, user) {
@@ -30,7 +28,10 @@ const forgotPasswordController = {
                 res.render("forgot-password", { errorMessage: "Error sending reset email", successMessage: null });
               } else {
                 console.log("Email sent: " + info.response);
-                res.render("forgot-password", { successMessage: "Reset email sent successfully", errorMessage: null });
+  
+                const successMessage = `Kami telah mengirimkan tautan ke ${email} untuk mereset password Anda`;
+  
+                res.render("forgot-password", { successMessage, errorMessage: null });
               }
             });
           }
@@ -41,17 +42,16 @@ const forgotPasswordController = {
 };
 
 function sendResetEmail(email, resetToken, callback) {
-  // Konfigurasi transporter Nodemailer (sesuaikan dengan email Anda)
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "heriwhydiono@gmail.com", // Ganti dengan email Anda
-      pass: "twyvhevrdpvjdtnp", // Ganti dengan password email Anda
+      user: "heriwhydiono@gmail.com", 
+      pass: "twyvhevrdpvjdtnp", 
     },
   });
 
   const mailOptions = {
-    from: "heriwhydiono@gmail.com", // Ganti dengan email Anda
+    from: "heriwhydiono@gmail.com", 
     to: email,
     subject: "Reset Password",
     html: `

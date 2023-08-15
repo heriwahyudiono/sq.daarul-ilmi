@@ -1,7 +1,7 @@
 const userModel = require("../models/userModel.js");
 const bcrypt = require("bcryptjs");
 
-module.exports = {
+const changePasswordController = {
   getChangePassword: function (req, res) {
     if (!req.session.user) {
       return res.redirect("/login");
@@ -41,3 +41,5 @@ module.exports = {
     });
   }
 };
+
+module.exports = changePasswordController;
