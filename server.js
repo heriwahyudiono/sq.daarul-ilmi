@@ -120,7 +120,7 @@ app.get("/", function (req, res) {
   postModel
     .getAllPosts()
     .then((posts) => {
-      res.render("index", { posts: posts });
+      res.render("home", { posts: posts });
     })
     .catch((error) => {
       console.error("Failed to get posts:", error);

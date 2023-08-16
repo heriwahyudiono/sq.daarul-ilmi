@@ -93,10 +93,9 @@ const postModel = {
       const [rows] = await connection.promise().query(sql, [postId]);
 
       if (rows.length === 0) {
-        return null; // Return null if no post is found with the given postId
+        return null; 
       }
 
-      // Assemble the post object with photos and videos as needed
       const post = {
         post_id: rows[0].post_id,
         caption: rows[0].caption,

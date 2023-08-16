@@ -35,7 +35,7 @@ const postController = {
         }
       }
 
-      res.redirect("/home");
+      res.redirect("/posts");
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
@@ -68,7 +68,7 @@ const postController = {
         }
       }
       
-      res.render("index", { posts: posts });
+      res.render("posts", { posts: posts });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
