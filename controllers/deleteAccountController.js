@@ -50,7 +50,7 @@ const deleteAccountController = {
         userModel.deleteUser(userId)
           .then(function () {
             req.session.destroy();
-            res.redirect("/login");
+            res.render("account-deleted"); 
           })
           .catch(function (error) {
             console.error("Failed to delete user:", error);

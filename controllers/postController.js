@@ -42,33 +42,38 @@ const postController = {
     }
   },
 
-  getPosts: async (req, res) => {
+  getPost: async (req, res) => {
     try {
       if (!req.session.user) {
         return res.redirect("/login");
       }
 
-      const posts = await postModel.getAllPosts();
+      const postId = req.query.id;
+      const post = await postModel.getPostById(postId);
 
-      for (const post of posts) {
-        const photos = await photoModel.getPhotosByPostId(post.id);
-        const videos = await videoModel.getVideosByPostId(post.id);
-        const user = await userModel.getUserById(post.user_id);
-      
-        if (user) {
-          post.photos = photos.map(photo => ({
-            filename: photo.filename,
-            file_path: photo.file_path
-          }));
-          post.videos = videos.map(video => ({
-            filename: video.filename,
-            file_path: video.file_path
-          }));
-          post.user = user;
-        }
+      if (!post) {
+        return res.render("post-not-found");
       }
-      
-      res.render("posts", { posts: posts });
+
+      const photos = await photoModel.getPhotosByPostId(postId);
+      const videos = await videoModel.getVideosByPostId(postId);
+      const user = await userModel.getUserById(post.user_id);
+      const userProfilePicture = user ? user.profile_picture : null;
+
+      if (user) {
+        post.photos = photos.map(photo => ({
+          filename: photo.filename,
+          file_path: photo.file_path
+        }));
+        post.videos = videos.map(video => ({
+          filename: video.filename,
+          file_path: video.file_path
+        }));
+        post.user = user;
+        post.userProfilePicture = userProfilePicture;
+      }
+
+      res.render("post", { post: post });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });

@@ -34,6 +34,9 @@ app.use(
   "/uploads/profile_pictures",
   express.static(path.join(__dirname, "uploads/profile_pictures"))
 );
+app.use("/assets", express.static(path.join(__dirname, "assets")));
+app.use("/assets", express.static(path.join(__dirname, "assets/icons")));
+app.use("/assets", express.static(path.join(__dirname, "assets/images")));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
@@ -120,7 +123,7 @@ app.get("/", function (req, res) {
   postModel
     .getAllPosts()
     .then((posts) => {
-      res.render("home", { posts: posts });
+      res.render("index", { posts: posts });
     })
     .catch((error) => {
       console.error("Failed to get posts:", error);
@@ -172,23 +175,19 @@ app.get("/reset-password", (req, res) => {
 
 app.post("/reset-password", resetPasswordController.postResetPassword);
 
-app.get("/home", function (req, res) {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
+app.get("/home", async (req, res) => {
+  try {
+    if (!req.session.user) {
+      return res.redirect("/login");
+    }
 
-  postModel
-    .getAllPosts()
-    .then((posts) => {
-      res.render("home", {
-        posts: posts,
-        user_id: req.user ? req.user.id : null,
-      });
-    })
-    .catch((error) => {
-      console.error("Failed to get posts:", error);
-      res.status(500).send("Internal Server Error");
-    });
+    const posts = await postModel.getAllPosts();
+
+    res.render("home", { posts: posts });
+  } catch (error) {
+    console.error("Failed to get posts:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 app.get("/post", async function (req, res) {

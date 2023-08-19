@@ -21,6 +21,7 @@ const postModel = {
           posts.create_at,
           posts.user_id,
           users.name AS user_name,
+          users.profile_picture, -- Tambahkan ini
           photos.id AS photo_id,
           photos.file_path AS photo_file_path,
           videos.id AS video_id,
@@ -37,7 +38,7 @@ const postModel = {
       for (const row of rows) {
         const post = posts.find((p) => p.post_id === row.post_id);
         if (!post) {
-          const { post_id, caption, user_name, user_id, create_at } = row;
+          const { post_id, caption, user_name, user_id, create_at, profile_picture } = row; // Ambil profile_picture
           const photos = [];
           const videos = [];
           if (row.photo_id && row.photo_file_path) {
@@ -54,6 +55,7 @@ const postModel = {
             create_at,
             photos,
             videos,
+            userProfilePicture: profile_picture, // Tambahkan informasi gambar profil pengguna
           });
         } else {
           if (row.photo_id && row.photo_file_path) {
@@ -80,6 +82,7 @@ const postModel = {
           posts.caption,
           posts.user_id,
           users.name AS user_name,
+          users.profile_picture AS user_profile_picture, -- Tambahkan ini
           photos.id AS photo_id,
           photos.file_path AS photo_file_path,
           videos.id AS video_id,
@@ -101,6 +104,7 @@ const postModel = {
         caption: rows[0].caption,
         user_id: rows[0].user_id,
         user_name: rows[0].user_name,
+        user_profile_picture: rows[0].user_profile_picture, // Tambahkan ini
         create_at: rows[0].create_at,
         photos: [],
         videos: [],
@@ -120,7 +124,7 @@ const postModel = {
       throw error;
     }
   },
-
+  
   deletePost: async (postId) => {
     try {
       await deletePhotosByPostId(postId);

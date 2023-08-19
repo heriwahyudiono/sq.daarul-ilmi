@@ -4,44 +4,61 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Post</h1>
-  <p>Posted by: <a style="text-decoration: none;" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a></p>
-  <p><%= post.create_at %></p>
-  <p><%= post.caption %></p>
-  <div>
-    <% post.photos.forEach(function(photo) { %>
-      <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
-    <% }); %>
-    <% post.videos.forEach(function(video) { %>
-      <video style="width: 500px;" controls>
-        <source src="/<%= video.file_path %>" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    <% }); %>
-  </div>
-  
-  <button onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>
+<body class="bg-gray-100">
+  <nav class="bg-blue-500 p-4">
+    <div class="container mx-auto flex justify-end items-center">
+      <a class="text-white flex items-center space-x-1" href="/login">
+        <img class="w-6 h-6" src="../assets/icons/login.png" alt="Login">
+        <p>Login</p>
+      </a>
+    </div>
+  </nav>
 
-  <div id="disqus_thread"></div>
+  <div class="mx-8 my-4">
+    <div class="bg-white p-4 rounded-md shadow-md">
+      <div class="flex items-center mb-4">
+        <img class="rounded-full w-16 h-16 cursor-pointer" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
+        <div class="ml-4">
+          <a class="text-blue-500 font-semibold cursor-pointer" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
+          <p class="text-gray-600"><%= post.create_at %></p>
+        </div>
+      </div>
+      <p class="mb-4"><%= post.caption %></p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <% post.photos.forEach(function(photo) { %>
+          <img class="rounded-md" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
+        <% }); %>
+        <% post.videos.forEach(function(video) { %>
+          <video class="rounded-md" controls>
+            <source src="/<%= video.file_path %>" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        <% }); %>
+      </div>
+      <div class="flex justify-end mb-4">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>    
+      </div>
+      <div class="bg-gray-200 p-4 rounded-md shadow-md">
+        <div class="p-6" id="disqus_thread"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
-      (function() { 
+    (function() { 
       var d = document, s = d.createElement('script');
       s.src = 'https://sq-daarul-ilmi.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
+      s.setAttribute('data-timestamp', String(+new Date()));
       (d.head || d.body).appendChild(s);
-      })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
 
-  <script>
     function getPostUrl(postId) {
       const postURL = `${window.location.origin}/post?id=${postId}`;
       navigator.clipboard.writeText(postURL)
         .then(() => {
-          alert('Post URL copied to clipboard!');
+          alert('Post URL copied to clipboard');
         })
         .catch((error) => {
           console.error('Failed to copy post URL: ', error);

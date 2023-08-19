@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Home</title>
+</head>
+<body class="bg-gray-100 font-sans">
+  <nav class="bg-blue-500 p-4">
+    <div class="container mx-auto flex justify-end items-center">
+      <a class="text-white flex items-center space-x-1" href="/login">
+        <img class="w-6 h-6" src="../assets/icons/login.png" alt="Login">
+        <p>Login</p>
+      </a>
+    </div>
+  </nav>
+  
+  <div class="container mx-auto my-8 px-4">
+    <div class="flex items-center space-x-4">
+      <img class="w-2/5" src="../assets/images/mosque.png" alt="">
+      <div>
+        <p class="text-3xl font-semibold">SAUNG QUR'AN</p>
+        <p class="text-xl text-gray-600">Mahasiswa Berprestasi</p>
+      </div>
+    </div>
+    <div>
+      <ul>
+        <% posts.forEach(function(post) { %>
+          <li class="bg-white p-4 rounded-md shadow-md mb-4">
+            <div class="flex items-center mb-2">
+              <img class="rounded-full w-16 h-16 cursor-pointer" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
+              <a class="ml-2" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
+            </div>
+            <p class="text-gray-600 mb-2"><%= post.create_at %></p>
+            <p class="mb-4"><%= post.caption %></p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <% post.photos.forEach(function(photo) { %>
+                <img class="rounded-md" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
+              <% }); %>
+              
+              <% post.videos.forEach(function(video) { %>
+                <video class="rounded-md" controls>
+                  <source src="/<%= video.file_path %>" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              <% }); %>
+            </div>
+            <div class="flex justify-between">
+              <a class="text-blue-500 hover:underline" href="/post?id=<%= post.post_id %>">View Post</a>
+              <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>    
+            </div>   
+          </li>
+        <% }); %>    
+      </ul> 
+    </div>
+  </div>
+
+  <footer class="bg-gray-200 p-6 text-center">
+    <p class="mb-4 text-lg font-semibold">MARI TERHUBUNG DENGAN KAMI</p>
+    <div class="flex justify-center space-x-6 mb-4">
+      <a href="#" class="hover:text-purple-600 flex flex-col items-center transform hover:scale-110 transition-transform">
+        <img class="w-8 h-8" src="../assets/icons/instagram.png" alt="Instagram">
+        <p class="text-xs">Instagram</p>
+      </a>
+      <a href="#" class="hover:text-red-500 flex flex-col items-center transform hover:scale-110 transition-transform">
+        <img class="w-8 h-8" src="../assets/icons/youtube.png" alt="YouTube">
+        <p class="text-xs">YouTube</p>
+      </a>
+      <a href="#" class="hover:text-green-500 flex flex-col items-center transform hover:scale-110 transition-transform">
+        <img class="w-8 h-8" src="../assets/icons/whatsapp.png" alt="WhatsApp">
+        <p class="text-xs">WhatsApp</p>
+      </a>
+      <a href="#" class="hover:text-blue-400 flex flex-col items-center transform hover:scale-110 transition-transform">
+        <img class="w-8 h-8" src="../assets/icons/telegram.png" alt="Telegram">
+        <p class="text-xs">Telegram</p>
+      </a>
+    </div>
+  
+    <p class="text-sm text-gray-600">Copyright &copy; 2023 Infokom SQ. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function getPostUrl(postId) {
+      const postUrl = `${window.location.origin}/post?id=${postId}`;
+      navigator.clipboard.writeText(postUrl)
+        .then(() => {
+          alert('Post URL copied to clipboard');
+        })
+        .catch((error) => {
+          console.error('Failed to copy post URL: ', error);
+          alert('Failed to copy post URL');
+        });
+    }
+  </script>
+</body>
+</html>
