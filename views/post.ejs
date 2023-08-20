@@ -7,13 +7,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
-  <nav class="bg-blue-500 p-4">
-    <div class="container mx-auto flex justify-end items-center">
-      <a class="text-white flex items-center space-x-1" href="/login">
+  <nav class="bg-white p-5 relative">
+    <div class="container mx-auto flex justify-end items-center space-x-1">
+      <a class="text-gray-600 flex items-center space-x-1" href="/login">
         <img class="w-6 h-6" src="../assets/icons/login.png" alt="Login">
-        <p>Login</p>
+        <p class="text-sm">Login</p>
       </a>
     </div>
+    <div class="absolute inset-x-0 bottom-0 h-1 bg-green-500 animate-pulse"></div>
   </nav>
 
   <div class="mx-8 my-4">
@@ -21,7 +22,7 @@
       <div class="flex items-center mb-4">
         <img class="rounded-full w-16 h-16 cursor-pointer" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
         <div class="ml-4">
-          <a class="text-blue-500 font-semibold cursor-pointer" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
+          <a class="text-green-500 hover:underline" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
           <p class="text-gray-600"><%= post.create_at %></p>
         </div>
       </div>
@@ -38,7 +39,7 @@
         <% }); %>
       </div>
       <div class="flex justify-end mb-4">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>    
+        <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600" onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>    
       </div>
       <div class="bg-gray-200 p-4 rounded-md shadow-md">
         <div class="p-6" id="disqus_thread"></div>

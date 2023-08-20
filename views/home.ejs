@@ -7,54 +7,92 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Home</title>
 </head>
-<body class="mx-8 my-8">
-  <nav>
-    <a href="/home">Home</a>
-    <a href="/users">Users</a>
-    <a href="/menu">Menu</a>  
+<body class="bg-gray-100 font-sans">
+  <nav class="bg-green-500 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <a class="text-white hover:underline" href="/home">Home</a>
+        <a class="text-white hover:underline" href="/users">Users</a>
+      </div>
+      <img class="w-8 cursor-pointer" id="menuButton" src="../assets/icons/menu.png" alt="" onclick="toggleMenu()">
+      <img class="w-8 cursor-pointer hidden" id="closeMenuButton" src="../assets/icons/close-menu.png" alt="" onclick="toggleMenu()">
+    </div>
+    <div id="menu" class="absolute right-0 mt-2 mr-2 w-40 bg-gray-100 p-2 rounded shadow hidden">
+      <div class="flex items-center space-x-2">
+        <a class="flex items-center py-1 px-2 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800" href="/profile">
+          <img class="w-6 h-6" src="../assets/icons/profile.png" alt="">
+          <span class="ml-1">Profile</span>
+        </a>
+      </div>
+      <div class="flex items-center space-x-2">
+        <a class="flex items-center py-1 px-2 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800" href="/settings">
+          <img class="w-6 h-6" src="../assets/icons/settings.png" alt="">
+          <span class="ml-1">Settings</span>
+        </a>
+      </div>
+      <div class="flex items-center space-x-2">
+        <a class="flex items-center py-1 px-2 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800" href="/logout">
+          <img class="w-6 h-6" src="../assets/icons/logout.png" alt="">
+          <span class="ml-1">Logout</span>
+        </a>
+      </div>
+    </div>    
   </nav>
-
-  <a href="/create-post">Buat Postingan</a>
-
-  <ul>
-    <% posts.forEach(function(post) { %>
-      <li>
-        <div class="flex items-center">
-          <img style="width: 75px; height: 75px;" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
-          <a class="ml-2" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
-        </div>
-        <p><%= post.create_at %></p>
-          <p><%= post.caption %></p>
-          <div>
+  <a href="/create-post" class="inline-block ml-4 mt-4 mb-4 px-8 py-3 text-white bg-green-500 hover:bg-green-700 rounded-md shadow-md transition-colors duration-300 flex items-center w-56">
+    <img src="../assets/icons/plus.png" alt="" class="w-6 h-6 mr-2">
+    Buat Postingan
+  </a>
+  
+  <div>
+    <ul>
+      <% posts.forEach(function(post) { %>
+        <li class="bg-white p-4 rounded-md shadow-md mb-4">
+          <div class="flex items-center mb-2"
+            <img class="rounded-full w-16 h-16 cursor-pointer" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
+            <a class="ml-2 text-green-600 hover:underline" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
+          </div>
+          <p class="text-gray-600 mb-2"><%= post.create_at %></p>
+          <p class="mb-4"><%= post.caption %></p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <% post.photos.forEach(function(photo) { %>
-              <img style="width: 500px;" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
+              <img class="rounded-md" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
             <% }); %>
-            
             <% post.videos.forEach(function(video) { %>
-              <video style="width: 500px;" controls>
+              <video class="rounded-md" controls>
                 <source src="/<%= video.file_path %>" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             <% }); %>
           </div>
-      
-          <a href="/post?id=<%= post.post_id %>">View Post</a>
-          <button onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>       
-      </li>
-    <% }); %>    
-  </ul> 
-
+          <div class="flex justify-between">
+            <a class="text-green-500 hover:underline" href="/post?id=<%= post.post_id %>">View Post</a>
+            <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors duration-300" onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>    
+          </div>   
+        </li>
+      <% }); %>    
+    </ul> 
+  </div>
   <script>
     function getPostUrl(postId) {
       const postUrl = `${window.location.origin}/post?id=${postId}`;
       navigator.clipboard.writeText(postUrl)
         .then(() => {
-          alert('Post URL copied to clipboard!');
+          alert('Post URL copied to clipboard');
         })
         .catch((error) => {
           console.error('Failed to copy post URL: ', error);
-          alert('Failed to copy post URL.');
+          alert('Failed to copy post URL');
         });
+    }
+    
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      const menuButton = document.getElementById("menuButton");
+      const closeMenuButton = document.getElementById("closeMenuButton");
+
+      menu.classList.toggle("hidden");
+      menuButton.classList.toggle("hidden");
+      closeMenuButton.classList.toggle("hidden");
     }
   </script>
 </body>

@@ -4,52 +4,81 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Users</title>
     <style>
         .user-item {
             display: flex;
             align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
         }
         .user-item img {
             width: 50px;
-            height: 60px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
         }
-        .user-item a {
+        .user-details {
             margin-left: 10px;
+        }
+        .user-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2d3748;
         }
         .user-status {
             margin-top: 5px;
-            margin-left: 10px;
+            color: #718096;
         }
     </style>
 </head>
 <body>
+  <nav>
+    <div class="bg-blue-500 p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+          <a class="text-white" href="/home">Home</a>
+          <a class="text-white" href="/users">Users</a>
+        </div>
+        <img class="w-8 cursor-pointer" src="../assets/icons/menu.png" alt="" onclick="toggleMenu()">
+      </div>
+    </div>
+    <div id="menu" class="absolute right-0 mt-2 mr-2 w-40 bg-gray-100 p-2 rounded shadow hidden">
+      <a class="block py-1 px-4 hover:bg-gray-200" href="/profile">Profile</a>
+      <a class="block py-1 px-4 hover:bg-gray-200" href="/settings">Settings</a>
+      <a class="block py-1 px-4 hover:bg-gray-200" href="/logout">Logout</a>
+    </div>    
+  </nav>
 
-    <a href="/home">Home</a>
-    <a href="/users">Users</a>
-    <a href="/menu">Menu</a><br>
-  
-    <h2>Users: <%= users.length %></h2>
-    <ul>
-      <% users.forEach(function (user) { %>
-        <li class="user-item">
-          <a href="/user?id=<%= user.id %>">
-            <img style="width: 75px; height: 75px;" src="<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= user.id %>';">
-          </a>
-          <div>
-            <a href="/user?id=<%= user.id %>" onclick="window.location.href='/user?id=<%= user.id %>';">
-              <%= user.name %>
+    <div class="container mx-auto my-8 px-4">
+      <h2 class="text-2xl font-semibold mb-4">Users: <%= users.length %></h2>
+      <ul>
+        <% users.forEach(function (user) { %>
+          <li class="user-item">
+            <a href="/user?id=<%= user.id %>">
+              <img src="<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="<%= user.name %>'s Profile Picture">
             </a>
-            <div class="user-status">
-              <% if (user.is_login) { %>
-                <span>Sedang login</span>
-              <% } else { %>
-                <span>Terakhir login: <%= user.last_login %></span>
-              <% } %>
+            <div class="user-details">
+              <a class="user-name" href="/user?id=<%= user.id %>"><%= user.name %></a>
+              <p class="user-status">
+                <% if (user.is_login) { %>
+                  <span class="text-green-600">Sedang login</span>
+                <% } else { %>
+                  <span class="text-gray-500">Terakhir login: <%= user.last_login %></span>
+                <% } %>
+              </p>
             </div>
-          </div>
-        </li>
-      <% }); %>
-    </ul>    
+          </li>
+        <% }); %>
+      </ul> 
+    </div> 
+
+    <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.classList.toggle("hidden");
+    }
+    </script>
 </body>
 </html>

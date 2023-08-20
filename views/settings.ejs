@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100 font-sans p-8">
+  <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
+    <h2 class="text-2xl font-semibold mb-4">Settings</h2>
+
+    <a href="/change-password" class="text-blue-500 hover:underline">Change Password</a><br>
     
-    <a href="/change-password">Change Password</a><br>
-    <form id="delete-account-form" action="/delete-account" method="POST">
-        <input type="button" value="Delete Account" onclick="confirmDelete()">
+    <form id="delete-account-form" action="/delete-account" method="POST" class="mt-4">
+      <button type="button" onclick="confirmDelete()" class="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition-colors duration-300">
+        Delete Account
+      </button>
     </form>
-    
-    <script>
-        function confirmDelete() {
-            if (confirm("Apakah Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan!")) {
-                document.getElementById("delete-account-form").submit();
-            }
-        }
-    </script>
+  </div>
+  
+  <script>
+    function confirmDelete() {
+      if (confirm("Apakah Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan!")) {
+        document.getElementById("delete-account-form").submit();
+      }
+    }
+  </script>
 </body>
 </html>

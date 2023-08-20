@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
-  </head>
-  <body>
-
-    <h2>Profile</h2>
-
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans p-8">
+  <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
+    <h2 class="text-2xl font-semibold mb-4">Profile</h2>
+    
     <% if (message) { %>
-    <p><%= message %></p>
+    <p class="text-green-500 mb-4"><%= message %></p>
     <% } %>
 
     <img src="/<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>"
-    alt=""
-    style="width: 100px"
+    alt="Profile Picture"
+    class="w-32 h-32 rounded-full mb-4"
     />
   
-    <form action="/update-profile-picture" method="POST" enctype="multipart/form-data">
-      <input type="file" name="profilePicture" accept="image/jpeg, image/jpg, image/png" required>
-      <button type="submit">Upload</button>
+    <form action="/update-profile-picture" method="POST" enctype="multipart/form-data" class="mb-4">
+      <input type="file" name="profilePicture" accept="image/jpeg, image/jpg, image/png" required class="mb-2">
+      <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300">Upload</button>
     </form>
 
     <form id="confirm-delete" action="/delete-profile-picture" method="POST">
-      <button type="button" onclick="confirmDelete()">Hapus Foto</button>
+      <button type="button" onclick="confirmDelete()" class="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition-colors duration-300">Hapus Foto</button>
     </form><br>
 
-    <p>Bergabung pada: <%= user.create_at %></p>
+    <p class="mb-6">Bergabung pada: <%= user.create_at %></p>
+
     <p>Nama Lengkap: <%= user.name %></p>
     <p>Jenis Kelamin: <%= user.gender %></p>
     <p>Tanggal Lahir: <%= user.date_of_birth.toDateString() %></p>
     <p>Email: <%= user.email %></p>
     <p>Nomor Telepon: <%= user.phone_number %></p>
 
-    <a href="/edit-profile">Edit Profil</a>
+    <a href="/edit-profile" class="text-blue-500 hover:underline mt-4 inline-block">Edit Profil</a>
 
-    <h2>Biodata</h2>
+    <h2 class="text-2xl font-semibold mt-8">Biodata</h2>
 
     <% if (biodata) { %>
     <p>Perguruan Tinggi: <%= biodata.perguruan_tinggi %></p>
@@ -45,17 +47,18 @@
     <p>Program Studi: <%= biodata.program_studi %></p>
     <p>Angkatan: <%= biodata.angkatan %></p>
     <% } else { %>
-    <p>Biodata has not been filled in</p>
+    <p class="text-gray-500">Biodata has not been filled in</p>
     <% } %>
 
-    <a href="/update-biodata">Update Biodata</a>
+    <a href="/update-biodata" class="text-blue-500 hover:underline mt-4 inline-block">Update Biodata</a>
+  </div>
 
-    <script>
-      function confirmDelete() {
-        if (confirm("Apakah Anda yakin ingin menghapus foto profil?")) {
-          document.getElementById("confirm-delete").submit();
-        }
+  <script>
+    function confirmDelete() {
+      if (confirm("Apakah Anda yakin ingin menghapus foto profil?")) {
+        document.getElementById("confirm-delete").submit();
       }
-    </script>
-  </body>
+    }
+  </script>
+</body>
 </html>
