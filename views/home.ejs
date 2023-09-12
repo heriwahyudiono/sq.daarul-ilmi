@@ -44,34 +44,40 @@
   </a>
   
   <div>
-    <ul>
-      <% posts.forEach(function(post) { %>
-        <li class="bg-white p-4 rounded-md shadow-md mb-4">
-          <div class="flex items-center mb-2"
-            <img class="rounded-full w-16 h-16 cursor-pointer" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
-            <a class="ml-2 text-green-600 hover:underline" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
+    <% posts.forEach(function(post) { %>
+      <div class="bg-white p-6 rounded-md shadow-md mb-8">
+        <div class="flex items-center space-x-4">
+          <img class="rounded-full w-16 h-16 cursor-pointer" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
+          <a class="text-green-500 hover:underline" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
+        </div>
+        <p class="text-gray-600 mt-2"><%= post.create_at %></p>
+        <p class="mt-4"><%= post.caption %></p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <% post.photos.forEach(function(photo) { %>
+            <img class="rounded-md" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
+          <% }); %>
+          
+          <% post.videos.forEach(function(video) { %>
+            <video class="rounded-md" controls>
+              <source src="/<%= video.file_path %>" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          <% }); %>
+        </div>
+        <div class="flex mt-4">
+          <a class="text-green-500 mr-2" href="/post?id=<%= post.post_id %>">View Post</a>
+          <div>
+            <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 relative" onclick="getPostUrl('<%= post.post_id %>')">
+              Copy URL
+              <img class="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4" src="../assets/icons/link.png" alt="">
+            </button>
           </div>
-          <p class="text-gray-600 mb-2"><%= post.create_at %></p>
-          <p class="mb-4"><%= post.caption %></p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <% post.photos.forEach(function(photo) { %>
-              <img class="rounded-md" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
-            <% }); %>
-            <% post.videos.forEach(function(video) { %>
-              <video class="rounded-md" controls>
-                <source src="/<%= video.file_path %>" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-            <% }); %>
-          </div>
-          <div class="flex justify-between">
-            <a class="text-green-500 hover:underline" href="/post?id=<%= post.post_id %>">View Post</a>
-            <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors duration-300" onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>    
-          </div>   
-        </li>
-      <% }); %>    
-    </ul> 
+        </div>
+      </div>
+    <% }); %>    
   </div>
+</div>
+
   <script>
     function getPostUrl(postId) {
       const postUrl = `${window.location.origin}/post?id=${postId}`;

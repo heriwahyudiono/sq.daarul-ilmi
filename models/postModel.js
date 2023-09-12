@@ -38,7 +38,7 @@ const postModel = {
       for (const row of rows) {
         const post = posts.find((p) => p.post_id === row.post_id);
         if (!post) {
-          const { post_id, caption, user_name, user_id, create_at, profile_picture } = row; // Ambil profile_picture
+          const { post_id, caption, user_name, user_id, create_at, profile_picture } = row; 
           const photos = [];
           const videos = [];
           if (row.photo_id && row.photo_file_path) {
@@ -55,7 +55,7 @@ const postModel = {
             create_at,
             photos,
             videos,
-            userProfilePicture: profile_picture, // Tambahkan informasi gambar profil pengguna
+            userProfilePicture: profile_picture, 
           });
         } else {
           if (row.photo_id && row.photo_file_path) {
@@ -104,7 +104,7 @@ const postModel = {
         caption: rows[0].caption,
         user_id: rows[0].user_id,
         user_name: rows[0].user_name,
-        user_profile_picture: rows[0].user_profile_picture, // Tambahkan ini
+        user_profile_picture: rows[0].user_profile_picture, 
         create_at: rows[0].create_at,
         photos: [],
         videos: [],
