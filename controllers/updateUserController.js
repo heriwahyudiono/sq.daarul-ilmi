@@ -38,7 +38,7 @@ const updateUserController = {
           req.session.user = user;
           req.session.message = "Profil berhasil diperbarui";
           const userId = user.id;
-          res.redirect(`/user?id=${userId}`);
+          res.redirect("/profile");
         }
       });
     } else {

@@ -7,7 +7,7 @@ const userModel = {
     const sql =
       "INSERT INTO users (name, gender, date_of_birth, email, phone_number, password, token, token_expiration, create_at) VALUES (?,?,?,?,?,?,?,?,?)";
     const saltRounds = 10;
-    const currentDate = new Date(); 
+    const currentDate = new Date();
     bcrypt.hash(user.password, saltRounds, function (err, hash) {
       if (err) {
         console.log(err);
@@ -24,7 +24,7 @@ const userModel = {
             hash,
             user.verification_token,
             user.token_expiration,
-            currentDate, 
+            currentDate,
           ],
           function (err, result) {
             if (err) {
@@ -38,10 +38,11 @@ const userModel = {
       }
     });
   },
-  
+
   verifyAccount: function (token, callback) {
     const currentTime = new Date();
-    const sql = "UPDATE users SET is_account_verified = 1, token = NULL WHERE token = ? AND token_expiration > ?";
+    const sql =
+      "UPDATE users SET is_account_verified = 1, token = NULL WHERE token = ? AND token_expiration > ?";
     connection.query(sql, [token, currentTime], function (err, result) {
       if (err) {
         console.log(err);
@@ -52,7 +53,7 @@ const userModel = {
       }
     });
   },
-  
+
   login: function (email, callback) {
     const sql = "SELECT * FROM users WHERE email = ?";
     connection.query(sql, [email], function (err, result) {
@@ -61,7 +62,7 @@ const userModel = {
         return callback(err, null);
       } else {
         if (result.length === 0) {
-          return callback(null, false); 
+          return callback(null, false);
         } else {
           const user = result[0];
           callback(null, {
@@ -77,7 +78,7 @@ const userModel = {
       }
     });
   },
-  
+
   getUserByEmail: function (email, callback) {
     const sql = "SELECT * FROM users WHERE email = ?";
     connection.query(sql, [email], function (err, result) {
@@ -86,7 +87,7 @@ const userModel = {
         callback(err, null);
       } else {
         if (result.length == 0) {
-          callback(null, null); 
+          callback(null, null);
         } else {
           const user = result[0];
           callback(null, {
@@ -101,68 +102,78 @@ const userModel = {
         }
       }
     });
-  }, 
-  
+  },
+
   setToken: function (userId, resetToken, callback) {
     const currentTime = new Date();
-    const tokenExpiration = resetToken ? new Date(currentTime.getTime() + 3600000) : null; 
+    const tokenExpiration = resetToken
+      ? new Date(currentTime.getTime() + 3600000)
+      : null;
     const sql = "UPDATE users SET token = ?, token_expiration = ? WHERE id = ?";
-    connection.query(sql, [resetToken, tokenExpiration, userId], function (err, result) {
-      if (err) {
-        console.error(err);
-        callback(err, null);
-      } else {
-        callback(null, result);
+    connection.query(
+      sql,
+      [resetToken, tokenExpiration, userId],
+      function (err, result) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          callback(null, result);
+        }
       }
-    });
-  },  
-  
+    );
+  },
+
   updatePasswordByToken: function (token, newPassword, callback) {
     const currentTime = new Date();
     const getUserSql = "SELECT * FROM users WHERE token = ?";
-  
+
     connection.query(getUserSql, [token], function (err, result) {
       if (err) {
         console.error(err);
         return callback(err, null);
       }
-  
+
       if (result.length === 0) {
-        return callback(null, false); 
+        return callback(null, false);
       }
-  
+
       const user = result[0];
-  
+
       if (!user.token_expiration || user.token_expiration < currentTime) {
-        return callback(null, false); 
+        return callback(null, false);
       }
-  
+
       bcrypt.genSalt(10, function (err, salt) {
         if (err) {
           console.error("Terjadi kesalahan saat membuat salt:", err);
           return callback(err, null);
         }
-  
+
         bcrypt.hash(newPassword, salt, function (err, hash) {
           if (err) {
-            console.error("Terjadi kesalahan saat melakukan hashing password:", err);
+            console.error(
+              "Terjadi kesalahan saat melakukan hashing password:",
+              err
+            );
             return callback(err, null);
           }
-  
-          const updateSql = "UPDATE users SET password = ?, token = NULL, token_expiration = NULL WHERE id = ?";
+
+          const updateSql =
+            "UPDATE users SET password = ?, token = NULL, token_expiration = NULL WHERE id = ?";
           connection.query(updateSql, [hash, user.id], function (err, result) {
             if (err) {
               console.error(err);
               return callback(err, null);
             }
-  
+
             return callback(null, true);
           });
         });
       });
     });
   },
-  
+
   resetToken: function (token, callback) {
     const sql = "UPDATE users SET token = NULL WHERE token = ?";
     connection.query(sql, [token], function (err, result) {
@@ -173,17 +184,21 @@ const userModel = {
         callback(null, result);
       }
     });
-  },  
-  
+  },
+
   updateUserStatus: function (userId, lastLogin, isLogin, callback) {
     const query = "UPDATE users SET last_login = ?, is_login = ? WHERE id = ?";
-    connection.query(query, [lastLogin, isLogin, userId], function (err, result) {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null);
+    connection.query(
+      query,
+      [lastLogin, isLogin, userId],
+      function (err, result) {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null);
+        }
       }
-    });
+    );
   },
 
   getUserById: function (id, callback) {
@@ -219,7 +234,7 @@ const userModel = {
               phone_number: user.phone_number,
               profile_picture: user.profile_picture,
               passwordHash: user.password,
-              create_at: user.create_at, 
+              create_at: user.create_at,
               biodata: biodata,
             });
           }
@@ -238,13 +253,13 @@ const userModel = {
           if (results.length > 0) {
             resolve(results[0].name);
           } else {
-            resolve(null); 
+            resolve(null);
           }
         }
       });
     });
   },
-  
+
   getAllUsers: function (callback) {
     const sql = "SELECT * FROM users";
     connection.query(sql, function (err, result) {
@@ -255,7 +270,7 @@ const userModel = {
         callback(null, result);
       }
     });
-  },  
+  },
 
   updateUser: function (user, callback) {
     const sql =
@@ -283,16 +298,20 @@ const userModel = {
 
   updateProfilePicture: function (user, callback) {
     const sql = "UPDATE users SET profile_picture = ? WHERE id = ?";
-    connection.query(sql, [user.profile_picture, user.id], function (err, result) {
-      if (err) {
-        console.log(err);
-        callback(err, null);
-      } else {
-        callback(null, result);
+    connection.query(
+      sql,
+      [user.profile_picture, user.id],
+      function (err, result) {
+        if (err) {
+          console.log(err);
+          callback(err, null);
+        } else {
+          callback(null, result);
+        }
       }
-    });
+    );
   },
-  
+
   deleteProfilePicture: function (userId, callback) {
     const sql = "UPDATE users SET profile_picture = NULL WHERE id = ?";
     connection.query(sql, [userId], function (err, result) {
@@ -324,43 +343,55 @@ const userModel = {
         console.error(err);
         return callback(err, null);
       }
-      
+
       if (result.length === 0) {
         return callback(null, false);
       }
-      
+
       const user = result[0];
-      const saltRounds = 10; 
-      
+      const saltRounds = 10;
+
       bcrypt.compare(currentPassword, user.password, function (err, isMatch) {
         if (err) {
           console.error(err);
           return callback(err, null);
         }
-        
+
         if (!isMatch) {
           return callback(null, false);
         }
-        
+
         bcrypt.hash(newPassword, saltRounds, function (err, hash) {
           if (err) {
             console.error(err);
             return callback(err, null);
           }
-          
+
           const updateSql = "UPDATE users SET password = ? WHERE id = ?";
           connection.query(updateSql, [hash, userId], function (err, result) {
             if (err) {
               console.error(err);
               return callback(err, null);
             }
-            
+
             return callback(null, true);
           });
         });
       });
     });
-  }
+  },
+
+  deleteUser: function (userId, callback) {
+    const sql = "DELETE FROM users WHERE id = ?";
+    connection.query(sql, [userId], function (err, result) {
+      if (err) {
+        console.log(err);
+        callback(err, null);
+      } else {
+        callback(null, result.affectedRows > 0);
+      }
+    });
+  },
 };
 
 module.exports = userModel;

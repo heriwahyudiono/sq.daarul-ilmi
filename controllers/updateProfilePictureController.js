@@ -20,12 +20,12 @@ const updateProfilePictureController = {
           } else {
             req.session.user.profile_picture = profilePicture;
             req.session.message = "Foto profil berhasil diperbarui";
-            res.redirect(`/user?id=${userId}`);
+            res.redirect("/profile");
           }
         });
       } else {
         req.session.message = "Error: Terjadi kesalahan saat memperbarui foto profil";
-        res.redirect("/user");
+        res.redirect("/profile");
       }
     } else {
       res.redirect("/login");

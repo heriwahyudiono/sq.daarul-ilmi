@@ -20,6 +20,16 @@ const videoModel = {
     } catch (error) {
       throw error;
     }
+  },
+
+  deleteVideoById: async (videoId) => {
+    try {
+      const sql = 'DELETE FROM videos WHERE id = ?';
+      const [result] = await connection.promise().query(sql, [videoId]);
+      return result.affectedRows > 0;
+    } catch (error) {
+      throw error;
+    }
   }
 };
 

@@ -47,7 +47,7 @@ const updateBiodataController = {
               return res.status(500).send("Internal Server Error");
             }
             req.session.message = "Biodata berhasil diperbarui";
-            res.redirect("/user?id=" + userId);
+            res.redirect("/profile");
           });
         } else {
           biodataModel.createBiodata(biodata, function (err, result) {
@@ -56,7 +56,7 @@ const updateBiodataController = {
               return res.status(500).send("Internal Server Error");
             }
             req.session.message = "Biodata berhasil ditambahkan";
-            res.redirect("/user?id=" + userId);
+            res.redirect("/profile");
           });
         }
       });
