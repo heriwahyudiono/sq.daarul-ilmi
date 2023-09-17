@@ -68,18 +68,6 @@ const biodataModel = {
         }
       }
     );
-  },
-
-  deleteBiodataByUserId: function (userId, callback) {
-    const sql = "DELETE FROM biodata WHERE user_id = ?";
-    connection.query(sql, [userId], function (err, result) {
-      if (err) {
-        console.log(err);
-        callback(err, null);
-      } else {
-        callback(null, result.affectedRows > 0);
-      }
-    });
   }
 };
 

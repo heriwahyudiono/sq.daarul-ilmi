@@ -18,16 +18,6 @@ const photoModel = {
     } catch (error) {
       throw error;
     }
-  },
-
-  deletePhotosByPostId: async (postId) => {
-    try {
-      const sql = 'DELETE FROM photos WHERE post_id = ?';
-      const [result] = await connection.promise().query(sql, [postId]);
-      return result.affectedRows > 0;
-    } catch (error) {
-      throw error;
-    }
   }
 };
 

@@ -34,7 +34,7 @@ CREATE TABLE posts (
   user_id INT,
   caption TEXT,
   create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users(id) 
 );
 
 CREATE TABLE photos (

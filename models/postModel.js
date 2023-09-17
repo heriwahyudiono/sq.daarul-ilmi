@@ -82,7 +82,7 @@ const postModel = {
           posts.caption,
           posts.user_id,
           users.name AS user_name,
-          users.profile_picture AS user_profile_picture, -- Tambahkan ini
+          users.profile_picture AS user_profile_picture, 
           photos.id AS photo_id,
           photos.file_path AS photo_file_path,
           videos.id AS video_id,
@@ -123,37 +123,6 @@ const postModel = {
     } catch (error) {
       throw error;
     }
-  },
-  
-  deletePost: async (postId) => {
-    try {
-      await deletePhotosByPostId(postId);
-      await deleteVideosByPostId(postId);
-
-      const sql = 'DELETE FROM posts WHERE id = ?';
-      const [result] = await connection.promise().query(sql, [postId]);
-      return result.affectedRows > 0;
-    } catch (error) {
-      throw error;
-    }
-  }
-};
-
-async function deletePhotosByPostId(postId) {
-  try {
-    const sql = 'DELETE FROM photos WHERE post_id = ?';
-    await connection.promise().query(sql, [postId]);
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function deleteVideosByPostId(postId) {
-  try {
-    const sql = 'DELETE FROM videos WHERE post_id = ?';
-    await connection.promise().query(sql, [postId]);
-  } catch (error) {
-    throw error;
   }
 }
 

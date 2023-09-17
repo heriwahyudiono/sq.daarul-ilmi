@@ -323,19 +323,7 @@ const userModel = {
       }
     });
   },
-
-  deleteUser: function (userId, callback) {
-    const sql = "DELETE FROM users WHERE id = ?";
-    connection.query(sql, [userId], function (err, result) {
-      if (err) {
-        console.log(err);
-        callback(err, null);
-      } else {
-        callback(null, result.affectedRows > 0);
-      }
-    });
-  },
-
+  
   changePassword: function (userId, currentPassword, newPassword, callback) {
     const sql = "SELECT * FROM users WHERE id = ?";
     connection.query(sql, [userId], function (err, result) {
@@ -378,18 +366,6 @@ const userModel = {
           });
         });
       });
-    });
-  },
-
-  deleteUser: function (userId, callback) {
-    const sql = "DELETE FROM users WHERE id = ?";
-    connection.query(sql, [userId], function (err, result) {
-      if (err) {
-        console.log(err);
-        callback(err, null);
-      } else {
-        callback(null, result.affectedRows > 0);
-      }
     });
   },
 };
