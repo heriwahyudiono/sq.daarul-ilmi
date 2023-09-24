@@ -1,0 +1,50 @@
+@tailwind base;
+
+.alert_message,
+.alert_success {
+    @apply grid grid-flow-col auto-cols-auto gap-x-4 content-center items-center p-3 mb-14 rounded-2xl;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    background: rgba(255, 255, 255, 0.48);
+    color: var(--ffffff, #FFF);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.alert_wrong {
+    @apply auto-cols-max;
+    color: #C52284 !important;
+    border: 1px solid #C52284;
+    background: rgba(197, 34, 132, 0.32);
+}
+
+.alert_wrong>div {
+    color: #C52284 !important;
+}
+
+.illustration_notif_page,
+.illustration_notif_page>p,
+.illustration_notif_page>div{
+    @apply text-center py-14 px-6 border rounded-xl mt-28 mx-4;
+    border-color:hsla(0, 0%, 100%, 0.16);
+    background: hsla(0, 0%, 100%, 0.08);
+    color: hsla(0, 0%, 100%, 0.64) !important;
+}
+
+
+.illustration_notif_page>p,
+.illustration_notif_page>div{
+    @apply p-0 m-0 border-none;
+    background:none !important;
+}
+
+.illustration_notif_page b{
+    color: hsla(0, 0%, 100%, 1) !important;
+    font-size: 14px !important;
+}
+
+.illustration_notif_page>svg{
+    @apply inline mx-auto mb-8;
+}
+
+@tailwind components;
+@tailwind utilities;

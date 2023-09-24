@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify Account</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+    <link href="../assets/css/output.css" rel="stylesheet">
+    <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+    <script src="../tailwind_custom.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <%- include('style.ejs') %>
+        <%- include('tailwind_custom.ejs') %>
 </head>
+
 <body>
-    <p>Kami telah mengirimkan tautan ke <%= email %> untuk memverifikasi akun Anda</p>
+    <div class="background_circle_1">
+        <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+    </div>
+
+    <div class="illustration_notif_page">
+        <svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M69.7667 13C69.4824 14.4001 69.3333 15.8493 69.3333 17.3333C69.3333 18.8174 69.4824 20.2665 69.7667 21.6666H19.5496L52.2682 50.5353L74.1425 30.9461C75.9906 33.2318 78.2942 35.1341 80.9155 36.5149L52.3111 62.1313L17.3333 31.2691V82.3333H86.6667V38.5666C88.0668 38.8508 89.5158 39 91 39C92.4842 39 93.9332 38.8508 95.3333 38.5666V86.6666C95.3333 89.0599 93.3933 91 91 91H13C10.6068 91 8.66666 89.0599 8.66666 86.6666V17.3333C8.66666 14.9401 10.6068 13 13 13H69.7667ZM91 4.33331C98.1799 4.33331 104 10.1536 104 17.3333C104 24.513 98.1799 30.3333 91 30.3333C83.8201 30.3333 78 24.513 78 17.3333C78 10.1536 83.8201 4.33331 91 4.33331Z"
+                fill="#0EA5E9" />
+            <path
+                d="M91 4.33331C98.1799 4.33331 104 10.1536 104 17.3333C104 24.513 98.1799 30.3333 91 30.3333C83.8201 30.3333 78 24.513 78 17.3333C78 10.1536 83.8201 4.33331 91 4.33331Z"
+                fill="white" />
+        </svg>
+
+        <br>
+        <p>Kami telah mengirimkan tautan ke <b>
+                <%= email %>
+            </b> untuk memverifikasi akun Anda</p>
+    </div>
 </body>
+
 </html>

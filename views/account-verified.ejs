@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account Verified</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+  <link href="../assets/css/output.css" rel="stylesheet">
+  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+  <script src="../tailwind_custom.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <%- include('style.ejs') %>
+    <%- include('tailwind_custom.ejs') %>
 </head>
+
 <body>
+  <div class="background_circle_1">
+      <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+  </div>
+
+  <div class="illustration_notif_page">
+    <svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M52 4.33331L87.6066 12.2459C89.5895 12.6865 91 14.445 91 16.4761V59.7519C91 68.445 86.6554 76.5631 79.4222 81.3852L52 99.6666L24.5778 81.3852C17.3446 76.5631 13 68.445 13 59.7519V16.4761C13 14.445 14.4106 12.6865 16.3933 12.2459L52 4.33331ZM52 13.2114L21.6667 19.9521V59.7519C21.6667 65.5473 24.5631 70.9592 29.3852 74.1741L52 89.2506L74.6148 74.1741C79.4369 70.9592 82.3333 65.5473 82.3333 59.7519V19.9521L52 13.2114Z" fill="#22C55E"/>
+      <path d="M71.2937 35.6279L77.4219 41.7562L49.8446 69.3333L31.46 50.9487L37.5882 44.8201L49.8416 57.0739L71.2937 35.6279Z" fill="white"/>
+      </svg>
+<br>      
   <p>Akun Anda telah berhasil di verifikasi</p>
-  
+</div>
   <script>
-    setTimeout(function() {
+    setTimeout(function () {
       window.location.href = "/home";
     }, 3000); 
   </script>
 </body>
+
 </html>

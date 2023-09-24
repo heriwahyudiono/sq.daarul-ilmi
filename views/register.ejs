@@ -1,45 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daftar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+  <link href="../assets/css/output.css" rel="stylesheet">
+  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+  <script src="../tailwind_custom.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <%- include('style.ejs') %>
+    <%- include('tailwind_custom.ejs') %>
 </head>
-<body>
-  <h2>Daftar</h2>
-  <form action="/register" method="post">
-    <label for="name">Nama Lengkap:</label>
-    <input type="text" id="name" name="name" required>
-    <br>
-    <label for="gender">Jenis Kelamin:</label>
-    <select id="gender" name="gender">
-      <option value="Male">Laki-laki</option>
-      <option value="Female">Perempuan</option>
-    </select>
-    <br>
-    <label for="date_of_birth">Tanggal Lahir:</label>
-    <input type="date" id="date_of_birth" name="date_of_birth" required>
-    <br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    <br>
-    <label for="phone_number">Nomor Telepon:</label>
-    <input type="tel" id="phone_number" name="phone_number" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <label for="confirm_password">Konfirmasi Password:</label>
-    <input type="password" id="confirm_password" name="confirm_password" required>
-    <br>
-    
-    <% if (typeof errorMessage !== 'undefined') { %>
-      <p style="color: red;"><%= errorMessage %></p>
-    <% } %>
 
-    <input type="submit" value="Daftar">
-  </form>
-  <p>Sudah punya akun? <a href="/login">Login</a></p>
+<body>
+  <img class="background_line_1" src="../assets/background/bg_pattern.svg" alt="" srcset="">
+  <div class="background_circle_2">
+    <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-8 w-96">
+    <!--     text-2xl font-semibold mb-4 -->
+    <svg class="icon_header" width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.64">
+        <path
+          d="M56 57.008V65.3656C53.4976 64.4812 50.8052 64 48 64C34.7452 64 24 74.7452 24 88H16C16 70.3268 30.3269 56 48 56C50.7624 56 53.4432 56.35 56 57.008ZM48 52C34.74 52 24 41.26 24 28C24 14.74 34.74 4 48 4C61.26 4 72 14.74 72 28C72 41.26 61.26 52 48 52ZM48 44C56.84 44 64 36.84 64 28C64 19.16 56.84 12 48 12C39.16 12 32 19.16 32 28C32 36.84 39.16 44 48 44ZM80 68H92V76H80V90L60 72L80 54V68Z"
+          fill="#10B981" />
+      </g>
+    </svg>
+
+
+
+    <h2 class="text-3xl">Pendaftaran</h2>
+    <form action="/register" method="post">
+      <label for="name" class="block mb-2">Nama Lengkap:</label>
+      <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" type="text" id="name" name="name"
+        placeholder='Budi Budiman' required>
+      <br>
+      <label for="gender">Jenis Kelamin:</label>
+      <select class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" id="gender" name="gender">
+        <option value="Male">Laki-laki</option>
+        <option value="Female">Perempuan</option>
+      </select>
+      <br>
+      <label for="date_of_birth">Tanggal Lahir:</label>
+      <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" type="date" id="date_of_birth"
+        name="date_of_birth" placeholder='' required>
+      <br>
+      <label for="email">Email:</label>
+      <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" type="email" id="email"
+        name="email" placeholder="budibudiman@email.com" required>
+      <br>
+      <label for="phone_number">Nomor Telepon:</label>
+      <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" type="tel" id="phone_number"
+        name="phone_number" placeholder='085720075826' required>
+      <br>
+      <label for="password">Password:</label>
+      <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" type="password" id="password"
+        name="password" placeholder='********' required>
+      <br>
+      <label for="confirm_password">Konfirmasi Password:</label>
+      <input class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" type="password"
+        id="confirm_password" name="confirm_password" placeholder='********' required>
+      <br>
+
+      <% if (typeof errorMessage !=='undefined' ) { %>
+        <div class="alert_message alert_wrong" style="color: red;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M16 29.3334C8.63622 29.3334 2.66669 23.3638 2.66669 16C2.66669 8.63622 8.63622 2.66669 16 2.66669C23.3638 2.66669 29.3334 8.63622 29.3334 16C29.3334 23.3638 23.3638 29.3334 16 29.3334ZM16 26.6667C21.8911 26.6667 26.6667 21.8911 26.6667 16C26.6667 10.109 21.8911 5.33335 16 5.33335C10.109 5.33335 5.33335 10.109 5.33335 16C5.33335 21.8911 10.109 26.6667 16 26.6667ZM14.6667 20H17.3334V22.6667H14.6667V20ZM14.6667 9.33335H17.3334V17.3334H14.6667V9.33335Z"
+              fill="#C52284" />
+          </svg>
+
+          <div>
+            <%= errorMessage %>
+          </div>
+        </div>
+        <% } %>
+
+          <input
+            class="button_purple w-full bg-blue-500 text-white py-2 mt-4 rounded-md hover:bg-blue-600 transition duration-300"
+            type="submit" value="Daftar">
+    </form>
+    <div class="mt-14 mb-16 text-center">Sudah punya akun? <a href="/login">Login</a></div>
+  </div>
 </body>
+
 </html>

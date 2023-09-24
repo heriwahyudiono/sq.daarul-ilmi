@@ -1,0 +1,315 @@
+<style>
+   @font-face {
+      font-family: Poppins-Regular;
+      src: url(../assets/fonts/Poppins-Regular.ttf);
+      font-family: Poppins-SemiBold;
+      src: url(../assets/fonts/Poppins-SemiBold.ttf);
+      font-family: Poppins-SemiBoldItalic;
+      src: url(../assets/fonts/Poppins-SemiBoldItalic.ttf);
+      font-family: Poppins-Thin;
+      src: url(../assets/fonts/Poppins-Thin.ttf);
+      font-family: Poppins-ThinItalic;
+      src: url(../assets/fonts/Poppins-ThinItalic.ttf);
+      font-family: Poppins-MediumItalic;
+      src: url(../assets/fonts/Poppins-MediumItalic.ttf);
+      font-family: Poppins-Medium;
+      src: url(../assets/fonts/Poppins-Medium.ttf);
+      font-family: Poppins-LightItalic;
+      src: url(../assets/fonts/Poppins-LightItalic.ttf);
+      font-family: Poppins-Light;
+      src: url(../assets/fonts/Poppins-Light.ttf);
+      font-family: Poppins-Italic;
+      src: url(../assets/fonts/Poppins-Italic.ttf);
+      font-family: Poppins-ExtraLightItalic;
+      src: url(../assets/fonts/Poppins-ExtraLightItalic.ttf);
+      font-family: Poppins-ExtraLight;
+      src: url(../assets/fonts/Poppins-ExtraLight.ttf);
+      font-family: Poppins-ExtraBoldItalic;
+      src: url(../assets/fonts/Poppins-ExtraBoldItalic.ttf);
+      font-family: Poppins-ExtraBold;
+      src: url(../assets/fonts/Poppins-ExtraBold.ttf);
+      font-family: Poppins-Bold;
+      src: url(../assets/fonts/Poppins-Bold.ttf);
+      font-family: Poppins-Black;
+      src: url(../assets/fonts/Poppins-Black.ttf);
+   }
+
+   * {
+      font-family: 'Poppins' !important;
+      color: white;
+      /* label input */
+      /* font-family: Inter; */
+      font-size: 12px;
+      font-weight: 400;
+   }
+
+   body {
+      padding-left: 12px;
+      padding-right: 12px;
+      box-sizing: border-box;
+      background: #0F172A;
+      min-width: 360px !important;
+      max-width: 420px;
+      justify-content: unset !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      display: block !important;
+      position: relative !important;
+      font-size: 14px;
+      /* font-weight: 400; */
+   }
+
+   body>div,
+   body>p,
+   body>div,
+   body>div>a,
+   body>div>div>body>div>div>a,
+   body>div>p,
+   body>div>div>p,
+   body>div>div>p>a {
+      font-size: 14px;
+   }
+
+   .background_line_1 {
+      position: absolute;
+      top: -104px;
+      right: 0;
+      left: 0;
+      width: 100%;
+      z-index: -1;
+   }
+
+   .background_circle_1>img {
+      width: 300px;
+      filter: blur(72px);
+      display: inline;
+      margin-right: -40px;
+   }
+
+   .background_circle_1 {
+      position: fixed;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 360px;
+      max-width: 420px;
+      top: 72px;
+      right: 0;
+      left: 0;
+      margin-right: auto;
+      margin-left: auto;
+      z-index: -2;
+      text-align: right;
+   }
+
+   .background_circle_2>img {
+      width: 300px;
+      filter: blur(72px);
+      display: inline;
+      margin-right: -40px;
+   }
+
+   .background_circle_2 {
+      position: absolute;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 360px;
+      max-width: 420px;
+      top: 324px;
+      right: 0;
+      left: 0;
+      margin-right: auto;
+      margin-left: auto;
+      z-index: -2;
+      text-align: right;
+   }
+
+   div,
+   p,
+   a,
+   form {
+      z-index: 3;
+   }
+
+   form {
+      padding: 24px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(19, 27, 46, 0.64);
+      backdrop-filter: blur(32px);
+   }
+
+   .bg-white.shadow-md.rounded-lg.p-8.w-96 {
+      background: none;
+      box-shadow: none;
+      padding: 0px;
+      width: unset;
+      min-width: unset;
+      max-width: unset;
+   }
+
+   .text-3xl {
+      /* font-family: Inter; */
+      font-size: 32px !important;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal !important;
+      background: var(--gradient, linear-gradient(270deg, #22C55E 0%, #0EA5E9 57.29%, #6366F1 100%));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+   }
+
+   .icon_header:before {
+      height: 104px;
+      content: '';
+   }
+
+   .icon_header {
+      margin-bottom: 36px;
+      opacity: 0.64;
+      margin-top: 72px;
+      display: block;
+   }
+
+   .icon_header~.text-3xl {
+      margin-bottom: 32px;
+   }
+
+   select~label,
+   input~label,
+
+   textarea~label {
+      color: var(--ffffff, #FFF);
+      /* font-family: Inter; */
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 8px !important;
+      display: block !important;
+
+   }
+
+   input[type='text'],
+   input[type='email'],
+   input[type='number'],
+   input[type='password'],
+   input[type='tel'],
+   input[type='number'],
+   input[type='date'],
+   select,
+   textarea {
+      border-radius: 12px !important;
+      background: rgba(255, 255, 255, 0.16);
+      display: flex;
+      padding: 12px 16px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      align-self: stretch;
+      color: var(--ffffff, hsla(0, 0%, 100%, 0.8));
+      border: 0px solid white !important;
+      min-height: 46px;
+      /* placeholder */
+      /* font-family: Inter; */
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400 !important;
+      line-height: normal;
+   }
+
+   input[type='date']::-webkit-calendar-picker-indicator {
+      background: url('../assets/icons/icon_calendar.svg') no-repeat center;
+   }
+
+   select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin-right: 24px;
+      background-image: url('../assets/icons/icon_dropdown.svg') !important;
+      background-position: right center;
+      background-repeat: no-repeat;
+      background-size: 24px;
+      background-position: calc(100% - 16px) center;
+      border-radius: 16px;
+      font-size: 14px !important;
+      padding-left: 16px !important;
+      /* Menggeser ikon ke kiri sejauh 20px */
+
+   }
+
+   select:checked {
+      padding-left: 16px !important;
+   }
+
+   select option {
+      border-bottom: 1px solid hsla(0, 0%, 80%, 0.8);
+      /* Border option */
+      background: hsla(222, 42%, 13%, 0.8);
+      padding: 20px !important;
+      color: white;
+      font-size: 18px;
+      font-weight: 400;
+   }
+
+   select option:first-child {
+      border-radius: 20px 20px 0px 0px;
+   }
+
+   select option:last-child {
+      border-radius: 0px 0px 20px 20px;
+   }
+
+   input[type='text']::placeholder,
+   input[type='email']::placeholder,
+   input[type='number']::placeholder,
+   input[type='password']::placeholder,
+   input[type='date']::placeholder,
+   input[type='number']::placeholder,
+   select::placeholder,
+   input[type='tel']::placeholder,
+   textarea::placeholder {
+      opacity: 0.4;
+      font-weight: 300 !important;
+   }
+
+   input[type='submit'],
+   input~button {
+      display: flex;
+      padding: 16px !important;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      align-self: stretch;
+      border-radius: 12px !important;
+      margin-top: 16px !important;
+      background: linear-gradient(270deg, #22C55E 0%, #0EA5E9 57.29%, #6366F1 100%) !important;
+      box-shadow: 0px 16px 24px 0px rgba(99, 102, 241, 0.40);
+      color: var(--ffffff, #FFF);
+      text-align: center;
+      /* font-family: Inter; */
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+   }
+
+   .button_purple {
+      background: #6366F1 !important;
+   }
+
+   input[type='email']::placeholder {
+      content: 'budibudiman@gmail.com'
+   }
+
+   a {
+      color: var(--0-ea-5-e-9, #0EA5E9) !important;
+   }
+
+   p a {
+      font-size: 14px;
+   }
+
+   .alert_success {}
+</style>
