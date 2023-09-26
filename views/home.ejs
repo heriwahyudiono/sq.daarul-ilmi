@@ -1,96 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+  <link href="../assets/css/output.css" rel="stylesheet">
+  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+  <script src="../tailwind_custom.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <%- include('style.ejs') %>
+    <%- include('tailwind_custom.ejs') %>
 </head>
-<body class="bg-gray-100 font-sans">
-  <nav class="bg-green-500 p-4">
+
+<body class="font-sans pb-28 ">
+  <nav class="nav_login">
     <div class="container mx-auto flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <a class="text-white hover:underline" href="/home">Home</a>
-        <a class="text-white hover:underline" href="/users">Users</a>
+      <div class="flex">
+        <a class="menu_selected text-white hover:underline" href="/home"><img src="../assets/icons/icon_home.svg" alt=""
+            srcset="">Home</a>
+        <a class="text-white hover:underline" href="/users"><img src="../assets/icons/icon_user.svg">Users</a>
       </div>
-      <img class="w-8 cursor-pointer" id="menuButton" src="../assets/icons/menu.png" alt="" onclick="toggleMenu()">
-      <img class="w-8 cursor-pointer hidden" id="closeMenuButton" src="../assets/icons/close-menu.png" alt="" onclick="toggleMenu()">
+      <a class="menu_create_post" href="/create-post"
+        class="inline-block ml-4 mt-4 mb-4 px-8 py-3 text-white bg-green-500 hover:bg-green-700 rounded-md shadow-md transition-colors duration-300 flex items-center w-56">
+        <img src="../assets/icons/icon_add.svg" alt="">
+
+      </a>
+      <a class="menu_drawer">
+        <img class="w-8 cursor-pointer" id="menuButton" src="../assets/icons/icon_menu.svg" alt=""
+          onclick="toggleMenu()">
+        <svg onclick="toggleMenu()" class="w-8 cursor-pointer hidden" id="closeMenuButton" width="24" height="24"
+          viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"
+            fill="white" />
+        </svg>
+      </a>
     </div>
-    <div id="menu" class="absolute right-0 mt-2 mr-2 w-40 bg-gray-100 p-2 rounded shadow hidden">
+    <div id="menu" class="hidden">
       <div class="flex items-center space-x-2">
-        <a class="flex items-center py-1 px-2 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800" href="/profile">
-          <img class="w-6 h-6" src="../assets/icons/profile.png" alt="">
+        <a class="flex items-center transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800"
+          href="/profile"><svg width="32" height="33" viewBox="0 0 32 33" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M26.6668 29.8333H24.0002V27.1667C24.0002 24.9575 22.2094 23.1667 20.0002 23.1667H12.0002C9.79103 23.1667 8.00016 24.9575 8.00016 27.1667V29.8333H5.3335V27.1667C5.3335 23.4848 8.31827 20.5 12.0002 20.5H20.0002C23.682 20.5 26.6668 23.4848 26.6668 27.1667V29.8333ZM16.0002 17.8333C11.5819 17.8333 8.00016 14.2516 8.00016 9.83334C8.00016 5.41506 11.5819 1.83334 16.0002 1.83334C20.4184 1.83334 24.0002 5.41506 24.0002 9.83334C24.0002 14.2516 20.4184 17.8333 16.0002 17.8333ZM16.0002 15.1667C18.9456 15.1667 21.3335 12.7789 21.3335 9.83334C21.3335 6.88782 18.9456 4.5 16.0002 4.5C13.0546 4.5 10.6668 6.88782 10.6668 9.83334C10.6668 12.7789 13.0546 15.1667 16.0002 15.1667Z"
+              fill="white" />
+          </svg>
+
           <span class="ml-1">Profile</span>
         </a>
       </div>
       <div class="flex items-center space-x-2">
-        <a class="flex items-center py-1 px-2 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800" href="/settings">
-          <img class="w-6 h-6" src="../assets/icons/settings.png" alt="">
+        <a class="flex items-center transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800"
+          href="/settings"><svg width="32" height="33" viewBox="0 0 32 33" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M16.0002 1.83333L28.6668 9.16667V23.8333L16.0002 31.1667L3.3335 23.8333V9.16667L16.0002 1.83333ZM16.0002 4.91467L6.00016 10.7041V22.2959L16.0002 28.0853L26.0002 22.2959V10.7041L16.0002 4.91467ZM16.0002 21.8333C13.0546 21.8333 10.6668 19.4455 10.6668 16.5C10.6668 13.5545 13.0546 11.1667 16.0002 11.1667C18.9456 11.1667 21.3335 13.5545 21.3335 16.5C21.3335 19.4455 18.9456 21.8333 16.0002 21.8333ZM16.0002 19.1667C17.473 19.1667 18.6668 17.9728 18.6668 16.5C18.6668 15.0272 17.473 13.8333 16.0002 13.8333C14.5274 13.8333 13.3335 15.0272 13.3335 16.5C13.3335 17.9728 14.5274 19.1667 16.0002 19.1667Z"
+              fill="white" />
+          </svg>
+
           <span class="ml-1">Settings</span>
         </a>
       </div>
       <div class="flex items-center space-x-2">
-        <a class="flex items-center py-1 px-2 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800" href="/logout">
-          <img class="w-6 h-6" src="../assets/icons/logout.png" alt="">
+        <a class="flex items-center transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800"
+          href="/logout"><svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M6.66683 29.8333C5.93046 29.8333 5.3335 29.2364 5.3335 28.5V4.5C5.3335 3.76363 5.93046 3.16667 6.66683 3.16667H25.3335C26.0699 3.16667 26.6668 3.76363 26.6668 4.5V8.5H24.0002V5.83333H8.00016V27.1667H24.0002V24.5H26.6668V28.5C26.6668 29.2364 26.0699 29.8333 25.3335 29.8333H6.66683ZM24.0002 21.8333V17.8333H14.6668V15.1667H24.0002V11.1667L30.6668 16.5L24.0002 21.8333Z"
+              fill="white" />
+          </svg>
+
           <span class="ml-1">Logout</span>
         </a>
       </div>
-    </div>    
+    </div>
   </nav>
-  <a href="/create-post" class="inline-block ml-4 mt-4 mb-4 px-8 py-3 text-white bg-green-500 hover:bg-green-700 rounded-md shadow-md transition-colors duration-300 flex items-center w-56">
-    <img src="../assets/icons/plus.png" alt="" class="w-6 h-6 mr-2">
-    Buat Postingan
-  </a>
-  
-  <div>
-    <% posts.forEach(function(post) { %>
-      <div class="bg-white p-6 rounded-md shadow-md mb-8">
-        <div class="flex items-center space-x-4">
-          <img class="rounded-full w-16 h-16 cursor-pointer" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
-          <a class="text-green-500 hover:underline" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
-        </div>
-        <p class="text-gray-600 mt-2"><%= post.create_at %></p>
-        <p class="mt-4"><%= post.caption %></p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          <% post.photos.forEach(function(photo) { %>
-            <img class="rounded-md" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
-          <% }); %>
-          
-          <% post.videos.forEach(function(video) { %>
-            <video class="rounded-md" controls>
-              <source src="/<%= video.file_path %>" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          <% }); %>
-        </div>
-        <div class="flex mt-4">
-          <a class="text-green-500 mr-2" href="/post?id=<%= post.post_id %>">View Post</a>
-          <div>
-            <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 relative" onclick="getPostUrl('<%= post.post_id %>')">
-              Copy URL
-              <img class="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4" src="../assets/icons/link.png" alt="">
-            </button>
-          </div>
-        </div>
-      </div>
-    <% }); %>    
+  <div class="row_logo">
+    <div class="logo_app">
+      <img src="../assets/images/img_logo_app.png" alt="" srcset="">
+    </div>
+    <div class="logo_type">
+      <div>Saung<br>Qur'an</div>
+      <div>Mahasiswa<br>berprestasi</div>
+    </div>
+    <div><svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M46.6667 33V27.3333C48.5 26.5556 50.375 25.9722 52.2917 25.5833C54.2083 25.1945 56.2222 25 58.3333 25C59.7778 25 61.1944 25.1111 62.5833 25.3333C63.9722 25.5556 65.3333 25.8333 66.6667 26.1667V31.5C65.3333 31 63.9861 30.625 62.625 30.375C61.2639 30.125 59.8333 30 58.3333 30C56.2222 30 54.1944 30.2639 52.25 30.7917C50.3055 31.3195 48.4444 32.0556 46.6667 33ZM46.6667 51.3333V45.6667C48.5 44.8889 50.375 44.3056 52.2917 43.9167C54.2083 43.5278 56.2222 43.3333 58.3333 43.3333C59.7778 43.3333 61.1944 43.4445 62.5833 43.6667C63.9722 43.8889 65.3333 44.1667 66.6667 44.5V49.8333C65.3333 49.3333 63.9861 48.9583 62.625 48.7083C61.2639 48.4583 59.8333 48.3333 58.3333 48.3333C56.2222 48.3333 54.1944 48.5833 52.25 49.0833C50.3055 49.5833 48.4444 50.3333 46.6667 51.3333ZM46.6667 42.1667V36.5C48.5 35.7222 50.375 35.1389 52.2917 34.75C54.2083 34.3611 56.2222 34.1667 58.3333 34.1667C59.7778 34.1667 61.1944 34.2778 62.5833 34.5C63.9722 34.7222 65.3333 35 66.6667 35.3333V40.6667C65.3333 40.1667 63.9861 39.7917 62.625 39.5417C61.2639 39.2917 59.8333 39.1667 58.3333 39.1667C56.2222 39.1667 54.1944 39.4306 52.25 39.9583C50.3055 40.4861 48.4444 41.2222 46.6667 42.1667ZM21.6666 53.3333C24.2778 53.3333 26.8194 53.625 29.2916 54.2083C31.7639 54.7917 34.2222 55.6667 36.6666 56.8333V24C34.3889 22.6667 31.9722 21.6667 29.4166 21C26.8611 20.3333 24.2778 20 21.6666 20C19.6666 20 17.6805 20.1945 15.7083 20.5833C13.7361 20.9722 11.8333 21.5556 9.99998 22.3333V55.3333C11.9444 54.6667 13.875 54.1667 15.7916 53.8333C17.7083 53.5 19.6666 53.3333 21.6666 53.3333ZM43.3333 56.8333C45.7778 55.6667 48.2361 54.7917 50.7083 54.2083C53.1805 53.625 55.7222 53.3333 58.3333 53.3333C60.3333 53.3333 62.2917 53.5 64.2083 53.8333C66.125 54.1667 68.0555 54.6667 70 55.3333V22.3333C68.1667 21.5556 66.2639 20.9722 64.2917 20.5833C62.3194 20.1945 60.3333 20 58.3333 20C55.7222 20 53.1389 20.3333 50.5833 21C48.0278 21.6667 45.6111 22.6667 43.3333 24V56.8333ZM40 66.6667C37.3333 64.5556 34.4444 62.9167 31.3333 61.75C28.2222 60.5833 25 60 21.6666 60C19.3333 60 17.0416 60.3056 14.7916 60.9167C12.5416 61.5278 10.3889 62.3889 8.33331 63.5C7.16665 64.1111 6.04165 64.0833 4.95831 63.4167C3.87498 62.75 3.33331 61.7778 3.33331 60.5V20.3333C3.33331 19.7222 3.48609 19.1389 3.79165 18.5833C4.0972 18.0278 4.55554 17.6111 5.16665 17.3333C7.7222 16 10.3889 15 13.1666 14.3333C15.9444 13.6667 18.7778 13.3333 21.6666 13.3333C24.8889 13.3333 28.0416 13.75 31.125 14.5833C34.2083 15.4167 37.1666 16.6667 40 18.3333C42.8333 16.6667 45.7917 15.4167 48.875 14.5833C51.9583 13.75 55.1111 13.3333 58.3333 13.3333C61.2222 13.3333 64.0555 13.6667 66.8333 14.3333C69.6111 15 72.2778 16 74.8333 17.3333C75.4444 17.6111 75.9028 18.0278 76.2083 18.5833C76.5139 19.1389 76.6667 19.7222 76.6667 20.3333V60.5C76.6667 61.7778 76.125 62.75 75.0417 63.4167C73.9583 64.0833 72.8333 64.1111 71.6667 63.5C69.6111 62.3889 67.4583 61.5278 65.2083 60.9167C62.9583 60.3056 60.6667 60 58.3333 60C55 60 51.7778 60.5833 48.6667 61.75C45.5555 62.9167 42.6667 64.5556 40 66.6667Z"
+          fill="white" />
+      </svg>
+    </div>
+    <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M10.6144 17.7956L11.492 15.7854C12.2731 13.9966 13.6789 12.5726 15.4325 11.7942L17.8482 10.7219C18.6162 10.381 18.6162 9.26368 17.8482 8.92277L15.5079 7.88394C13.7092 7.08552 12.2782 5.60881 11.5105 3.75894L10.6215 1.61673C10.2916 0.821766 9.19319 0.821768 8.8633 1.61673L7.97427 3.75892C7.20657 5.60881 5.77553 7.08552 3.97685 7.88394L1.63658 8.92277C0.868537 9.26368 0.868536 10.381 1.63658 10.7219L4.0523 11.7942C5.80589 12.5726 7.21171 13.9966 7.99275 15.7854L8.8704 17.7956C9.20776 18.5682 10.277 18.5682 10.6144 17.7956ZM19.4014 22.6899L19.6482 22.1242C20.0882 21.1156 20.8807 20.3125 21.8695 19.8732L22.6299 19.5353C23.0412 19.3526 23.0412 18.7549 22.6299 18.5722L21.9121 18.2532C20.8978 17.8026 20.0911 16.9698 19.6586 15.9269L19.4052 15.3156C19.2285 14.8896 18.6395 14.8896 18.4628 15.3156L18.2094 15.9269C17.777 16.9698 16.9703 17.8026 15.956 18.2532L15.2381 18.5722C14.8269 18.7549 14.8269 19.3526 15.2381 19.5353L15.9985 19.8732C16.9874 20.3125 17.7798 21.1156 18.2198 22.1242L18.4667 22.6899C18.6473 23.104 19.2207 23.104 19.4014 22.6899Z"
+          fill="white" />
+      </svg>
+    </div>
+    <div class="decoration_row_logo"></div>
   </div>
-</div>
+  <img class="background_line_1" src="../assets/background/bg_pattern.svg" alt="" srcset="">
+  <div class="background_circle_1">
+    <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+  </div>
+  <div class="bg-white shadow-md rounded-lg p-8 w-96">
+    <!--     text-2xl font-semibold mb-4 -->
+    <div>
+      <% posts.forEach(function(post) { %>
+        <div href="/post?id=<%= post.post_id %>" class="block card_post bg-white p-6 rounded-md shadow-md mb-8">
+          <div class="flex items-center space-x-4">
+            <img class="user_profile rounded-full w-16 h-16 cursor-pointer"
+              src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>"
+              alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
+            <div class="column_name_and_time"><a class="text-green-500 hover:underline"
+                href="/user?id=<%= post.user_id %>">
+                <%= post.user_name %>
+              </a>
+              <p class="showTime">
+                <%= post.create_at %>
+              </p>
+              <!-- <p class="cardTime">
+              </p> -->
+            </div>
+            <div>
+              <button class="button_copy_link text-white rounded-md relative"
+                onclick="getPostUrl('<%= post.post_id %>')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10.8837 6.75895L12.0622 7.93745C14.3403 10.2155 14.3403 13.909 12.0622 16.187L11.7675 16.4817C9.48954 18.7598 5.79605 18.7598 3.51799 16.4817C1.23993 14.2036 1.23993 10.5102 3.51799 8.23208L4.6965 9.41059C3.06932 11.0378 3.06932 13.676 4.6965 15.3032C6.32368 16.9303 8.96188 16.9303 10.589 15.3032L10.8837 15.0085C12.5109 13.3813 12.5109 10.7432 10.8837 9.11601L9.70521 7.93745L10.8837 6.75895ZM16.4816 11.7676L15.3031 10.5891C16.9303 8.96192 16.9303 6.32373 15.3031 4.69655C13.676 3.06936 11.0377 3.06936 9.41054 4.69655L9.11596 4.99118C7.48873 6.61836 7.48873 9.25659 9.11596 10.8838L10.2945 12.0623L9.11596 13.2408L7.93741 12.0623C5.65935 9.78417 5.65935 6.09072 7.93741 3.81266L8.23203 3.51804C10.5101 1.23998 14.2035 1.23998 16.4816 3.51804C18.7597 5.7961 18.7597 9.48959 16.4816 11.7676Z"
+                    fill="white" />
+                </svg>
 
+              </button>
+            </div>
+          </div>
+          <div class="img_post_slider">
+            <div>
+              <% post.photos.forEach(function(photo) { %>
+                <img class="" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
+                <% }); %>
+
+                  <% post.videos.forEach(function(video) { %>
+                    <video class="" controls>
+                      <source src="/<%= video.file_path %>" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                    <% }); %>
+            </div>
+          </div>
+          <p class="caption_post">
+            <%= post.caption %>
+          </p>
+          <a class="lihat_post" href="/post?id=<%= post.post_id %>">Lihat postingan</a>
+        </div>
+        <% }); %>
+    </div>
+  </div>
+  <!-- </div> -->
+
+  <!-- <script>document.addEventListener("DOMContentLoaded", function() {
+    // Kode JavaScript Anda di sini
+  
+  // Loop melalui setiap card
+cards.forEach((card) => {
+  // Mengambil elemen "showTime" dalam card saat ini
+  const showTimeElement = card.querySelector(".showTime");
+
+  // Teks tanggal awal dari elemen "showTime" dalam card saat ini
+  const tanggalAwal = showTimeElement.textContent;
+
+  // Membuat objek Date dari teks tanggal awal
+  const tanggal = new Date(tanggalAwal);
+
+  // Mengambil komponen tanggal yang diperlukan
+  const jam = tanggal.getHours();
+  const menit = tanggal.getMinutes();
+  const bulan = tanggal.toLocaleString('id-ID', { month: 'long' }); // Menggunakan bahasa Indonesia untuk nama bulan
+  const tahun = tanggal.getFullYear();
+
+  // Membuat teks baru dengan format yang diinginkan
+  const teksBaru = `${jam}.${menit} WIB - ${tanggal.getDate()} ${bulan} ${tahun}`;
+
+  // Mengganti konten elemen "showTime" dalam card saat ini dengan teks baru
+  showTimeElement.textContent = teksBaru;
+});
+});
+
+  </script> -->
+
+  <div id="snackbarNotif" class="snackbar_notif snackBarHidden" onclick="closeSnackBar()">
+    <div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17 17H22V19H19V22H17V17ZM7 7H2V5H5V2H7V7ZM18.364 15.5355L16.9497 14.1213L18.364 12.7071C20.3166 10.7545 20.3166 7.58866 18.364 5.63604C16.4113 3.68342 13.2455 3.68342 11.2929 5.63604L9.87868 7.05025L8.46447 5.63604L9.87868 4.22183C12.6123 1.48816 17.0445 1.48816 19.7782 4.22183C22.5118 6.9555 22.5118 11.3877 19.7782 14.1213L18.364 15.5355ZM15.5355 18.364L14.1213 19.7782C11.3877 22.5118 6.9555 22.5118 4.22183 19.7782C1.48816 17.0445 1.48816 12.6123 4.22183 9.87868L5.63604 8.46447L7.05025 9.87868L5.63604 11.2929C3.68342 13.2455 3.68342 16.4113 5.63604 18.364C7.58866 20.3166 10.7545 20.3166 12.7071 18.364L14.1213 16.9497L15.5355 18.364ZM14.8284 7.75736L16.2426 9.17157L9.17157 16.2426L7.75736 14.8284L14.8284 7.75736Z"
+          fill="white" />
+      </svg>
+
+    </div>
+    <div>
+      Link postingan disalin
+    </div><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_24_485)">
+        <path
+          d="M5.3072 8.8978L5.746 7.8927C6.13655 6.9983 6.83945 6.2863 7.71625 5.8971L8.9241 5.36095C9.3081 5.1905 9.3081 4.63184 8.9241 4.46138L7.75395 3.94197C6.8546 3.54276 6.1391 2.8044 5.75525 1.87947L5.31075 0.808365C5.1458 0.410883 4.5966 0.410884 4.43165 0.808365L3.98714 1.87946C3.60329 2.8044 2.88776 3.54276 1.98842 3.94197L0.81829 4.46138C0.434268 4.63184 0.434268 5.1905 0.81829 5.36095L2.02615 5.8971C2.90295 6.2863 3.60586 6.9983 3.99638 7.8927L4.4352 8.8978C4.60388 9.2841 5.1385 9.2841 5.3072 8.8978ZM9.7007 11.3449L9.8241 11.0621C10.0441 10.5578 10.4404 10.1562 10.9348 9.9366L11.315 9.76765C11.5206 9.6763 11.5206 9.37745 11.315 9.2861L10.9561 9.1266C10.4489 8.9013 10.0456 8.4849 9.8293 7.96345L9.7026 7.6578C9.61425 7.4448 9.31975 7.4448 9.2314 7.6578L9.1047 7.96345C8.8885 8.4849 8.48515 8.9013 7.978 9.1266L7.61905 9.2861C7.41345 9.37745 7.41345 9.6763 7.61905 9.76765L7.99925 9.9366C8.4937 10.1562 8.8899 10.5578 9.1099 11.0621L9.23335 11.3449C9.32365 11.552 9.61035 11.552 9.7007 11.3449Z"
+          fill="white" />
+      </g>
+      <defs>
+        <clipPath id="clip0_24_485">
+          <rect width="12" height="12" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+
+  </div>
   <script>
+    var snackbarNotif = document.getElementById('snackbarNotif');
+
+    function openSnackBar() {
+      snackbarNotif.classList.remove('snackBarHidden'); setTimeout(function () {
+        closeSnackBar();
+      }, 3000);
+    }
+
     function getPostUrl(postId) {
       const postUrl = `${window.location.origin}/post?id=${postId}`;
       navigator.clipboard.writeText(postUrl)
         .then(() => {
-          alert('Post URL copied to clipboard');
+          openSnackBar();
+          // alert('Post URL copied to clipboard');
         })
         .catch((error) => {
           console.error('Failed to copy post URL: ', error);
           alert('Failed to copy post URL');
         });
     }
-    
+
+    function closeSnackBar() {
+      snackbarNotif.classList.add('snackBarHidden');
+    }
+
     function toggleMenu() {
       const menu = document.getElementById("menu");
       const menuButton = document.getElementById("menuButton");
@@ -102,4 +256,5 @@
     }
   </script>
 </body>
+
 </html>

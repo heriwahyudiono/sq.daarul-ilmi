@@ -1,5 +1,202 @@
 @tailwind base;
 
+.nav_login {
+    @apply fixed bottom-0 grid-flow-col auto-cols-max gap-x-2.5 w-full content-center items-center p-3;
+    max-width: 420px;
+    padding: 12px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px 12px 0px 0px;
+    margin-left: -12px;
+    background: var(--gradient, linear-gradient(270deg, #22C55E 0%, #0EA5E9 57.29%, #6366F1 100%));
+    -webkit-border-radius: 12px 12px 0px 0px;
+    -moz-border-radius: 12px 12px 0px 0px;
+    -ms-border-radius: 12px 12px 0px 0px;
+    -o-border-radius: 12px 12px 0px 0px;
+    z-index: 5;
+}
+
+.nav_login>.container>.flex {
+    @apply grid grid-flow-col auto-cols-auto gap-x-4 content-center items-center;
+}
+
+.nav_login>.container>.flex>a {
+    @apply grid grid-flow-col auto-cols-auto gap-x-4 content-center items-center;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    border-radius: 12px;
+    background: var(--ffffff, #FFF);
+    box-shadow: 0px 16px 24px 0px rgba(99, 102, 241, 0.40);
+    font-size: 14px;
+    color: #10B981 !important;
+}
+
+.nav_login>.container>.flex>a:not(.menu_selected) {
+    background: rgba(255, 255, 255, 0.32);
+    color: white !important;
+}
+
+.menu_create_post {
+    display: flex;
+    position: absolute;
+    margin-top: -24px;
+    right: 0;
+    margin-right: 92px;
+    padding: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid white;
+    border-radius: 24px !important;
+    background: linear-gradient(315deg, #22C55E 0%, #0EA5E9 57.29%, #6366F1 100%);
+    box-shadow: 0px 12px 56px 0px #6366F1;
+    color: white !important;
+    -webkit-border-radius: 24px !important;
+    -moz-border-radius: 24px !important;
+    -ms-border-radius: 24px !important;
+    -o-border-radius: 24px !important;
+}
+
+.menu_create_post>img {
+    height: 40px;
+    width: 40px
+}
+
+.nav_login>.container>.flex {
+    @apply gap-2.5;
+    display: flex;
+}
+
+.menu_drawer {
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.32);
+    box-shadow: 0px 16px 24px 0px rgba(99, 102, 241, 0.12);
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    z-index: 9;
+}
+
+#menu {
+    @apply flex-col justify-center pr-7 pl-12;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    background: rgba(15, 23, 42, 0.64);
+    backdrop-filter: blur(22px);
+}
+
+#menu:not(.hidden) {
+    @apply flex;
+}
+
+#menu>.items-center {
+    /* @apply flex-start; */
+    flex-direction: column !important;
+    width: 100%;
+    max-width: 420px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    padding: 0px !important;
+}
+
+#menu>.items-center>a {
+    @apply justify-items-start;
+    width: 100% !important;
+    padding: 0px 16px !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+#menu>.items-center::before,
+#menu>.items-center:last-child::after {
+    margin-bottom: 16px !important;
+    margin-top: 16px !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    content: '';
+    display: block !important;
+    width: 100%;
+    height: 1px;
+    background: white;
+    opacity: 0.12;
+}
+
+#menu>.items-center:last-child::after {
+    /* margin:0 !important; */
+}
+
+.row_logo {
+    @apply mt-11 mb-8 flex flex-row gap-4 relative;
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.row_logo>.logo_app {
+    @apply bg-white;
+    width: 96px;
+    /* width: 72px !important;
+    height: 72px !important; */
+    border-radius: 0px 20px 20px 0px;
+    padding: 12px;
+    -webkit-border-radius: 0px 20px 20px 0px;
+    -moz-border-radius: 0px 20px 20px 0px;
+    -ms-border-radius: 0px 20px 20px 0px;
+    -o-border-radius: 0px 20px 20px 0px;
+    /* flex-grow: 1; */
+}
+
+.logo_type {
+    align-self: stretch;
+    /* width: 100%; */
+    flex-grow: 1;
+}
+
+.logo_type>div:first-child {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+
+.logo_type>div:last-child {
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    opacity: 0.8;
+}
+
+.row_logo>.logo_app>img {
+    width: 72px !important;
+    height: 72px !important;
+}
+
+.decoration_row_logo {
+    position: absolute;
+    background: white;
+    right: 0;
+    bottom: 6px;
+    height: 1px;
+    width: 36.7%;
+}
+
 .alert_message,
 .alert_success {
     @apply grid grid-flow-col auto-cols-auto gap-x-4 content-center items-center p-3 mb-14 rounded-2xl;
@@ -23,27 +220,45 @@
 
 .illustration_notif_page,
 .illustration_notif_page>p,
-.illustration_notif_page>div{
+.illustration_notif_page>div {
     @apply text-center py-14 px-6 border rounded-xl mt-28 mx-4;
-    border-color:hsla(0, 0%, 100%, 0.16);
+    border-color: hsla(0, 0%, 100%, 0.16);
     background: hsla(0, 0%, 100%, 0.08);
     color: hsla(0, 0%, 100%, 0.64) !important;
 }
 
 
 .illustration_notif_page>p,
-.illustration_notif_page>div{
+.illustration_notif_page>div {
     @apply p-0 m-0 border-none;
-    background:none !important;
+    background: none !important;
 }
 
-.illustration_notif_page b{
+.illustration_notif_page b {
     color: hsla(0, 0%, 100%, 1) !important;
     font-size: 14px !important;
 }
 
-.illustration_notif_page>svg{
+.illustration_notif_page>svg {
     @apply inline mx-auto mb-8;
+}
+
+.card_post,
+.card_post.shadow-md {
+    border-radius: 24px;
+    background-color: rgba(15, 23, 42, 0.64) !important;
+    box-shadow: 0px 4px 144px 0px rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(32px);
+    display: flex;
+    padding: 20px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    -webkit-border-radius: 24px;
+    -moz-border-radius: 24px;
+    -ms-border-radius: 24px;
+    -o-border-radius: 24px;
 }
 
 @tailwind components;

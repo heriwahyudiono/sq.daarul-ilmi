@@ -6,62 +6,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+  <link href="../assets/css/output.css" rel="stylesheet">
+  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+  <script src="../tailwind_custom.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <%- include('style.ejs') %>
+    <%- include('tailwind_custom.ejs') %>
 </head>
-<body class="bg-gray-100">
-  <nav class="bg-white p-5 relative">
-    <div class="container mx-auto flex justify-end items-center">
+<body class="">
+  <div class="row_logo">
+    <div class="logo_app">
+      <img src="../assets/images/img_logo_app.png" alt="" srcset="">
+    </div>
+    <div class="logo_type">
+      <div>Saung<br>Qur'an</div>
+      <div>Mahasiswa<br>berprestasi</div>
+    </div>
+    <div><svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M46.6667 33V27.3333C48.5 26.5556 50.375 25.9722 52.2917 25.5833C54.2083 25.1945 56.2222 25 58.3333 25C59.7778 25 61.1944 25.1111 62.5833 25.3333C63.9722 25.5556 65.3333 25.8333 66.6667 26.1667V31.5C65.3333 31 63.9861 30.625 62.625 30.375C61.2639 30.125 59.8333 30 58.3333 30C56.2222 30 54.1944 30.2639 52.25 30.7917C50.3055 31.3195 48.4444 32.0556 46.6667 33ZM46.6667 51.3333V45.6667C48.5 44.8889 50.375 44.3056 52.2917 43.9167C54.2083 43.5278 56.2222 43.3333 58.3333 43.3333C59.7778 43.3333 61.1944 43.4445 62.5833 43.6667C63.9722 43.8889 65.3333 44.1667 66.6667 44.5V49.8333C65.3333 49.3333 63.9861 48.9583 62.625 48.7083C61.2639 48.4583 59.8333 48.3333 58.3333 48.3333C56.2222 48.3333 54.1944 48.5833 52.25 49.0833C50.3055 49.5833 48.4444 50.3333 46.6667 51.3333ZM46.6667 42.1667V36.5C48.5 35.7222 50.375 35.1389 52.2917 34.75C54.2083 34.3611 56.2222 34.1667 58.3333 34.1667C59.7778 34.1667 61.1944 34.2778 62.5833 34.5C63.9722 34.7222 65.3333 35 66.6667 35.3333V40.6667C65.3333 40.1667 63.9861 39.7917 62.625 39.5417C61.2639 39.2917 59.8333 39.1667 58.3333 39.1667C56.2222 39.1667 54.1944 39.4306 52.25 39.9583C50.3055 40.4861 48.4444 41.2222 46.6667 42.1667ZM21.6666 53.3333C24.2778 53.3333 26.8194 53.625 29.2916 54.2083C31.7639 54.7917 34.2222 55.6667 36.6666 56.8333V24C34.3889 22.6667 31.9722 21.6667 29.4166 21C26.8611 20.3333 24.2778 20 21.6666 20C19.6666 20 17.6805 20.1945 15.7083 20.5833C13.7361 20.9722 11.8333 21.5556 9.99998 22.3333V55.3333C11.9444 54.6667 13.875 54.1667 15.7916 53.8333C17.7083 53.5 19.6666 53.3333 21.6666 53.3333ZM43.3333 56.8333C45.7778 55.6667 48.2361 54.7917 50.7083 54.2083C53.1805 53.625 55.7222 53.3333 58.3333 53.3333C60.3333 53.3333 62.2917 53.5 64.2083 53.8333C66.125 54.1667 68.0555 54.6667 70 55.3333V22.3333C68.1667 21.5556 66.2639 20.9722 64.2917 20.5833C62.3194 20.1945 60.3333 20 58.3333 20C55.7222 20 53.1389 20.3333 50.5833 21C48.0278 21.6667 45.6111 22.6667 43.3333 24V56.8333ZM40 66.6667C37.3333 64.5556 34.4444 62.9167 31.3333 61.75C28.2222 60.5833 25 60 21.6666 60C19.3333 60 17.0416 60.3056 14.7916 60.9167C12.5416 61.5278 10.3889 62.3889 8.33331 63.5C7.16665 64.1111 6.04165 64.0833 4.95831 63.4167C3.87498 62.75 3.33331 61.7778 3.33331 60.5V20.3333C3.33331 19.7222 3.48609 19.1389 3.79165 18.5833C4.0972 18.0278 4.55554 17.6111 5.16665 17.3333C7.7222 16 10.3889 15 13.1666 14.3333C15.9444 13.6667 18.7778 13.3333 21.6666 13.3333C24.8889 13.3333 28.0416 13.75 31.125 14.5833C34.2083 15.4167 37.1666 16.6667 40 18.3333C42.8333 16.6667 45.7917 15.4167 48.875 14.5833C51.9583 13.75 55.1111 13.3333 58.3333 13.3333C61.2222 13.3333 64.0555 13.6667 66.8333 14.3333C69.6111 15 72.2778 16 74.8333 17.3333C75.4444 17.6111 75.9028 18.0278 76.2083 18.5833C76.5139 19.1389 76.6667 19.7222 76.6667 20.3333V60.5C76.6667 61.7778 76.125 62.75 75.0417 63.4167C73.9583 64.0833 72.8333 64.1111 71.6667 63.5C69.6111 62.3889 67.4583 61.5278 65.2083 60.9167C62.9583 60.3056 60.6667 60 58.3333 60C55 60 51.7778 60.5833 48.6667 61.75C45.5555 62.9167 42.6667 64.5556 40 66.6667Z"
+          fill="white" />
+      </svg>
+    </div>
+    <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M10.6144 17.7956L11.492 15.7854C12.2731 13.9966 13.6789 12.5726 15.4325 11.7942L17.8482 10.7219C18.6162 10.381 18.6162 9.26368 17.8482 8.92277L15.5079 7.88394C13.7092 7.08552 12.2782 5.60881 11.5105 3.75894L10.6215 1.61673C10.2916 0.821766 9.19319 0.821768 8.8633 1.61673L7.97427 3.75892C7.20657 5.60881 5.77553 7.08552 3.97685 7.88394L1.63658 8.92277C0.868537 9.26368 0.868536 10.381 1.63658 10.7219L4.0523 11.7942C5.80589 12.5726 7.21171 13.9966 7.99275 15.7854L8.8704 17.7956C9.20776 18.5682 10.277 18.5682 10.6144 17.7956ZM19.4014 22.6899L19.6482 22.1242C20.0882 21.1156 20.8807 20.3125 21.8695 19.8732L22.6299 19.5353C23.0412 19.3526 23.0412 18.7549 22.6299 18.5722L21.9121 18.2532C20.8978 17.8026 20.0911 16.9698 19.6586 15.9269L19.4052 15.3156C19.2285 14.8896 18.6395 14.8896 18.4628 15.3156L18.2094 15.9269C17.777 16.9698 16.9703 17.8026 15.956 18.2532L15.2381 18.5722C14.8269 18.7549 14.8269 19.3526 15.2381 19.5353L15.9985 19.8732C16.9874 20.3125 17.7798 21.1156 18.2198 22.1242L18.4667 22.6899C18.6473 23.104 19.2207 23.104 19.4014 22.6899Z"
+          fill="white" />
+      </svg>
+    </div>
+    <div class="decoration_row_logo"></div>
+  </div>
+  <img class="background_line_1" src="../assets/background/bg_pattern.svg" alt="" srcset="">
+  <div class="background_circle_1">
+    <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+  </div>
+  <nav class="nav_not_login bg-white">
+    <div class="container mx-auto flex justify-between items-center space-x-1">
+      <span>Kamu belum login</span>
       <a class="text-gray-600 flex items-center space-x-1" href="/login">
-        <img class="w-6 h-6" src="../assets/icons/login.png" alt="Login">
-        <p class="text-sm">Login</p>
+        <span>Login</span><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M16.6666 18.3333H14.9999V16.6667C14.9999 15.2859 13.8807 14.1667 12.4999 14.1667H7.49992C6.11921 14.1667 4.99992 15.2859 4.99992 16.6667V18.3333H3.33325V16.6667C3.33325 14.3655 5.19874 12.5 7.49992 12.5H12.4999C14.8011 12.5 16.6666 14.3655 16.6666 16.6667V18.3333ZM9.99992 10.8333C7.23849 10.8333 4.99992 8.59476 4.99992 5.83334C4.99992 3.07192 7.23849 0.833344 9.99992 0.833344C12.7613 0.833344 14.9999 3.07192 14.9999 5.83334C14.9999 8.59476 12.7613 10.8333 9.99992 10.8333ZM9.99992 9.16668C11.8408 9.16668 13.3333 7.67429 13.3333 5.83334C13.3333 3.99239 11.8408 2.50001 9.99992 2.50001C8.15897 2.50001 6.66658 3.99239 6.66658 5.83334C6.66658 7.67429 8.15897 9.16668 9.99992 9.16668Z"
+            fill="white" />
+        </svg>
+
       </a>
     </div>
-    <div class="absolute inset-x-0 bottom-0 h-1 bg-green-500 animate-pulse"></div>
   </nav>
 
-  <div class="container mx-auto my-8 px-4">
-    <div class="flex items-center space-x-4">
-      <img class="w-1/2" src="../assets/images/mosque.png" alt="">
-      <div>
-        <h2 class="text-2xl md:text-3xl font-semibold">SAUNG QUR'AN</h2>
-        <p class="text-xl md:text-2xl text-gray-600">Mahasiswa Berprestasi</p>
-      </div>
-    </div>
-    <div class="mt-8">
+
+    <div>
       <% posts.forEach(function(post) { %>
-        <div class="bg-white p-6 rounded-md shadow-md mb-8">
+        <div href="/post?id=<%= post.post_id %>" class="block card_post bg-white p-6 rounded-md shadow-md mb-8">
           <div class="flex items-center space-x-4">
-            <img class="rounded-full w-16 h-16 cursor-pointer" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
-            <a class="text-green-500 hover:underline" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
-          </div>
-          <p class="text-gray-600 mt-2"><%= post.create_at %></p>
-          <p class="mt-4"><%= post.caption %></p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <% post.photos.forEach(function(photo) { %>
-              <img class="rounded-md" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
-            <% }); %>
-            
-            <% post.videos.forEach(function(video) { %>
-              <video class="rounded-md" controls>
-                <source src="/<%= video.file_path %>" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-            <% }); %>
-          </div>
-          <div class="flex mt-4">
-            <a class="text-green-500 mr-2" href="/post?id=<%= post.post_id %>">View Post</a>
+            <img class="user_profile rounded-full w-16 h-16 cursor-pointer"
+              src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>"
+              alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
+            <div class="column_name_and_time"><a class="text-green-500 hover:underline"
+                href="/user?id=<%= post.user_id %>">
+                <%= post.user_name %>
+              </a>
+              <p class="showTime">
+                <%= post.create_at %>
+              </p>
+              <!-- <p class="cardTime">
+              </p> -->
+            </div>
             <div>
-              <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 relative" onclick="getPostUrl('<%= post.post_id %>')">
-                Copy URL
-                <img class="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4" src="../assets/icons/link.png" alt="">
+              <button class="button_copy_link text-white rounded-md relative"
+                onclick="getPostUrl('<%= post.post_id %>')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10.8837 6.75895L12.0622 7.93745C14.3403 10.2155 14.3403 13.909 12.0622 16.187L11.7675 16.4817C9.48954 18.7598 5.79605 18.7598 3.51799 16.4817C1.23993 14.2036 1.23993 10.5102 3.51799 8.23208L4.6965 9.41059C3.06932 11.0378 3.06932 13.676 4.6965 15.3032C6.32368 16.9303 8.96188 16.9303 10.589 15.3032L10.8837 15.0085C12.5109 13.3813 12.5109 10.7432 10.8837 9.11601L9.70521 7.93745L10.8837 6.75895ZM16.4816 11.7676L15.3031 10.5891C16.9303 8.96192 16.9303 6.32373 15.3031 4.69655C13.676 3.06936 11.0377 3.06936 9.41054 4.69655L9.11596 4.99118C7.48873 6.61836 7.48873 9.25659 9.11596 10.8838L10.2945 12.0623L9.11596 13.2408L7.93741 12.0623C5.65935 9.78417 5.65935 6.09072 7.93741 3.81266L8.23203 3.51804C10.5101 1.23998 14.2035 1.23998 16.4816 3.51804C18.7597 5.7961 18.7597 9.48959 16.4816 11.7676Z"
+                    fill="white" />
+                </svg>
+
               </button>
             </div>
           </div>
-        </div>
-      <% }); %>    
-    </div>
-  </div>
+          <div class="img_post_slider">
+            <div>
+              <% post.photos.forEach(function(photo) { %>
+                <img class="" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
+                <% }); %>
 
-  <footer class="bg-green-300 p-8 text-center">
+                  <% post.videos.forEach(function(video) { %>
+                    <video class="" controls>
+                      <source src="/<%= video.file_path %>" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                    <% }); %>
+            </div>
+          </div>
+          <p class="caption_post">
+            <%= post.caption %>
+          </p>
+          <a class="lihat_post" href="/post?id=<%= post.post_id %>">Lihat postingan</a>
+        </div>
+        <% }); %>
+    </div>
+
+
+  <footer class="bg-teal-950 p-8 text-center" style="border-radius: 24px;">
     <p class="mb-4 text-lg font-semibold">MARI TERHUBUNG DENGAN KAMI</p>
     <div class="flex justify-center space-x-6 mb-6">
       <a href="#" class="hover:text-purple-600 flex flex-col items-center transform hover:scale-110 transition-transform">
@@ -81,20 +134,57 @@
         <p class="text-xs">Telegram</p>
       </a>
     </div>
-    <p class="text-sm text-gray-600">Copyright &copy; 2023 Infokom SQ. All rights reserved.</p>
+    <p class="text-sm text-neutral-500">Copyright &copy; 2023 Infokom SQ. All rights reserved.</p>
   </footer>
-  
+  <div style="height:88px;"></div>
+  <div id="snackbarNotif" class="snackbar_notif snackBarHidden" onclick="closeSnackBar()">
+    <div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17 17H22V19H19V22H17V17ZM7 7H2V5H5V2H7V7ZM18.364 15.5355L16.9497 14.1213L18.364 12.7071C20.3166 10.7545 20.3166 7.58866 18.364 5.63604C16.4113 3.68342 13.2455 3.68342 11.2929 5.63604L9.87868 7.05025L8.46447 5.63604L9.87868 4.22183C12.6123 1.48816 17.0445 1.48816 19.7782 4.22183C22.5118 6.9555 22.5118 11.3877 19.7782 14.1213L18.364 15.5355ZM15.5355 18.364L14.1213 19.7782C11.3877 22.5118 6.9555 22.5118 4.22183 19.7782C1.48816 17.0445 1.48816 12.6123 4.22183 9.87868L5.63604 8.46447L7.05025 9.87868L5.63604 11.2929C3.68342 13.2455 3.68342 16.4113 5.63604 18.364C7.58866 20.3166 10.7545 20.3166 12.7071 18.364L14.1213 16.9497L15.5355 18.364ZM14.8284 7.75736L16.2426 9.17157L9.17157 16.2426L7.75736 14.8284L14.8284 7.75736Z"
+          fill="white" />
+      </svg>
+
+    </div>
+    <div>
+      Link postingan disalin
+    </div><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_24_485)">
+        <path
+          d="M5.3072 8.8978L5.746 7.8927C6.13655 6.9983 6.83945 6.2863 7.71625 5.8971L8.9241 5.36095C9.3081 5.1905 9.3081 4.63184 8.9241 4.46138L7.75395 3.94197C6.8546 3.54276 6.1391 2.8044 5.75525 1.87947L5.31075 0.808365C5.1458 0.410883 4.5966 0.410884 4.43165 0.808365L3.98714 1.87946C3.60329 2.8044 2.88776 3.54276 1.98842 3.94197L0.81829 4.46138C0.434268 4.63184 0.434268 5.1905 0.81829 5.36095L2.02615 5.8971C2.90295 6.2863 3.60586 6.9983 3.99638 7.8927L4.4352 8.8978C4.60388 9.2841 5.1385 9.2841 5.3072 8.8978ZM9.7007 11.3449L9.8241 11.0621C10.0441 10.5578 10.4404 10.1562 10.9348 9.9366L11.315 9.76765C11.5206 9.6763 11.5206 9.37745 11.315 9.2861L10.9561 9.1266C10.4489 8.9013 10.0456 8.4849 9.8293 7.96345L9.7026 7.6578C9.61425 7.4448 9.31975 7.4448 9.2314 7.6578L9.1047 7.96345C8.8885 8.4849 8.48515 8.9013 7.978 9.1266L7.61905 9.2861C7.41345 9.37745 7.41345 9.6763 7.61905 9.76765L7.99925 9.9366C8.4937 10.1562 8.8899 10.5578 9.1099 11.0621L9.23335 11.3449C9.32365 11.552 9.61035 11.552 9.7007 11.3449Z"
+          fill="white" />
+      </g>
+      <defs>
+        <clipPath id="clip0_24_485">
+          <rect width="12" height="12" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+
+  </div>
   <script>
+    var snackbarNotif = document.getElementById('snackbarNotif');
+
+    function openSnackBar() {
+      snackbarNotif.classList.remove('snackBarHidden'); setTimeout(function () {
+        closeSnackBar();
+      }, 3000);
+    }
     function getPostUrl(postId) {
       const postUrl = `${window.location.origin}/post?id=${postId}`;
       navigator.clipboard.writeText(postUrl)
         .then(() => {
-          alert('Post URL copied to clipboard');
+          openSnackBar();
+          // alert('Post URL copied to clipboard');
         })
         .catch((error) => {
           console.error('Failed to copy post URL: ', error);
           alert('Failed to copy post URL');
         });
+    }
+
+    function closeSnackBar() {
+      snackbarNotif.classList.add('snackBarHidden');
     }
   </script>
 </body>

@@ -32,27 +32,88 @@
             color: #718096;
         }
     </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+  <link href="../assets/css/output.css" rel="stylesheet">
+  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+  <script src="../tailwind_custom.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <%- include('style.ejs') %>
+    <%- include('tailwind_custom.ejs') %>
 </head>
 <body>
-  <nav>
-    <div class="bg-blue-500 p-4">
-      <div class="container mx-auto flex justify-between items-center">
-        <div class="flex items-center space-x-4">
-          <a class="text-white" href="/home">Home</a>
-          <a class="text-white" href="/users">Users</a>
-        </div>
-        <img class="w-8 cursor-pointer" src="../assets/icons/menu.png" alt="" onclick="toggleMenu()">
+  <img class="background_line_1" src="../assets/background/bg_pattern.svg" alt="" srcset="">
+  <div class="background_circle_1">
+    <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+  </div>
+  <nav class="nav_login">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex">
+        <a class="text-white hover:underline" href="/home"><img src="../assets/icons/icon_home_white.svg" alt=""
+            srcset="">Home</a>
+        <a class="menu_selected text-white hover:underline" href="/users"><img src="../assets/icons/icon_user_gradient.svg">Users</a>
+      </div>
+      <a class="menu_create_post" href="/create-post"
+        class="inline-block ml-4 mt-4 mb-4 px-8 py-3 text-white bg-green-500 hover:bg-green-700 rounded-md shadow-md transition-colors duration-300 flex items-center w-56">
+        <img src="../assets/icons/icon_add.svg" alt="">
+
+      </a>
+      <a class="menu_drawer">
+        <img class="w-8 cursor-pointer" id="menuButton" src="../assets/icons/icon_menu.svg" alt=""
+          onclick="toggleMenu()">
+        <svg onclick="toggleMenu()" class="w-8 cursor-pointer hidden" id="closeMenuButton" width="24" height="24"
+          viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"
+            fill="white" />
+        </svg>
+      </a>
+    </div>
+    <div id="menu" class="hidden">
+      <div class="flex items-center space-x-2">
+        <a class="flex items-center transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800"
+          href="/profile"><svg width="32" height="33" viewBox="0 0 32 33" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M26.6668 29.8333H24.0002V27.1667C24.0002 24.9575 22.2094 23.1667 20.0002 23.1667H12.0002C9.79103 23.1667 8.00016 24.9575 8.00016 27.1667V29.8333H5.3335V27.1667C5.3335 23.4848 8.31827 20.5 12.0002 20.5H20.0002C23.682 20.5 26.6668 23.4848 26.6668 27.1667V29.8333ZM16.0002 17.8333C11.5819 17.8333 8.00016 14.2516 8.00016 9.83334C8.00016 5.41506 11.5819 1.83334 16.0002 1.83334C20.4184 1.83334 24.0002 5.41506 24.0002 9.83334C24.0002 14.2516 20.4184 17.8333 16.0002 17.8333ZM16.0002 15.1667C18.9456 15.1667 21.3335 12.7789 21.3335 9.83334C21.3335 6.88782 18.9456 4.5 16.0002 4.5C13.0546 4.5 10.6668 6.88782 10.6668 9.83334C10.6668 12.7789 13.0546 15.1667 16.0002 15.1667Z"
+              fill="white" />
+          </svg>
+
+          <span class="ml-1">Profile</span>
+        </a>
+      </div>
+      <div class="flex items-center space-x-2">
+        <a class="flex items-center transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800"
+          href="/settings"><svg width="32" height="33" viewBox="0 0 32 33" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M16.0002 1.83333L28.6668 9.16667V23.8333L16.0002 31.1667L3.3335 23.8333V9.16667L16.0002 1.83333ZM16.0002 4.91467L6.00016 10.7041V22.2959L16.0002 28.0853L26.0002 22.2959V10.7041L16.0002 4.91467ZM16.0002 21.8333C13.0546 21.8333 10.6668 19.4455 10.6668 16.5C10.6668 13.5545 13.0546 11.1667 16.0002 11.1667C18.9456 11.1667 21.3335 13.5545 21.3335 16.5C21.3335 19.4455 18.9456 21.8333 16.0002 21.8333ZM16.0002 19.1667C17.473 19.1667 18.6668 17.9728 18.6668 16.5C18.6668 15.0272 17.473 13.8333 16.0002 13.8333C14.5274 13.8333 13.3335 15.0272 13.3335 16.5C13.3335 17.9728 14.5274 19.1667 16.0002 19.1667Z"
+              fill="white" />
+          </svg>
+
+          <span class="ml-1">Settings</span>
+        </a>
+      </div>
+      <div class="flex items-center space-x-2">
+        <a class="flex items-center transition-colors duration-300 hover:bg-gray-200 hover:text-gray-800"
+          href="/logout"><svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M6.66683 29.8333C5.93046 29.8333 5.3335 29.2364 5.3335 28.5V4.5C5.3335 3.76363 5.93046 3.16667 6.66683 3.16667H25.3335C26.0699 3.16667 26.6668 3.76363 26.6668 4.5V8.5H24.0002V5.83333H8.00016V27.1667H24.0002V24.5H26.6668V28.5C26.6668 29.2364 26.0699 29.8333 25.3335 29.8333H6.66683ZM24.0002 21.8333V17.8333H14.6668V15.1667H24.0002V11.1667L30.6668 16.5L24.0002 21.8333Z"
+              fill="white" />
+          </svg>
+
+          <span class="ml-1">Logout</span>
+        </a>
       </div>
     </div>
-    <div id="menu" class="absolute right-0 mt-2 mr-2 w-40 bg-gray-100 p-2 rounded shadow hidden">
-      <a class="block py-1 px-4 hover:bg-gray-200" href="/profile">Profile</a>
-      <a class="block py-1 px-4 hover:bg-gray-200" href="/settings">Settings</a>
-      <a class="block py-1 px-4 hover:bg-gray-200" href="/logout">Logout</a>
-    </div>    
   </nav>
 
-    <div class="container mx-auto my-8 px-4">
-      <h2 class="text-2xl font-semibold mb-4">Users: <%= users.length %></h2>
+    <div class="container mx-auto my-10 px-4 mb-40">
+      <h2 class="text-2xl">Users: <%= users.length %></h2>
       <ul>
         <% users.forEach(function (user) { %>
           <li class="user-item">
@@ -73,7 +134,7 @@
         <% }); %>
       </ul> 
     </div> 
-
+<!-- <div style="height:96px"></div> -->
     <script>
     function toggleMenu() {
       const menu = document.getElementById("menu");

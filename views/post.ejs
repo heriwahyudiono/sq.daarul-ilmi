@@ -1,54 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+  <link href="../assets/css/output.css" rel="stylesheet">
+  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+  <script src="../tailwind_custom.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <%- include('style.ejs') %>
+    <%- include('tailwind_custom.ejs') %>
 </head>
-<body class="bg-gray-100">
-  <nav class="bg-white p-5 relative">
-    <div class="container mx-auto flex justify-end items-center space-x-1">
+
+<body>
+  <img class="background_line_1" src="../assets/background/bg_pattern.svg" alt="" srcset="">
+  <div class="background_circle_2">
+    <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+  </div>
+  <nav class="nav_not_login bg-white">
+    <div class="container mx-auto flex justify-between items-center space-x-1">
+      <span>Kamu belum login</span>
       <a class="text-gray-600 flex items-center space-x-1" href="/login">
-        <img class="w-6 h-6" src="../assets/icons/login.png" alt="Login">
-        <p class="text-sm">Login</p>
+        <span>Login</span><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M16.6666 18.3333H14.9999V16.6667C14.9999 15.2859 13.8807 14.1667 12.4999 14.1667H7.49992C6.11921 14.1667 4.99992 15.2859 4.99992 16.6667V18.3333H3.33325V16.6667C3.33325 14.3655 5.19874 12.5 7.49992 12.5H12.4999C14.8011 12.5 16.6666 14.3655 16.6666 16.6667V18.3333ZM9.99992 10.8333C7.23849 10.8333 4.99992 8.59476 4.99992 5.83334C4.99992 3.07192 7.23849 0.833344 9.99992 0.833344C12.7613 0.833344 14.9999 3.07192 14.9999 5.83334C14.9999 8.59476 12.7613 10.8333 9.99992 10.8333ZM9.99992 9.16668C11.8408 9.16668 13.3333 7.67429 13.3333 5.83334C13.3333 3.99239 11.8408 2.50001 9.99992 2.50001C8.15897 2.50001 6.66658 3.99239 6.66658 5.83334C6.66658 7.67429 8.15897 9.16668 9.99992 9.16668Z"
+            fill="white" />
+        </svg>
+
       </a>
     </div>
-    <div class="absolute inset-x-0 bottom-0 h-1 bg-green-500 animate-pulse"></div>
   </nav>
 
-  <div class="mx-8 my-4">
-    <div class="bg-white p-4 rounded-md shadow-md">
-      <div class="flex items-center mb-4">
-        <img class="rounded-full w-16 h-16 cursor-pointer" src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>" alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
-        <div class="ml-4">
-          <a class="text-green-500 hover:underline" href="/user?id=<%= post.user_id %>"><%= post.user_name %></a>
-          <p class="text-gray-600"><%= post.create_at %></p>
+  <div class="wrap_detail_post py-5">
+    <div class="detail_post p-4 rounded-md shadow-md">
+      <div class="flex items-center">
+        <img class="user_profile rounded-full w-16 h-16 cursor-pointer mr-2"
+          src="<%= post.userProfilePicture ? `uploads/profile_pictures/${post.userProfilePicture}` : 'uploads/profile_pictures/placeholder.png' %>"
+          alt="" onclick="window.location.href='/user?id=<%= post.user_id %>';">
+        <div class="column_name_and_time">
+          <a class="text-green-500 hover:underline" href="/user?id=<%= post.user_id %>">
+            <%= post.user_name %>
+          </a>
+          <p class="text-gray-600">
+            <%= post.create_at %>
+          </p>
         </div>
       </div>
-      <p class="mb-4"><%= post.caption %></p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <p class="detail_post_caption mb-4">
+        <%= post.caption %>
+      </p>
+      <div class="grid grid-cols-1 mb-4">
         <% post.photos.forEach(function(photo) { %>
-          <img class="rounded-md" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
-        <% }); %>
-        <% post.videos.forEach(function(video) { %>
-          <video class="rounded-md" controls>
-            <source src="/<%= video.file_path %>" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        <% }); %>
+          <img class="" src="/<%= photo.file_path %>" alt="<%= photo.file_path %>">
+          <% }); %>
+            <% post.videos.forEach(function(video) { %>
+              <video class="" controls>
+                <source src="/<%= video.file_path %>" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <% }); %>
       </div>
-      <div class="flex justify-end mb-4">
-        <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600" onclick="getPostUrl('<%= post.post_id %>')">Copy URL</button>    
-      </div>
-      <div class="bg-gray-200 p-4 rounded-md shadow-md">
-        <div class="p-6" id="disqus_thread"></div>
+      <div class="w-full flex justify-center mb-4">
+        <button class="copy_link_detail_post" onclick="getPostUrl('<%= post.post_id %>')"><svg width="21" height="20"
+            viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M11.3838 6.75894L12.5623 7.93745C14.8404 10.2155 14.8404 13.909 12.5623 16.187L12.2677 16.4817C9.98967 18.7598 6.29617 18.7598 4.01811 16.4817C1.74006 14.2036 1.74006 10.5102 4.01811 8.23208L5.19662 9.41058C3.56944 11.0378 3.56944 13.676 5.19662 15.3032C6.82381 16.9303 9.462 16.9303 11.0892 15.3032L11.3838 15.0085C13.011 13.3813 13.011 10.7432 11.3838 9.116L10.2053 7.93745L11.3838 6.75894ZM16.9817 11.7676L15.8032 10.5891C17.4304 8.96192 17.4304 6.32373 15.8032 4.69654C14.1761 3.06936 11.5378 3.06936 9.91066 4.69654L9.61608 4.99118C7.98886 6.61836 7.98886 9.25658 9.61608 10.8838L10.7946 12.0623L9.61608 13.2408L8.43753 12.0623C6.15947 9.78417 6.15947 6.09072 8.43753 3.81266L8.73216 3.51803C11.0102 1.23998 14.7037 1.23998 16.9817 3.51803C19.2598 5.79609 19.2598 9.48959 16.9817 11.7676Z"
+              fill="white" />
+          </svg>
+
+          Copy URL</button>
       </div>
     </div>
   </div>
 
+  <div id="snackbarNotif" class="snackbar_notif snackBarHidden" onclick="closeSnackBar()">
+    <div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17 17H22V19H19V22H17V17ZM7 7H2V5H5V2H7V7ZM18.364 15.5355L16.9497 14.1213L18.364 12.7071C20.3166 10.7545 20.3166 7.58866 18.364 5.63604C16.4113 3.68342 13.2455 3.68342 11.2929 5.63604L9.87868 7.05025L8.46447 5.63604L9.87868 4.22183C12.6123 1.48816 17.0445 1.48816 19.7782 4.22183C22.5118 6.9555 22.5118 11.3877 19.7782 14.1213L18.364 15.5355ZM15.5355 18.364L14.1213 19.7782C11.3877 22.5118 6.9555 22.5118 4.22183 19.7782C1.48816 17.0445 1.48816 12.6123 4.22183 9.87868L5.63604 8.46447L7.05025 9.87868L5.63604 11.2929C3.68342 13.2455 3.68342 16.4113 5.63604 18.364C7.58866 20.3166 10.7545 20.3166 12.7071 18.364L14.1213 16.9497L15.5355 18.364ZM14.8284 7.75736L16.2426 9.17157L9.17157 16.2426L7.75736 14.8284L14.8284 7.75736Z"
+          fill="white" />
+      </svg>
+
+    </div>
+    <div>
+      Link postingan disalin
+    </div><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_24_485)">
+        <path
+          d="M5.3072 8.8978L5.746 7.8927C6.13655 6.9983 6.83945 6.2863 7.71625 5.8971L8.9241 5.36095C9.3081 5.1905 9.3081 4.63184 8.9241 4.46138L7.75395 3.94197C6.8546 3.54276 6.1391 2.8044 5.75525 1.87947L5.31075 0.808365C5.1458 0.410883 4.5966 0.410884 4.43165 0.808365L3.98714 1.87946C3.60329 2.8044 2.88776 3.54276 1.98842 3.94197L0.81829 4.46138C0.434268 4.63184 0.434268 5.1905 0.81829 5.36095L2.02615 5.8971C2.90295 6.2863 3.60586 6.9983 3.99638 7.8927L4.4352 8.8978C4.60388 9.2841 5.1385 9.2841 5.3072 8.8978ZM9.7007 11.3449L9.8241 11.0621C10.0441 10.5578 10.4404 10.1562 10.9348 9.9366L11.315 9.76765C11.5206 9.6763 11.5206 9.37745 11.315 9.2861L10.9561 9.1266C10.4489 8.9013 10.0456 8.4849 9.8293 7.96345L9.7026 7.6578C9.61425 7.4448 9.31975 7.4448 9.2314 7.6578L9.1047 7.96345C8.8885 8.4849 8.48515 8.9013 7.978 9.1266L7.61905 9.2861C7.41345 9.37745 7.41345 9.6763 7.61905 9.76765L7.99925 9.9366C8.4937 10.1562 8.8899 10.5578 9.1099 11.0621L9.23335 11.3449C9.32365 11.552 9.61035 11.552 9.7007 11.3449Z"
+          fill="white" />
+      </g>
+      <defs>
+        <clipPath id="clip0_24_485">
+          <rect width="12" height="12" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+
+  </div>
+  <div class="bg-gray-200 p-4 rounded-md shadow-md mt-10" style="margin-top: 40px;margin-bottom: 88px">
+    <div class="p-6" id="disqus_thread"></div>
+  </div>
   <script>
-    (function() { 
+    var snackbarNotif = document.getElementById('snackbarNotif');
+
+    function openSnackBar() {
+      snackbarNotif.classList.remove('snackBarHidden'); setTimeout(function () {
+        closeSnackBar();
+      }, 3000);
+    }
+
+    (function () {
       var d = document, s = d.createElement('script');
       s.src = 'https://sq-daarul-ilmi.disqus.com/embed.js';
       s.setAttribute('data-timestamp', String(+new Date()));
@@ -59,12 +130,18 @@
       const postURL = `${window.location.origin}/post?id=${postId}`;
       navigator.clipboard.writeText(postURL)
         .then(() => {
-          alert('Post URL copied to clipboard');
+          // alert('Post URL copied to clipboard');
+          openSnackBar();
         })
         .catch((error) => {
           console.error('Failed to copy post URL: ', error);
         });
     }
+
+    function closeSnackBar() {
+      snackbarNotif.classList.add('snackBarHidden');
+    }
   </script>
 </body>
+
 </html>

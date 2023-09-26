@@ -1,23 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Postingan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+    <link href="../assets/css/output.css" rel="stylesheet">
+    <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+    <script src="../tailwind_custom.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <%- include('style.ejs') %>
+        <%- include('tailwind_custom.ejs') %>
 </head>
+
 <body>
-    <form action="/create-post" method="POST" enctype="multipart/form-data">
-        <h2>Tambahkan Foto</h2>
-        <input type="file" name="photos" accept=".jpeg, .jpg, .png" multiple />
-        <h2>Tambahkan Video</h2>
-        <input type="file" name="videos" accept=".mp4" multiple /><br><br>
+    <img class="background_line_1" src="../assets/background/bg_pattern.svg" alt="" srcset="">
+    <div class="background_circle_1">
+        <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+    </div>
+    <form class="mt-3 mb-16" action="/create-post" method="POST" enctype="multipart/form-data">
+        <label>Tambahkan Foto</label>
+        <div class="wrap_input_file"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.4" clip-path="url(#clip0_24_364)">
+                    <path
+                        d="M70 50V60H80V66.6667H70V76.6667H63.3333V66.6667H53.3333V60H63.3333V50H70ZM70.0273 10C71.8533 10 73.3333 11.4832 73.3333 13.3113V43.3333H66.6666V16.6667H13.3333V63.33L46.6666 30L56.6666 40V49.43L46.6666 39.428L22.7566 63.3333H46.6666V70H9.97263C8.14679 70 6.66663 68.517 6.66663 66.6887V13.3113C6.66663 11.4825 8.18433 10 9.97263 10H70.0273ZM26.6666 23.3333C30.3485 23.3333 33.3333 26.3181 33.3333 30C33.3333 33.682 30.3485 36.6667 26.6666 36.6667C22.9847 36.6667 20 33.682 20 30C20 26.3181 22.9847 23.3333 26.6666 23.3333Z"
+                        fill="white" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_24_364">
+                        <rect width="80" height="80" fill="white" />
+                    </clipPath>
+                </defs>
+            </svg>
+
+            <input class="input_image" type="file" name="photos" accept=".jpeg, .jpg, .png" multiple />
+        </div>
+        <input type="text" style="visibility:hidden;padding:0px;height:0px !important; display: none;">
+        <label class="mt-4">Tambahkan Video</label>
+        <div class="wrap_input_file">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.4">
+                    <path
+                        d="M6.66663 13.3113C6.66663 11.4825 8.18433 10 9.97263 10H70.0273C71.8533 10 73.3333 11.4832 73.3333 13.3113V66.6887C73.3333 68.5173 71.8156 70 70.0273 70H9.97263C8.14679 70 6.66663 68.517 6.66663 66.6887V13.3113ZM13.3333 16.6667V63.3333H66.6666V16.6667H13.3333ZM35.4063 28.0486L51.6693 38.8907C52.282 39.299 52.4476 40.127 52.039 40.7397C51.9413 40.886 51.8156 41.0117 51.6693 41.1093L35.4063 51.9513C34.7936 52.36 33.9656 52.1943 33.5573 51.5817C33.4113 51.3627 33.3333 51.1053 33.3333 50.842V29.158C33.3333 28.4216 33.9303 27.8247 34.6666 27.8247C34.93 27.8247 35.1873 27.9026 35.4063 28.0486Z"
+                        fill="white" />
+                </g>
+            </svg>
+
+            <input class="input_video" type="file" name="videos" accept=".mp4" multiple />
+        </div>
         <% if (locals.errorMessage) { %>
-            <p style="color: red;"><%= locals.errorMessage %></p>
-        <% } %>
-        <br><br>
-        <textarea name="caption"></textarea>
-        <button type="submit">Post</button>
+            <p style="color: red;">
+                <%= locals.errorMessage %>
+            </p>
+            <% } %>
+                <label class="mt-4">Keterangan:</label>
+                <textarea class="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-300" type="email"
+                    id="email" name="caption" placeholder="Tulislah sesuatu yang Allah ridhoi..."></textarea>
+                <button
+                    class="w-full bg-blue-500 text-white py-2 mt-4 rounded-md hover:bg-blue-600 transition duration-300"
+                    type="submit">Posting</button>
     </form>
 </body>
+
 </html>
