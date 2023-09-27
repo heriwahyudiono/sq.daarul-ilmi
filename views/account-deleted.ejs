@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Deleted</title>
-</head>
-<body>
-    <p>Akun Anda telah berhasil dihapus</p>
 
-    <script>
-        setTimeout(function() {
-          window.location.href = "/login";
-        }, 3000); 
-      </script>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Deleted</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+  <link href="../assets/css/output.css" rel="stylesheet">
+  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+  <script src="../tailwind_custom.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <%- include('style.ejs') %>
+    <%- include('tailwind_custom.ejs') %>
+</head>
+
+<body>
+  <div class="background_circle_1">
+    <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+  </div>
+
+  <div class="illustration_notif_page">
+    <svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M73.6666 26H95.3333V34.6667H86.6666V91C86.6666 93.3933 84.7266 95.3333 82.3333 95.3333H21.6666C19.2734 95.3333 17.3333 93.3933 17.3333 91V34.6667H8.66663V26H30.3333V13C30.3333 10.6068 32.2734 8.66666 34.6666 8.66666H69.3333C71.7266 8.66666 73.6666 10.6068 73.6666 13V26ZM78 34.6667H26V86.6667H78V34.6667ZM58.1282 60.6654L65.7886 68.3258L59.6604 74.454L52 66.7936L44.3395 74.454L38.2114 68.3258L45.8718 60.6654L38.2114 53.0053L44.3395 46.8771L52 54.5372L59.6604 46.8771L65.7886 53.0053L58.1282 60.6654ZM39 17.3333V26H65V17.3333H39Z" fill="#C52284"/>
+      </svg>
+      
+    <p>Akun Anda telah berhasil dihapus</p>
+    <br>
+  </div>
+  <script>
+    setTimeout(function () {
+      window.location.href = "/login";
+    }, 3000); 
+  </script>
 </body>
+
 </html>

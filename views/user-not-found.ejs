@@ -5,9 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Not Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+    <link href="../assets/css/output.css" rel="stylesheet">
+    <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+    <script src="../tailwind_custom.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet">
+    <%- include('style.ejs') %>
+      <%- include('tailwind_custom.ejs') %>
 </head>
 <body>
-    <h2>404</h2>
+    <div class="background_circle_1">
+        <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+    </div>
+  
+    <div class="illustration_notif_page">
+        <svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M60.6666 61.7587V70.8128C57.9556 69.8547 55.0389 69.3334 51.9999 69.3334C37.6405 69.3334 25.9999 80.974 25.9999 95.3334H17.3333C17.3333 76.1874 32.854 60.6667 51.9999 60.6667C54.9925 60.6667 57.8967 61.0459 60.6666 61.7587ZM51.9999 56.3334C37.6349 56.3334 25.9999 44.6984 25.9999 30.3334C25.9999 15.9684 37.6349 4.33337 51.9999 4.33337C66.3649 4.33337 77.9999 15.9684 77.9999 30.3334C77.9999 44.6984 66.3649 56.3334 51.9999 56.3334ZM51.9999 47.6667C61.5766 47.6667 69.3332 39.91 69.3332 30.3334C69.3332 20.7567 61.5766 13 51.9999 13C42.4233 13 34.6666 20.7567 34.6666 30.3334C34.6666 39.91 42.4233 47.6667 51.9999 47.6667Z" fill="#6366F1"/>
+            <path d="M82.3332 76.2052L91.5255 67.0129L97.6537 73.1411L88.4614 82.3334L97.6537 91.5257L91.5255 97.6539L82.3332 88.4616L73.1409 97.6539L67.0127 91.5257L76.205 82.3334L67.0127 73.1411L73.1409 67.0129L82.3332 76.2052Z" fill="#0EA5E9"/>
+            </svg>
+            
+  <br>      
+    <h2 class="text-3xl">404</h2>
     <p>User Not Found</p>
+</div>
 </body>
 </html>

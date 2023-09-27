@@ -5,9 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Not Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+    <link href="../assets/css/output.css" rel="stylesheet">
+    <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+    <script src="../tailwind_custom.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet">
+    <%- include('style.ejs') %>
+      <%- include('tailwind_custom.ejs') %>
 </head>
 <body>
+    <div class="background_circle_1">
+        <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+    </div>
+  
+    <div class="illustration_notif_page">
+    <svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60.6667 78V86.6667L69.3334 91V95.3333H34.6667L34.6511 91.0156L43.3334 86.6667V78H12.9645C10.591 78 8.66675 76.0548 8.66675 73.6342V17.3657C8.66675 14.9546 10.6398 13 12.9645 13H91.0356C93.4094 13 95.3334 14.9453 95.3334 17.3657V73.6342C95.3334 76.0452 93.3604 78 91.0356 78H60.6667ZM17.3334 21.6667V60.6667H86.6667V21.6667H17.3334Z" fill="#6366F1"/>
+        </svg>
+        <br>
    <h2>404</h2>
    <p>Page Not Found</p> 
+</div>
 </body>
 </html>

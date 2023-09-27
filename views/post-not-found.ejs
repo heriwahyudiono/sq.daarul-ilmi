@@ -5,9 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post Not Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
+    <link href="../assets/css/output.css" rel="stylesheet">
+    <!-- <link href="../dist/output.css" rel="stylesheet"> -->
+    <script src="../tailwind_custom.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet">
+    <%- include('style.ejs') %>
+      <%- include('tailwind_custom.ejs') %>
 </head>
 <body>
+    <div class="background_circle_1">
+        <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
+    </div>
+  
+    <div class="illustration_notif_page">
+    <svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.9645 91C10.591 91 8.66675 89.0721 8.66675 86.6953V17.3047C8.66675 14.9273 10.6398 13 12.9645 13H91.0356C93.4094 13 95.3334 14.9281 95.3334 17.3047V86.6953C95.3334 89.0725 93.3604 91 91.0356 91H12.9645ZM86.6667 65V21.6667H17.3334V82.3333L60.6668 39L86.6667 65ZM86.6667 77.2564L60.6668 51.2564L29.5899 82.3333H86.6667V77.2564Z" fill="#6366F1"/>
+        <path d="M34.6667 47.6667C29.8802 47.6667 26 43.7866 26 39C26 34.2136 29.8802 30.3334 34.6667 30.3334C39.4531 30.3334 43.3333 34.2136 43.3333 39C43.3333 43.7866 39.4531 47.6667 34.6667 47.6667Z" fill="#0EA5E9"/>
+        </svg>
+<br>        
     <h2>404</h2>
     <p>Post Not Found</p>
+    </div>
 </body>
 </html>
