@@ -823,22 +823,23 @@
    .text_title_snackbar_warning {
       font-size: 32px !important;
       font-weight: 700 !important;
-      padding:0px 12px;
+      padding: 0px 12px;
       line-height: normal;
    }
 
-   .text_title_snackbar_subtitle{
-      padding:0px 12px;
-font-size: 16px !important;
-font-weight: 600 !important;
-margin-top: 2px;}
+   .text_title_snackbar_subtitle {
+      padding: 0px 12px;
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      margin-top: 2px;
+   }
 
-.snackBarWarning>div:first-child{
-   border: white solid 2px;
-   border-radius: 20px;
-   background: none;
-   background-color: none;
-}
+   .snackBarWarning>div:first-child {
+      border: white solid 2px;
+      border-radius: 20px;
+      background: none;
+      background-color: none;
+   }
 
    .snackBarWarning a {
       border-radius: 12px;
@@ -849,31 +850,36 @@ margin-top: 2px;}
       line-height: normal;
       box-shadow: 0px 16px 24px 0px rgba(99, 102, 241, 0.40);
       flex-direction: row;
-text-align: center;
-color: var(--10-b-981, #10B981) !important;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-display: flex;
-gap: 4px;
+      text-align: center;
+      color: var(--10-b-981, #10B981) !important;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      display: flex;
+      gap: 4px;
    }
 
-   .snackBarWarning>div:last-child{
+   .snackBarWarning>div:last-child {
       display: flex;
       width: 100%;
       gap: 16px;
-      padding:0px 12px;
+      padding: 0px 12px;
    }
 
-   .snackBarWarning>div:last-child .button_secondary{background: rgba(255, 255, 255, 0.32);
-color: white !important;}
+   .snackBarWarning>div:last-child .button_secondary {
+      background: rgba(255, 255, 255, 0.32);
+      color: white !important;
+   }
 
-   .button_icon_black,   .snackBarWarning a.button_icon_black {
+   .button_icon_black,
+   .snackBarWarning a.button_icon_black {
       background: #0F172A !important;
       color: #C52284 !important;
-   }.border_red{
-      border-color:#C52284!important;
+   }
+
+   .border_red {
+      border-color: #C52284 !important;
    }
 
    .multi_form {
@@ -988,6 +994,45 @@ color: white !important;}
       background: rgba(255, 255, 255, 0.32);
       box-shadow: 0px 16px 24px 0px rgba(99, 102, 241, 0.12);
       color: white !important;
+      width: fit-content;
+   }
+
+   #fileCountImage {
+      position: absolute;
+      bottom: 0;
+      margin-bottom: 12px;
+      z-index: 5;
+      font-size: 16px;
+      font-weight: 500;
+      color: white;
+      border-radius: 8px;
+      padding: 2px 20px;
+      margin-left: auto;
+      margin-right: auto;
+      right: 0;
+      left: 0;
+      width: fit-content;
+   }
+
+   #fileCountImage>b,
+   #fileCountVideo>b {
+      font-size: 20px
+   }
+
+   #fileCountVideo {
+      position: absolute;
+      bottom: 0;
+      margin-bottom: 12px;
+      z-index: 5;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      border-radius: 8px;
+      padding: 2px 20px;
+      margin-left: auto;
+      margin-right: auto;
+      right: 0;
+      left: 0;
       width: fit-content;
    }
 </style>

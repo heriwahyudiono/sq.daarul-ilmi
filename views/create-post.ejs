@@ -27,7 +27,8 @@
     </div>
     <form class="mt-3 mb-16" action="/create-post" method="POST" enctype="multipart/form-data">
         <label>Tambahkan Foto</label>
-        <div class="wrap_input_file"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"
+        <div class="wrap_input_file"><div id="fileCountImage" class="bg-sky-600 hidden"><b>0</b> akan diunggah</div>
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <g opacity="0.4" clip-path="url(#clip0_24_364)">
                     <path
@@ -41,11 +42,11 @@
                 </defs>
             </svg>
 
-            <input class="input_image" type="file" name="photos" accept=".jpeg, .jpg, .png" multiple />
+            <input id="addFileImage" class="input_image" type="file" name="photos" accept=".jpeg, .jpg, .png" multiple />
         </div>
         <input type="text" style="visibility:hidden;padding:0px;height:0px !important; display: none;">
         <label class="mt-4">Tambahkan Video</label>
-        <div class="wrap_input_file">
+        <div class="wrap_input_file"><div id="fileCountVideo" class="bg-sky-600 hidden"><b>0</b> akan diunggah</div>
             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g opacity="0.4">
                     <path
@@ -54,7 +55,7 @@
                 </g>
             </svg>
 
-            <input class="input_video" type="file" name="videos" accept=".mp4" multiple />
+            <input id="addFileVideo"class="input_video" type="file" name="videos" accept=".mp4" multiple />
         </div>
         <% if (locals.errorMessage) { %>
             <p style="color: red;">
@@ -68,6 +69,50 @@
                     class="w-full bg-blue-500 text-white py-2 mt-4 rounded-md hover:bg-blue-600 transition duration-300"
                     type="submit">Posting</button>
     </form>
+    <script>
+      // Fungsi untuk menghitung jumlah file yang akan diunggah
+      function updateFileCount() {
+        const fileInputI = document.getElementById('addFileImage'); // Ganti 'file-input' dengan ID elemen input Anda
+        const fileCountImage = document.getElementById('fileCountImage');
+  
+        if (fileInputI.files) {
+          const fileCount = fileInputI.files.length;
+          fileCountImage.textContent = `Jumlah file: ${fileCount}`;
+          if(fileCount!=0){
+            fileCountImage.classList.remove('hidden');
+          }
+          else if(fileCount==0){
+            fileCountImage.classList.add('hidden');
+          }
+        }
+      }
+  
+      // Tambahkan event listener ke elemen input untuk memanggil fungsi saat ada perubahan
+      const fileInputI = document.getElementById('addFileImage'); // Ganti 'file-input' dengan ID elemen input Anda
+      fileInputI.addEventListener('change', updateFileCount);
+    </script>
+    <script>
+      // Fungsi untuk menghitung jumlah file yang akan diunggah
+      function updateFileCount() {
+        const fileInputV = document.getElementById('addFileVideo'); // Ganti 'file-input' dengan ID elemen input Anda
+        const fileCountVideo = document.getElementById('fileCountVideo');
+  
+        if (fileInputV.files) {
+          const fileCount = fileInputV.files.length;
+          fileCountVideo.textContent = `Jumlah file: ${fileCount}`;
+          if(fileCount!=0){
+            fileCountVideo.classList.remove('hidden');
+          }
+          else if(fileCount==0){
+            fileCountVideo.classList.add('hidden');
+          }
+        }
+      }
+  
+      // Tambahkan event listener ke elemen input untuk memanggil fungsi saat ada perubahan
+      const fileInputV = document.getElementById('addFileVideo'); // Ganti 'file-input' dengan ID elemen input Anda
+      fileInputV.addEventListener('change', updateFileCount);
+    </script>
 </body>
 
 </html>
