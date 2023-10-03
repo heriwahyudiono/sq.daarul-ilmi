@@ -87,7 +87,7 @@ function sendResetEmail(email, resetToken, callback) {
           <h1>Reset Password</h1>
           <p>Hello there,</p>
           <p>Please click the button below to reset your password:</p>
-          <a class="button" href="http://localhost:3000/reset-password?token=${resetToken}">Reset Password</a>
+          <a class="button" href="https://www.daarul-ilmi.com/reset-password?token=${resetToken}">Reset Password</a>
           <p>If you did not request this password reset, you can safely ignore this email.</p>
         </div>
       </body>

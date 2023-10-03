@@ -108,7 +108,7 @@ function sendVerificationEmail(email, verificationToken, callback) {
           <h1>Account Verification</h1>
           <p>Hello there,</p>
           <p>Please click the button below to verify your account:</p>
-          <a class="button" href="http://localhost:3000/verify-account?token=${verificationToken}">Verify Account</a>
+          <a class="button" href="https://www.daarul-ilmi.com/verify-account?token=${verificationToken}">Verify Account</a>
           <p>If you did not request this verification, you can safely ignore this email.</p>
         </div>
       </body>
