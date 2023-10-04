@@ -123,16 +123,12 @@ app.get("/", function (req, res) {
   postModel
     .getAllPosts()
     .then((posts) => {
-      res.render("/index", { posts: posts });
+      res.render("index", { posts: posts });
     })
     .catch((error) => {
       console.error("Failed to get posts:", error);
       res.status(500).send("Internal Server Error");
     });
-});
-
-app.get("/", function (req, res) {
-  res.render("index");
 });
 
 app.get("/login", function (req, res) {
@@ -182,7 +178,7 @@ app.post("/reset-password", resetPasswordController.postResetPassword);
 app.get("/home", async (req, res) => {
   try {
     if (!req.session.user) {
-      return res.redirect("/");
+      return res.redirect("/login");
     }
 
     const posts = await postModel.getAllPosts();
@@ -215,7 +211,7 @@ app.get("/create-post", function (req, res) {
   if (req.session.user) {
     res.render("create-post", { user: req.session.user });
   } else {
-    res.redirect("/");
+    res.redirect("/login");
   }
 });
 
@@ -262,7 +258,7 @@ app.post(
 
 app.get("/users", function (req, res) {
   if (!req.session.user) {
-    return res.redirect("/");
+    return res.redirect("/login");
   }
 
   userModel.getAllUsers(function (err, users) {
@@ -323,13 +319,13 @@ app.get("/update-biodata", updateBiodataController.getUpdateBiodata);
 
 app.post("/update-biodata", updateBiodataController.updateBiodata);
 
-// app.get("/menu", function (req, res) {
-//   if (req.session.user) {
-//     res.render("menu", { user: req.session.user });
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
+app.get("/menu", function (req, res) {
+  if (req.session.user) {
+    res.render("menu", { user: req.session.user });
+  } else {
+    res.redirect("/login");
+  }
+});
 
 app.get("/profile", function (req, res) {
   const user = req.session.user;
@@ -337,7 +333,7 @@ app.get("/profile", function (req, res) {
   req.session.message = null;
 
   if (!user) {
-    return res.redirect("/");
+    return res.redirect("/login");
   }
 
   userModel.getUserById(user.id, function (err, user) {
@@ -368,7 +364,7 @@ app.get("/settings", function (req, res) {
   if (req.session.user) {
     res.render("settings", { user: req.session.user });
   } else {
-    res.redirect("/");
+    res.redirect("/login");
   }
 });
 
