@@ -123,7 +123,7 @@ app.get("/", function (req, res) {
   postModel
     .getAllPosts()
     .then((posts) => {
-      res.render("index", { posts: posts });
+      res.render("/index", { posts: posts });
     })
     .catch((error) => {
       console.error("Failed to get posts:", error);
@@ -178,7 +178,7 @@ app.post("/reset-password", resetPasswordController.postResetPassword);
 app.get("/home", async (req, res) => {
   try {
     if (!req.session.user) {
-      return res.redirect("/index");
+      return res.redirect("/");
     }
 
     const posts = await postModel.getAllPosts();
@@ -211,7 +211,7 @@ app.get("/create-post", function (req, res) {
   if (req.session.user) {
     res.render("create-post", { user: req.session.user });
   } else {
-    res.redirect("/index");
+    res.redirect("/");
   }
 });
 
@@ -258,7 +258,7 @@ app.post(
 
 app.get("/users", function (req, res) {
   if (!req.session.user) {
-    return res.redirect("/index");
+    return res.redirect("/");
   }
 
   userModel.getAllUsers(function (err, users) {
@@ -333,7 +333,7 @@ app.get("/profile", function (req, res) {
   req.session.message = null;
 
   if (!user) {
-    return res.redirect("/index");
+    return res.redirect("/");
   }
 
   userModel.getUserById(user.id, function (err, user) {
@@ -364,7 +364,7 @@ app.get("/settings", function (req, res) {
   if (req.session.user) {
     res.render("settings", { user: req.session.user });
   } else {
-    res.redirect("/index");
+    res.redirect("/");
   }
 });
 
