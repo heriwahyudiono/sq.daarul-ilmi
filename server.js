@@ -319,14 +319,6 @@ app.get("/update-biodata", updateBiodataController.getUpdateBiodata);
 
 app.post("/update-biodata", updateBiodataController.updateBiodata);
 
-app.get("/menu", function (req, res) {
-  if (req.session.user) {
-    res.render("menu", { user: req.session.user });
-  } else {
-    res.redirect("/login");
-  }
-});
-
 app.get("/profile", function (req, res) {
   const user = req.session.user;
   const message = req.session.message;
