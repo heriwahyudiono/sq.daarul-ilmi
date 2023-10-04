@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
   <link href="../assets/css/output.css" rel="stylesheet">
-  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
   <script src="../tailwind_custom.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,12 +16,154 @@
   <%- include('style.ejs') %>
     <%- include('tailwind_custom.ejs') %>
 </head>
-
-<body>
+<body class="profile_page mt-8">
   <img class="background_line_1" src="../assets/background/bg_pattern.svg" alt="" srcset="">
   <div class="background_circle_1">
     <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
   </div>
+  <div class="mx-auto">
+    <div class="w-full flex justify-between items-center">
+      <h1 class="text-3xl">Profile</h1>
+      <button class="copy_link_detail_post" onclick="getProfileUrl()"><svg width="21" height="20" viewBox="0 0 21 20"
+          fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.3838 6.75894L12.5623 7.93745C14.8404 10.2155 14.8404 13.909 12.5623 16.187L12.2677 16.4817C9.98967 18.7598 6.29617 18.7598 4.01811 16.4817C1.74006 14.2036 1.74006 10.5102 4.01811 8.23208L5.19662 9.41058C3.56944 11.0378 3.56944 13.676 5.19662 15.3032C6.82381 16.9303 9.462 16.9303 11.0892 15.3032L11.3838 15.0085C13.011 13.3813 13.011 10.7432 11.3838 9.116L10.2053 7.93745L11.3838 6.75894ZM16.9817 11.7676L15.8032 10.5891C17.4304 8.96192 17.4304 6.32373 15.8032 4.69654C14.1761 3.06936 11.5378 3.06936 9.91066 4.69654L9.61608 4.99118C7.98886 6.61836 7.98886 9.25658 9.61608 10.8838L10.7946 12.0623L9.61608 13.2408L8.43753 12.0623C6.15947 9.78417 6.15947 6.09072 8.43753 3.81266L8.73216 3.51803C11.0102 1.23998 14.7037 1.23998 16.9817 3.51803C19.2598 5.79609 19.2598 9.48959 16.9817 11.7676Z"
+            fill="white" />
+        </svg>
+        Salin URL Profil</button>
+    </div>
+
+    <% if (message) { %>
+      <p class="text-green-500 mb-4">
+        <%= message %>
+      </p>
+      <% } %>
+        <div class="multi_form">
+          <form action="/update-profile-picture" method="POST" enctype="multipart/form-data" class="mb-4">
+            <div class="flex flex-row gap-2">
+              <img
+                src="/<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>"
+                alt="Profile Picture" class="img_profil_detail w-32 h-32 rounded-full" />
+            </div>
+            <p class="when_join">Bergabung pada: <%= user.create_at %>
+            </p>
+
+            <div class="data_profil">
+              <p>
+              <div style="margin-bottom:0px !important">Nama Lengkap: </div>
+              <div class="nama_user_profil">
+                <%= user.name %>
+              </div>
+              <div style="height:4px"></div>
+              </p>
+              <div class="devider"></div>
+              <p>
+              <div>Jenis Kelamin:</div>
+              <div class='text-1xl'>
+                <%= user.gender %>
+              </div>
+              </p>
+              <div class="devider"></div>
+
+              <p>
+              <div>Tanggal Lahir:
+              </div>
+              <div class='text-1xl'>
+                <%= user.date_of_birth %>
+              </div>
+              </p>
+              <div class="devider"></div>
+              <p>
+              <div>Email: </div>
+              <div class='text-1xl'>
+                <%= user.email %>
+              </div>
+              </p>
+              <div class="devider"></div>
+              <p>
+              <div>Nomor Telepon:</div>
+              <div class='text-1xl'>
+                <%= user.phone_number %>
+              </div>
+              <a href="/edit-profile" class="text-blue-500 hover:underline mt-4 inline-block button_edit"><svg
+                  width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M4.16667 15.7417H5.34517L13.1066 7.98024L11.9281 6.80173L4.16667 14.5632V15.7417ZM17.5 17.4083H2.5V13.8728L13.6958 2.67694C14.0213 2.3515 14.5489 2.3515 14.8743 2.67694L17.2314 5.03396C17.5568 5.3594 17.5568 5.88703 17.2314 6.21248L7.7022 15.7417H17.5V17.4083ZM13.1066 5.62322L14.2851 6.80173L15.4636 5.62322L14.2851 4.44471L13.1066 5.62322Z"
+                    fill="white" />
+                </svg>
+                Edit Profil</a>
+              </p>
+              <div class="devider"></div>
+              <div style="height:4px"></div>
+              <h2 class="text-2xl" style="margin-top:20px !important; margin-bottom:8px">Biodata</h2>
+
+              <% if (biodata) { %>
+                <p>
+                <div>Perguruan Tinggi:<div>
+                    <div class='text-1xl'>
+                      <%= biodata.perguruan_tinggi %>
+                    </div>
+                    </p>
+                    <p>
+                    <div>Fakultas/Jurusan: </div>
+                    <div class='text-1xl'>
+                      <%= biodata.fakultas %>
+                    </div>
+                    </p>
+                    <p>
+                    <div>Program Studi: </div>
+                    <div class='text-1xl'>
+                      <%= biodata.program_studi %>
+                    </div>
+                    </p>
+                    <p>
+                    <div>Angkatan: </div>
+                    <div class='text-1xl'>
+                      <%= biodata.angkatan %>
+                    </div>
+                    </p>
+                    <% } else { %>
+                      <p class="biodata_empty">Biodata has not been filled in</p>
+                      <% } %>
+                  </div>
+                  <a href="/update-biodata" class="text-blue-500 hover:underline mt-4 inline-block button_edit"><svg
+                      width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M4.16667 15.7417H5.34517L13.1066 7.98024L11.9281 6.80173L4.16667 14.5632V15.7417ZM17.5 17.4083H2.5V13.8728L13.6958 2.67694C14.0213 2.3515 14.5489 2.3515 14.8743 2.67694L17.2314 5.03396C17.5568 5.3594 17.5568 5.88703 17.2314 6.21248L7.7022 15.7417H17.5V17.4083ZM13.1066 5.62322L14.2851 6.80173L15.4636 5.62322L14.2851 4.44471L13.1066 5.62322Z"
+                        fill="white" />
+                    </svg>
+                    Update Biodata</a>
+          </form>
+        </div>
+  </div>
+
+  <div style="height:88px"></div>
+  <div id="snackbarNotif" class="snackbar_notif snackBarHidden" onclick="closeSnackBar()">
+    <div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17 17H22V19H19V22H17V17ZM7 7H2V5H5V2H7V7ZM18.364 15.5355L16.9497 14.1213L18.364 12.7071C20.3166 10.7545 20.3166 7.58866 18.364 5.63604C16.4113 3.68342 13.2455 3.68342 11.2929 5.63604L9.87868 7.05025L8.46447 5.63604L9.87868 4.22183C12.6123 1.48816 17.0445 1.48816 19.7782 4.22183C22.5118 6.9555 22.5118 11.3877 19.7782 14.1213L18.364 15.5355ZM15.5355 18.364L14.1213 19.7782C11.3877 22.5118 6.9555 22.5118 4.22183 19.7782C1.48816 17.0445 1.48816 12.6123 4.22183 9.87868L5.63604 8.46447L7.05025 9.87868L5.63604 11.2929C3.68342 13.2455 3.68342 16.4113 5.63604 18.364C7.58866 20.3166 10.7545 20.3166 12.7071 18.364L14.1213 16.9497L15.5355 18.364ZM14.8284 7.75736L16.2426 9.17157L9.17157 16.2426L7.75736 14.8284L14.8284 7.75736Z"
+          fill="white" />
+      </svg>
+
+    </div>
+    <div>
+      URL Profil berhasil disalin
+    </div><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_24_485)">
+        <path
+          d="M5.3072 8.8978L5.746 7.8927C6.13655 6.9983 6.83945 6.2863 7.71625 5.8971L8.9241 5.36095C9.3081 5.1905 9.3081 4.63184 8.9241 4.46138L7.75395 3.94197C6.8546 3.54276 6.1391 2.8044 5.75525 1.87947L5.31075 0.808365C5.1458 0.410883 4.5966 0.410884 4.43165 0.808365L3.98714 1.87946C3.60329 2.8044 2.88776 3.54276 1.98842 3.94197L0.81829 4.46138C0.434268 4.63184 0.434268 5.1905 0.81829 5.36095L2.02615 5.8971C2.90295 6.2863 3.60586 6.9983 3.99638 7.8927L4.4352 8.8978C4.60388 9.2841 5.1385 9.2841 5.3072 8.8978ZM9.7007 11.3449L9.8241 11.0621C10.0441 10.5578 10.4404 10.1562 10.9348 9.9366L11.315 9.76765C11.5206 9.6763 11.5206 9.37745 11.315 9.2861L10.9561 9.1266C10.4489 8.9013 10.0456 8.4849 9.8293 7.96345L9.7026 7.6578C9.61425 7.4448 9.31975 7.4448 9.2314 7.6578L9.1047 7.96345C8.8885 8.4849 8.48515 8.9013 7.978 9.1266L7.61905 9.2861C7.41345 9.37745 7.41345 9.6763 7.61905 9.76765L7.99925 9.9366C8.4937 10.1562 8.8899 10.5578 9.1099 11.0621L9.23335 11.3449C9.32365 11.552 9.61035 11.552 9.7007 11.3449Z"
+          fill="white" />
+      </g>
+      <defs>
+        <clipPath id="clip0_24_485">
+          <rect width="12" height="12" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+
+  </div>
+
   <nav class="nav_not_login bg-white">
     <div class="container mx-auto flex justify-between items-center space-x-1">
       <span>Kamu belum login</span>
@@ -40,152 +179,30 @@
     </div>
   </nav>
 
-  <% if (message) { %>
-    <p>
-      <%= message %>
-    </p>
-    <% } %>
+  <script>
+    var snackbarNotif = document.getElementById('snackbarNotif');
 
-      <img
-        src="/<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>"
-        alt="" style="width: 100px" />
-
-      <br>
-      <div class="w-full flex justify-between items-center">
-        <h1 class="text-3xl">Profile</h1>
-        <button class="copy_link_detail_post" onclick="getProfileUrl()"><svg width="21" height="20" viewBox="0 0 21 20"
-            fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M11.3838 6.75894L12.5623 7.93745C14.8404 10.2155 14.8404 13.909 12.5623 16.187L12.2677 16.4817C9.98967 18.7598 6.29617 18.7598 4.01811 16.4817C1.74006 14.2036 1.74006 10.5102 4.01811 8.23208L5.19662 9.41058C3.56944 11.0378 3.56944 13.676 5.19662 15.3032C6.82381 16.9303 9.462 16.9303 11.0892 15.3032L11.3838 15.0085C13.011 13.3813 13.011 10.7432 11.3838 9.116L10.2053 7.93745L11.3838 6.75894ZM16.9817 11.7676L15.8032 10.5891C17.4304 8.96192 17.4304 6.32373 15.8032 4.69654C14.1761 3.06936 11.5378 3.06936 9.91066 4.69654L9.61608 4.99118C7.98886 6.61836 7.98886 9.25658 9.61608 10.8838L10.7946 12.0623L9.61608 13.2408L8.43753 12.0623C6.15947 9.78417 6.15947 6.09072 8.43753 3.81266L8.73216 3.51803C11.0102 1.23998 14.7037 1.23998 16.9817 3.51803C19.2598 5.79609 19.2598 9.48959 16.9817 11.7676Z"
-              fill="white" />
-          </svg>
-          Salin URL Profil</button>
-      </div>
-      <p class="when_join">Bergabung pada: <%= user.create_at %>
-      </p>
-
-      <div class="data_profil">
-        <p>
-        <div style="margin-bottom:0px !important">Nama Lengkap: </div>
-        <div class="nama_user_profil">
-          <%= user.name %>
-        </div>
-        <div style="height:4px"></div>
-        </p>
-        <div class="devider"></div>
-        <p>
-        <div>Jenis Kelamin:</div>
-        <div class='text-1xl'>
-          <%= user.gender %>
-        </div>
-        </p>
-        <div class="devider"></div>
-
-        <p>
-        <div>Tanggal Lahir:
-        </div>
-        <div class='text-1xl'>
-          <%= user.date_of_birth %>
-        </div>
-        </p>
-        <div class="devider"></div>
-        <p>
-        <div>Email: </div>
-        <div class='text-1xl'>
-          <%= user.email %>
-        </div>
-        </p>
-        <div class="devider"></div>
-        <p>
-        <div>Nomor Telepon:</div>
-        <div class='text-1xl'>
-          <%= user.phone_number %>
-        </div>
-        </p>
-        <div class="devider"></div>
-        <div style="height:4px"></div>
-        <h2 class="text-2xl" style="margin-top:20px !important; margin-bottom:8px">Biodata</h2>
-
-        <% if (biodata) { %>
-          <p>
-          <div>Perguruan Tinggi:<div>
-              <div class='text-1xl'>
-                <%= biodata.perguruan_tinggi %>
-              </div>
-              </p>
-              <p>
-              <div>Fakultas/Jurusan: </div>
-              <div class='text-1xl'>
-                <%= biodata.fakultas %>
-              </div>
-              </p>
-              <p>
-              <div>Program Studi: </div>
-              <div class='text-1xl'>
-                <%= biodata.program_studi %>
-              </div>
-              </p>
-              <p>
-              <div>Angkatan: </div>
-              <div class='text-1xl'>
-                <%= biodata.angkatan %>
-              </div>
-              </p>
-              <% } else { %>
-                <p class="biodata_empty">Biodata has not been filled in</p>
-                <% } %>
-            </div>
-            <div style="height:88px"></div>
-            <div id="snackbarNotif" class="snackbar_notif snackBarHidden" onclick="closeSnackBar()">
-              <div>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M17 17H22V19H19V22H17V17ZM7 7H2V5H5V2H7V7ZM18.364 15.5355L16.9497 14.1213L18.364 12.7071C20.3166 10.7545 20.3166 7.58866 18.364 5.63604C16.4113 3.68342 13.2455 3.68342 11.2929 5.63604L9.87868 7.05025L8.46447 5.63604L9.87868 4.22183C12.6123 1.48816 17.0445 1.48816 19.7782 4.22183C22.5118 6.9555 22.5118 11.3877 19.7782 14.1213L18.364 15.5355ZM15.5355 18.364L14.1213 19.7782C11.3877 22.5118 6.9555 22.5118 4.22183 19.7782C1.48816 17.0445 1.48816 12.6123 4.22183 9.87868L5.63604 8.46447L7.05025 9.87868L5.63604 11.2929C3.68342 13.2455 3.68342 16.4113 5.63604 18.364C7.58866 20.3166 10.7545 20.3166 12.7071 18.364L14.1213 16.9497L15.5355 18.364ZM14.8284 7.75736L16.2426 9.17157L9.17157 16.2426L7.75736 14.8284L14.8284 7.75736Z"
-                    fill="white" />
-                </svg>
-
-              </div>
-              <div>
-                URL Profil berhasil disalin
-              </div><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_24_485)">
-                  <path
-                    d="M5.3072 8.8978L5.746 7.8927C6.13655 6.9983 6.83945 6.2863 7.71625 5.8971L8.9241 5.36095C9.3081 5.1905 9.3081 4.63184 8.9241 4.46138L7.75395 3.94197C6.8546 3.54276 6.1391 2.8044 5.75525 1.87947L5.31075 0.808365C5.1458 0.410883 4.5966 0.410884 4.43165 0.808365L3.98714 1.87946C3.60329 2.8044 2.88776 3.54276 1.98842 3.94197L0.81829 4.46138C0.434268 4.63184 0.434268 5.1905 0.81829 5.36095L2.02615 5.8971C2.90295 6.2863 3.60586 6.9983 3.99638 7.8927L4.4352 8.8978C4.60388 9.2841 5.1385 9.2841 5.3072 8.8978ZM9.7007 11.3449L9.8241 11.0621C10.0441 10.5578 10.4404 10.1562 10.9348 9.9366L11.315 9.76765C11.5206 9.6763 11.5206 9.37745 11.315 9.2861L10.9561 9.1266C10.4489 8.9013 10.0456 8.4849 9.8293 7.96345L9.7026 7.6578C9.61425 7.4448 9.31975 7.4448 9.2314 7.6578L9.1047 7.96345C8.8885 8.4849 8.48515 8.9013 7.978 9.1266L7.61905 9.2861C7.41345 9.37745 7.41345 9.6763 7.61905 9.76765L7.99925 9.9366C8.4937 10.1562 8.8899 10.5578 9.1099 11.0621L9.23335 11.3449C9.32365 11.552 9.61035 11.552 9.7007 11.3449Z"
-                    fill="white" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_24_485">
-                    <rect width="12" height="12" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-
-            </div>
-
-            <script>
-              var snackbarNotif = document.getElementById('snackbarNotif');
-
-              function openSnackBar() {
-                snackbarNotif.classList.remove('snackBarHidden'); setTimeout(function () {
-                  closeSnackBar();
-                }, 3000);
-              }
-              function getProfileUrl() {
-                const profileUrl = window.location.href;
-                navigator.clipboard
-                  .writeText(profileUrl)
-                  .then(function () {
-                    openSnackBar();
-                    // alert("URL Profil berhasil disalin");
-                  })
-                  .catch(function (error) {
-                    console.error("Tidak dapat menyalin URL Profil ini:", error);
-                  });
-              }
-              function closeSnackBar() {
-                snackbarNotif.classList.add('snackBarHidden');
-              }
-            </script>
+    function openSnackBar() {
+      snackbarNotif.classList.remove('snackBarHidden'); setTimeout(function () {
+        closeSnackBar();
+      }, 3000);
+    }
+    function getProfileUrl() {
+      const profileUrl = window.location.href;
+      navigator.clipboard
+        .writeText(profileUrl)
+        .then(function () {
+          openSnackBar();
+          // alert("URL Profil berhasil disalin");
+        })
+        .catch(function (error) {
+          console.error("Tidak dapat menyalin URL Profil ini:", error);
+        });
+    }
+    function closeSnackBar() {
+      snackbarNotif.classList.add('snackBarHidden');
+    }
+  </script>
 </body>
 
 </html>
