@@ -39,7 +39,7 @@
       </p>
       <% } %>
         <div class="multi_form">
-          <form>
+          <div class="detail_profile">
             <div class="flex flex-row gap-2">
               <img
                 src="/<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>"
@@ -119,7 +119,7 @@
                       <p class="biodata_empty">Biodata has not been filled in</p>
                     <% } %>
                 </div>
-          </form>
+              </div>
         </div>
   </div>
 
