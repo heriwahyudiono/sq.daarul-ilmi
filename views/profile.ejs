@@ -6,10 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
   <link href="../assets/css/output.css" rel="stylesheet">
-  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
   <script src="../tailwind_custom.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +15,6 @@
     rel="stylesheet">
   <%- include('style.ejs') %>
     <%- include('tailwind_custom.ejs') %>
-      <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet"> -->
 </head>
 
 <body class="profile_page">
@@ -29,14 +25,13 @@
   <div class="mx-auto">
     <div style="height:44px"></div>
     <h2 class="text-3xl font-semibold mb-4">Profile</h2>
-    <!-- <p class="when_join">Bergabung pada: <%= user.create_at %>
-    </p> -->
 
     <% if (message) { %>
       <p class="text-green-500 mb-4">
         <%= message %>
       </p>
       <% } %>
+      
         <div class="multi_form">
           <form action="/update-profile-picture" method="POST" enctype="multipart/form-data" class="mb-4">
             <div class="flex flex-row gap-2">
@@ -163,16 +158,6 @@
 
         </div>
 
-
-        <!-- <p>Nama Lengkap: <%= user.name %></p>
-    <p>Jenis Kelamin: <%= user.gender %></p>
-    <p>Tanggal Lahir: <%= user.date_of_birth.toDateString() %></p>
-    <p>Email: <%= user.email %></p>
-    <p>Nomor Telepon: <%= user.phone_number %></p> -->
-
-
-
-
   </div>
   <div id="snackbarNotif" class="snackbar_notif snackBarHidden snackBarWarning" onclick="">
     <div><svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -217,9 +202,6 @@
 
     function openSnackBar() {
       snackbarNotif.classList.remove('snackBarHidden'); 
-      // setTimeout(function () {
-        // closeSnackBar();
-      // }, 3000);
     }
 
     function goDelete() {
@@ -229,9 +211,6 @@
 
     function confirmDelete() {
       openSnackBar();
-      // if (confirm("Apakah Anda yakin ingin menghapus foto profil?")) {
-      //   document.getElementById("confirm-delete").submit();
-      // }
     }
     function closeSnackBar() {
       snackbarNotif.classList.add('snackBarHidden');

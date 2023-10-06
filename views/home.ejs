@@ -7,10 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Home</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
   <link href="../assets/css/output.css" rel="stylesheet">
-  <!-- <link href="../dist/output.css" rel="stylesheet"> -->
   <script src="../tailwind_custom.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -110,7 +107,6 @@
     <img src="../assets/svg/circle_gradient.svg" alt="" srcset="">
   </div>
   <div class="bg-white shadow-md rounded-lg p-8 w-96">
-    <!--     text-2xl font-semibold mb-4 -->
     <div>
       <% posts.forEach(function(post) { %>
         <div href="/post?id=<%= post.post_id %>" class="block card_post bg-white p-6 rounded-md shadow-md mb-8">
@@ -125,8 +121,6 @@
               <p class="showTime">
                 <%= post.create_at %>
               </p>
-              <!-- <p class="cardTime">
-              </p> -->
             </div>
             <div>
               <button class="button_copy_link text-white rounded-md relative"
@@ -162,37 +156,6 @@
         <% }); %>
     </div>
   </div>
-  <!-- </div> -->
-
-  <!-- <script>document.addEventListener("DOMContentLoaded", function() {
-    // Kode JavaScript Anda di sini
-  
-  // Loop melalui setiap card
-cards.forEach((card) => {
-  // Mengambil elemen "showTime" dalam card saat ini
-  const showTimeElement = card.querySelector(".showTime");
-
-  // Teks tanggal awal dari elemen "showTime" dalam card saat ini
-  const tanggalAwal = showTimeElement.textContent;
-
-  // Membuat objek Date dari teks tanggal awal
-  const tanggal = new Date(tanggalAwal);
-
-  // Mengambil komponen tanggal yang diperlukan
-  const jam = tanggal.getHours();
-  const menit = tanggal.getMinutes();
-  const bulan = tanggal.toLocaleString('id-ID', { month: 'long' }); // Menggunakan bahasa Indonesia untuk nama bulan
-  const tahun = tanggal.getFullYear();
-
-  // Membuat teks baru dengan format yang diinginkan
-  const teksBaru = `${jam}.${menit} WIB - ${tanggal.getDate()} ${bulan} ${tahun}`;
-
-  // Mengganti konten elemen "showTime" dalam card saat ini dengan teks baru
-  showTimeElement.textContent = teksBaru;
-});
-});
-
-  </script> -->
 
   <div id="snackbarNotif" class="snackbar_notif snackBarHidden" onclick="closeSnackBar()">
     <div>
@@ -233,7 +196,6 @@ cards.forEach((card) => {
       navigator.clipboard.writeText(postUrl)
         .then(() => {
           openSnackBar();
-          // alert('Post URL copied to clipboard');
         })
         .catch((error) => {
           console.error('Failed to copy post URL: ', error);

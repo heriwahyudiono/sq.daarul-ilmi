@@ -16,7 +16,7 @@ module.exports = {
           PORT: 80, // Port aplikasi untuk produksi
         },
       },
-      // Anda dapat menambahkan aplikasi lain di sini jika diperlukan
+      // Aplikasi lain dapat ditambahkan disini jika diperlukan
     ],
   };
   
