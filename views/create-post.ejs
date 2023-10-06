@@ -6,10 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Postingan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!--<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">-->
     <link href="../assets/css/output.css" rel="stylesheet">
-    <!-- <link href="../dist/output.css" rel="stylesheet"> -->
     <script src="../tailwind_custom.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,9 +67,8 @@
                     type="submit">Posting</button>
     </form>
     <script>
-      // Fungsi untuk menghitung jumlah file yang akan diunggah
       function updateFileCount() {
-        const fileInputI = document.getElementById('addFileImage'); // Ganti 'file-input' dengan ID elemen input Anda
+        const fileInputI = document.getElementById('addFileImage'); 
         const fileCountImage = document.getElementById('fileCountImage');
   
         if (fileInputI.files) {
@@ -87,14 +83,11 @@
         }
       }
   
-      // Tambahkan event listener ke elemen input untuk memanggil fungsi saat ada perubahan
-      const fileInputI = document.getElementById('addFileImage'); // Ganti 'file-input' dengan ID elemen input Anda
+      const fileInputI = document.getElementById('addFileImage'); 
       fileInputI.addEventListener('change', updateFileCount);
-    </script>
-    <script>
-      // Fungsi untuk menghitung jumlah file yang akan diunggah
+
       function updateFileCount() {
-        const fileInputV = document.getElementById('addFileVideo'); // Ganti 'file-input' dengan ID elemen input Anda
+        const fileInputV = document.getElementById('addFileVideo'); 
         const fileCountVideo = document.getElementById('fileCountVideo');
   
         if (fileInputV.files) {
@@ -109,8 +102,7 @@
         }
       }
   
-      // Tambahkan event listener ke elemen input untuk memanggil fungsi saat ada perubahan
-      const fileInputV = document.getElementById('addFileVideo'); // Ganti 'file-input' dengan ID elemen input Anda
+      const fileInputV = document.getElementById('addFileVideo'); 
       fileInputV.addEventListener('change', updateFileCount);
     </script>
 </body>
