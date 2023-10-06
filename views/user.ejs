@@ -39,7 +39,7 @@
       </p>
       <% } %>
         <div class="multi_form">
-          <form action="/update-profile-picture" method="POST" enctype="multipart/form-data" class="mb-4">
+          <form>
             <div class="flex flex-row gap-2">
               <img
                 src="/<%= user.profile_picture ? `uploads/profile_pictures/${user.profile_picture}` : 'uploads/profile_pictures/placeholder.png' %>"
@@ -85,13 +85,6 @@
               <div class='text-1xl'>
                 <%= user.phone_number %>
               </div>
-              <!-- <a href="/edit-profile" class="text-blue-500 hover:underline mt-4 inline-block button_edit"><svg
-                  width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M4.16667 15.7417H5.34517L13.1066 7.98024L11.9281 6.80173L4.16667 14.5632V15.7417ZM17.5 17.4083H2.5V13.8728L13.6958 2.67694C14.0213 2.3515 14.5489 2.3515 14.8743 2.67694L17.2314 5.03396C17.5568 5.3594 17.5568 5.88703 17.2314 6.21248L7.7022 15.7417H17.5V17.4083ZM13.1066 5.62322L14.2851 6.80173L15.4636 5.62322L14.2851 4.44471L13.1066 5.62322Z"
-                    fill="white" />
-                </svg>
-                Edit Profil</a> -->
               </p>
               <div class="devider"></div>
               <div style="height:4px"></div>
@@ -124,15 +117,8 @@
                     </p>
                     <% } else { %>
                       <p class="biodata_empty">Biodata has not been filled in</p>
-                      <% } %>
-                  </div>
-                  <!-- <a href="/update-biodata" class="text-blue-500 hover:underline mt-4 inline-block button_edit"><svg
-                      width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M4.16667 15.7417H5.34517L13.1066 7.98024L11.9281 6.80173L4.16667 14.5632V15.7417ZM17.5 17.4083H2.5V13.8728L13.6958 2.67694C14.0213 2.3515 14.5489 2.3515 14.8743 2.67694L17.2314 5.03396C17.5568 5.3594 17.5568 5.88703 17.2314 6.21248L7.7022 15.7417H17.5V17.4083ZM13.1066 5.62322L14.2851 6.80173L15.4636 5.62322L14.2851 4.44471L13.1066 5.62322Z"
-                        fill="white" />
-                    </svg>
-                    Update Biodata</a> -->
+                    <% } %>
+                </div>
           </form>
         </div>
   </div>
@@ -193,7 +179,6 @@
         .writeText(profileUrl)
         .then(function () {
           openSnackBar();
-          // alert("URL Profil berhasil disalin");
         })
         .catch(function (error) {
           console.error("Tidak dapat menyalin URL Profil ini:", error);
@@ -204,5 +189,4 @@
     }
   </script>
 </body>
-
 </html>
