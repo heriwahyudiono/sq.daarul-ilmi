@@ -45,13 +45,13 @@ function sendResetEmail(email, resetToken, callback) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "heriwhydiono@gmail.com", 
-      pass: "twyvhevrdpvjdtnp", 
+      user: "", 
+      pass: "", 
     },
   });
 
   const mailOptions = {
-    from: "heriwhydiono@gmail.com", 
+    from: "", 
     to: email,
     subject: "Reset Password",
     html: `
