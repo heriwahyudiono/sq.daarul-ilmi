@@ -369,7 +369,7 @@ app.post("/delete-account", deleteAccountController.deleteAccount);
 app.get("/logout", logoutController.logout);
 
 app.use(function (req, res, next) {
-  res.status(404).render("page-not-found");
+  res.status(404).render("404");
 });
 
 app.listen(3000, function () {
